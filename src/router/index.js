@@ -1,5 +1,5 @@
-import React from 'react';
 
-export default function index() {
-	return <div>index</div>;
-}
+import { createBrowserRouter } from 'react-router-dom';
+import { routeMap } from './routeMap';
+
+export const router = createBrowserRouter(routeMap)
