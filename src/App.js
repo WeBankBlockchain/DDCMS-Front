@@ -73,10 +73,8 @@ function App() {
             background: colorBgContainer,
           }}
         >
-          <div className='main'
-            
-          >
-
+          <div className='main'>
+            <Outlet />
           </div>
           <div className='slide'>
 
