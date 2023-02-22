@@ -2,6 +2,8 @@ import App from '../App';
 import Home from '../pages/Home';
 import Error from '../pages/Error';
 import Admin from '../pages/Admin';
+import Login from '../pages/Login';
+import Register from '../pages/Register';
 
 
 export const routeMap = [
@@ -12,16 +14,20 @@ export const routeMap = [
 			{
 				index: true,
 				element: <Home />
-			},
-			{
-				path: 'home',
-				element: <Home />
 			}
 		]
 	}, 
-    {
+  {
 		path: 'Admin',
 		element: <Admin />
+	},
+	{
+		path: 'login',
+		element: <Login />
+	},
+	{
+		path: 'register',
+		element: <Register />
 	},
 	{
 		path: '*',

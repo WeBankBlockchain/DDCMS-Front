@@ -1,20 +1,44 @@
 import React from 'react'
-import { Menu, Divider, Dropdown, Space, message} from 'antd';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import {Space, Divider } from 'antd';
+import { Link } from 'react-router-dom';
+import { Header } from 'antd/es/layout/layout';
 
 export default function HomeHeader() {
   return (
-    <header>
-				<div className="logo">
-					{/* <img src={logoImg} alt="" /> */}
-          LOGO
-				</div>
+    <Header
+				style={{
+					position: 'sticky',
+					top: 0,
+					zIndex: 1,
+					background: 'rgba(0, 0, 0)',
+					height: 80,
+					width: '100%'
+				}}
+			>
+				{/* <div
+					style={{
+						width: 1000
+					}}
+				></div> */}
+				<div
+					style={{
+						float: 'left',
+						width: 800,
+						height: 31,
+						margin: '16px 24px 16px 0',
+						background: 'rgba(255, 255, 255, 0.2)'
+					}}
+				></div>
 
-				{/* <div>
+				<Space
+					style={{
+						float: 'right'
+					}}
+				>
 					<Link style={{color: '#C0C0C0'}} to="/login">登录</Link>
 					<Divider type="vertical" />
 					<Link style={{color: '#C0C0C0'}} to="/register">注册</Link>
-				</div> */}
-			</header>
+				</Space>
+			</Header>
   )
 }
