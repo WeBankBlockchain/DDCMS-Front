@@ -3,12 +3,13 @@ import {
   NotificationOutlined,
   UserOutlined,
 } from "@ant-design/icons";
-import { Breadcrumb, Layout, Button, Space, Menu, theme } from "antd";
+import { Breadcrumb, Layout, Menu, theme } from "antd";
 import React from "react";
+import AdminHeader from "../components/AdminHeader";
 import "./Admin.css";
 
-const { Header, Content, Footer, Sider } = Layout;
-const items1 = ["1", "2", "3"].map((key) => ({
+const { Content, Sider } = Layout;
+["1", "2", "3"].map((key) => ({
   key,
   label: `nav ${key}`,
 }));
@@ -35,40 +36,7 @@ const Admin = () => {
   } = theme.useToken();
   return (
     <Layout>
-      <Header
-        style={{
-          position: "sticky",
-          top: 0,
-          zIndex: 1,
-          background: "rgba(0, 0, 0)",
-          height: 80,
-          width: "100%",
-        }}
-      >
-        {/* <div
-					style={{
-						width: 1000
-					}}
-				></div> */}
-        <div
-          style={{
-            float: "left",
-            width: 800,
-            height: 31,
-            margin: "16px 24px 16px 0",
-            background: "rgba(255, 255, 255, 0.2)",
-          }}
-        ></div>
-
-        <Space
-          style={{
-            float: "right",
-          }}
-        >
-          <Button type="primary">登录</Button>
-          <Button>注册</Button>
-        </Space>
-      </Header>
+      <AdminHeader></AdminHeader>
 
       <Content
         style={{
@@ -116,13 +84,6 @@ const Admin = () => {
           </Content>
         </Layout>
       </Content>
-      <Footer
-        style={{
-          textAlign: "center",
-        }}
-      >
-        Ant Design ©2023 Created by Ant UED
-      </Footer>
     </Layout>
   );
 };
