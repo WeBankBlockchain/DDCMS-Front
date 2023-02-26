@@ -19,7 +19,8 @@ function App() {
 			<Content
 				className="site-layout"
 				style={{
-					padding: '0 50px'
+					width: 1020,
+					margin: '0 auto'
 				}}
 			>
 				<Breadcrumb
@@ -34,15 +35,30 @@ function App() {
 				<div
 					className="content"
 					style={{
-						padding: 24,
-						minHeight: 1680,
-						background: colorBgContainer
+						minHeight: 1680
 					}}
 				>
-					<div className="main">
+					<div className="main"
+						style={{
+							width: 700,
+							minHeight: 1680,
+							margin: '0 20px 0 0',
+							float: 'left',
+							background: colorBgContainer
+						}}
+					>
 						<Outlet />
 					</div>
-					<div className="slide"></div>
+					<div className="slide"
+						style={{
+							width:300,
+							minHeight: 1680,
+							float: 'right',
+							background: colorBgContainer
+						}}
+					>
+						slide
+					</div>
 				</div>
 			</Content>
 			<Footer
