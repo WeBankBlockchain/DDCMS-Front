@@ -1,9 +1,10 @@
 import React from 'react'
 import './SchemaCard.css'
-import { Space} from 'antd';
+import { Space, Button} from 'antd';
 import {
-  StopOutlined,
-  CheckCircleOutlined,
+  EyeOutlined,
+  EyeInvisibleOutlined,
+  HeartOutlined,
 } from '@ant-design/icons';
 
 export default function SchemaCard() {
@@ -11,11 +12,12 @@ export default function SchemaCard() {
     <div className='schema-card'>
       <div className='schema-header'>
         <div className='schema-title'>
-          腾讯微信支付个人消费明细
+          <EyeOutlined style={{color: '#000'}}/>
+          <Button type="link" style={{fontSize: 20, fontWeight: 700, color: '#000'}}>腾讯微信支付个人消费明细</Button>
         </div>
         <div className='schema-status'>
           <Space>
-            <CheckCircleOutlined style={{color: 'green'}}/> 开放
+            <HeartOutlined style={{fontSize: '20px'}}/>
           </Space>
         </div>
       </div>
@@ -26,7 +28,9 @@ export default function SchemaCard() {
       </div>
       <div className='schema-footer'>
         <div className='owner-info'>
-          <div className='company-info'>企业名称：深圳腾讯科技信息股份有限公司</div>
+          <div className='company-info'>
+            企业名称：深圳腾讯科技信息股份有限公司
+          </div>
           <div className='product-info'>产品名称：微信</div>
         </div>
         <div className='publish-time'>

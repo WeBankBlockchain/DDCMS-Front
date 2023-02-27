@@ -36,7 +36,7 @@ export default function TopTags() {
       <Space style={{padding: '12px 0'}} size={[0, 8]} wrap>
         {data.map((item) => (
           <Tag>
-            <Link style={{color: '#000000', fontSize: '14px', padding: '10px 5px'}} to="/login">{item}</Link>
+            <Link style={{color: '#000000', fontSize: '14px', padding: '10px 5px'}} to="#">{item}</Link>
           </Tag>
         ))}
       </Space>

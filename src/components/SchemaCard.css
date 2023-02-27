@@ -9,12 +9,12 @@
 }
 
 .schema-header {
+	font-size: 20px;
+	font-weight: 700;
 	height: 45px;
 }
 
 .schema-title {
-	font-size: 20px;
-	font-weight: 700;
 	float: left;
 }
 

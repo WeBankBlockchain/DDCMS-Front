@@ -1,8 +1,12 @@
 import React from 'react'
-import {Space, Divider, Button } from 'antd';
+import {Space, Button} from 'antd';
 import './HomeHeader.css';
+import { useNavigate } from 'react-router-dom';
 
 export default function HomeHeader() {
+
+  const navigate = useNavigate()
+
   return (
     <header>
 				<div className='header-content'>
@@ -21,8 +25,8 @@ export default function HomeHeader() {
               float: 'right'
             }}
           >
-            <Button type="primary">登录</Button>
-            <Button>注册</Button>
+            <Button type="primary" onClick={() => {navigate('/login')}}>登录</Button>
+            <Button onClick={() => {navigate('/register')}}>注册</Button>
           </Space>
         </div>	
 			</header>
