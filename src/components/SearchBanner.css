@@ -29,8 +29,14 @@
   border-radius: 0px;
 }
 
-.search-area .ant-input-search-button {
+/* .search-area .ant-input-search-button {
   border-start-end-radius: 0px !important;
   border-end-end-radius: 0px !important;
+  border-radius: 0px;
+} */
+
+.search-area .ant-input-group-wrapper .ant-input-wrapper .ant-input-group-addon .ant-input-search-button {
+  border-start-end-radius: 0px;
+  border-end-end-radius: 0px;
   border-radius: 0px;
 }
