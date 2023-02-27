@@ -1,6 +1,5 @@
 import React from 'react'
-import {Space, Divider } from 'antd';
-import { Link } from 'react-router-dom';
+import {Space, Divider, Button } from 'antd';
 import './HomeHeader.css';
 
 export default function HomeHeader() {
@@ -10,19 +9,20 @@ export default function HomeHeader() {
           <div className='logo'
             style={{
               float: 'left',
-              color: '#C0C0C0'
+              color: '#FFF',
+              fontSize: '35px',
+              fontWeight: 800
             }}
           >
-            logo pic
+            Data Brain
           </div>
-          <Space
+          <Space wrap
             style={{
               float: 'right'
             }}
           >
-            <Link style={{color: '#C0C0C0'}} to="/login">登录</Link>
-            <Divider type="vertical" />
-            <Link style={{color: '#C0C0C0'}} to="/register">注册</Link>
+            <Button type="primary">登录</Button>
+            <Button>注册</Button>
           </Space>
         </div>	
 			</header>

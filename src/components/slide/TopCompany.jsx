@@ -27,7 +27,7 @@ export default function TopCompany() {
         dataSource={data}
         renderItem={(item) => (
           <List.Item>
-            <Space>
+            <Space style={{fontSize: '15px'}}>
               <Avatar src="https://joesch.moe/api/v1/random" />{item}
             </Space>
           </List.Item>
