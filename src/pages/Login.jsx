@@ -2,7 +2,7 @@ import { Form, Input, Button, Layout } from "antd";
 import React from "react";
 import CommonFooter from "../components/CommonFooter";
 import HomeHeader from "../components/HomeHeader";
-import "./Login.css";
+import "../assets/common.css";
 
 const { Content } = Layout;
 
@@ -12,22 +12,25 @@ export default function Login() {
       <HomeHeader></HomeHeader>
       <Content
         style={{
-          padding: 124,
-          minHeight: 600,
+          width: "100%",
+          padding: 30,
+          minHeight: 800,
+          alignItems: "center",
+          margin: "0 auto",
         }}
       >
-        <div className="main">
-          <div className="title">
-            <span>密码登录</span>
+        <div className="brain-form-page-bg">
+          <div className="brain-form-page-title">
+            <h1> 用户登录 </h1>
           </div>
-          <div className="title-msg">
-            <span>请输入登录账户和密码</span>
-          </div>
-          <div>
+          <div className="brain-form-page-main">
             <Form
               name="normal_login"
               className="login-form"
               initialValues={{ remember: true }}
+              style={{
+                maxWidth: 600,
+              }}
             >
               <Form.Item
                 name="username"
@@ -53,7 +56,7 @@ export default function Login() {
               </Form.Item>
 
               <Form.Item>
-                <a href="src">创建账号</a>
+                <a href="register">创建账号</a>
               </Form.Item>
 
               <Form.Item>
