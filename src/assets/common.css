@@ -1,9 +1,4 @@
-* {
-  padding: 0;
-  margin: 0;
-}
-
-.register-title {
+.brain-form-page-title {
   font-size: 20px;
   font-weight: 400;
   margin: 0 auto;
@@ -13,20 +8,23 @@
   padding-bottom: 25px;
 }
 
-.form-bg {
+.brain-form-page-bg {
   margin: 0 auto;
   align-items: center;
   width: 700px;
   background: #ffffff;
 }
 
-.main {
+.brain-form-page-main {
+  margin: 0 auto;
   text-align: center;
+  align-items: center;
   padding-left: 25px;
   padding-right: 25px;
   padding-top: 15px;
   padding-bottom: 15px;
   width: 400px;
-  height: 700px;
+  height: 680px;
   background: #ffffff;
 }
+

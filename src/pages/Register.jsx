@@ -1,25 +1,37 @@
-import { Button, Checkbox, Form, Input, Radio, Select, Layout } from "antd";
+import {
+  Button,
+  Checkbox,
+  Form,
+  Input,
+  Radio,
+  Select,
+  Layout,
+  message,
+} from "antd";
+import { UploadOutlined } from "@ant-design/icons";
+
 import { useState } from "react";
 import CommonFooter from "../components/CommonFooter";
 import HomeHeader from "../components/HomeHeader";
-import "./Register.css";
+import "../assets/common.css";
 
 const { Content } = Layout;
 const { Option } = Select;
 
-export default function Register(props) {
+
+export default function Register() {
   const [form] = Form.useForm();
-  const [userType, setUserType] = useState(""); // 用户类型
   const [personalVisible, setPersonalVisible] = useState(true);
   const [companyVisible, setCompanyVisible] = useState(false);
   const onFinish = (values) => {
     console.log("Received values of form: ", values);
+    message.success("提交成功");
   };
 
   // 表单提交失败的回调函数
   const onFinishFailed = (errorInfo) => {
-    console.log(userType);
     console.log("Failed:", errorInfo);
+    message.error("表单提交错误");
   };
 
   // 用户类型改变时的回调函数
@@ -34,6 +46,7 @@ export default function Register(props) {
       setCompanyVisible(true);
     }
   };
+  
 
   return (
     <Layout className="layout">
@@ -47,11 +60,11 @@ export default function Register(props) {
           margin: "0 auto",
         }}
       >
-        <div className="register-title">
+        <div className="brain-form-page-title">
           <h1> 注册Data Brain账号</h1>
         </div>
-        <div className="form-bg">
-          <div className="main">
+        <div className="brain-form-page-bg">
+          <div className="brain-form-page-main">
             <Form
               form={form}
               name="register"
@@ -260,8 +273,13 @@ export default function Register(props) {
                 </Checkbox>
               </Form.Item>
               <Form.Item>
-                <Button type="primary" htmlType="submit">
-                  注册
+                <Button
+                  type="primary"
+                  htmlType="submit"
+                  block
+                  style={{ height: "40PX", borderRadius: "12PX" }}
+                >
+                  同意协议并提交
                 </Button>
               </Form.Item>
             </Form>
