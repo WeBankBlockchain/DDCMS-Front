@@ -31,13 +31,19 @@ export default function Login() {
             >
               <Form.Item
                 name="username"
-                rules={[{ required: true, message: "请输入手机号 / 用户名!" }]}
+                rules={[
+                  { required: true, message: "请输入手机号 / 用户名!" },
+                  { pattern: "^[^ ]+$", message: "用户名不能有空格" },
+                ]}
               >
                 <Input placeholder="请输入用户名" bordered={false} />
               </Form.Item>
               <Form.Item
                 name="password"
-                rules={[{ required: true, message: "请输入密码!" }]}
+                rules={[
+                  { required: true, message: "请输入密码!" },
+                  { pattern: "^[^ ]+$", message: "密码不能有空格" },
+                ]}
               >
                 <Input
                   bordered={false}
