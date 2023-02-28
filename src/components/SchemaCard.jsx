@@ -14,10 +14,11 @@ export default function SchemaCard(props) {
     <div className='schema-card'>
       <div className='schema-header'>
         <div className='schema-title'>
-          <EyeOutlined style={{color: '#000'}}/>
-          <Button type="link" style={{fontSize: 20, fontWeight: 700, color: '#000'}}>{props.item.schemaId}</Button>
+          <EyeOutlined className = {props.item.visible ? 'visible-icon': 'unvisible-icon'}/>
+          <EyeInvisibleOutlined className = {props.item.visible ? 'unvisible-icon': 'visible-icon'}/>
+          <Button type="link" style={{fontSize: 18, fontWeight: 500, color: '#000'}}>{props.item.schemaId}</Button>
         </div>
-        <div className='schema-status'>
+        <div className='schema-star'>
           <Space>
             <HeartOutlined style={{fontSize: '20px'}}/>
           </Space>
@@ -36,7 +37,7 @@ export default function SchemaCard(props) {
           <div className='product-info'>产品名称：{props.item.productName}</div>
         </div>
         <div className='publish-time'>
-          发布时间: {moment(props.item.updateTime).format('YYYY-MM-DD HH:mm:ss')}
+          发布时间: {moment(props.item.createTime).format('YYYY-MM-DD')}
         </div>
       </div>
     </div>
