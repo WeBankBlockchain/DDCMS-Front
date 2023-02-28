@@ -7,13 +7,15 @@ import {
   HeartOutlined,
 } from '@ant-design/icons';
 
-export default function SchemaCard() {
+import moment from 'moment'
+
+export default function SchemaCard(props) {
   return (
     <div className='schema-card'>
       <div className='schema-header'>
         <div className='schema-title'>
           <EyeOutlined style={{color: '#000'}}/>
-          <Button type="link" style={{fontSize: 20, fontWeight: 700, color: '#000'}}>腾讯微信支付个人消费明细</Button>
+          <Button type="link" style={{fontSize: 20, fontWeight: 700, color: '#000'}}>{props.item.schemaId}</Button>
         </div>
         <div className='schema-status'>
           <Space>
@@ -23,18 +25,18 @@ export default function SchemaCard() {
       </div>
       <div className='schema-body'>
         <div className='schema-desc'>
-          这个数据目录主要用于金融场景，主要是个人用户在微信钱包中的消费记录数据。
+          {props.item.description}
         </div>
       </div>
       <div className='schema-footer'>
         <div className='owner-info'>
           <div className='company-info'>
-            企业名称：深圳腾讯科技信息股份有限公司
+            企业名称：{props.item.providerName}
           </div>
-          <div className='product-info'>产品名称：微信</div>
+          <div className='product-info'>产品名称：{props.item.productName}</div>
         </div>
         <div className='publish-time'>
-          发布时间: 2023-02-23
+          发布时间: {moment(props.item.updateTime).format('YYYY-MM-DD HH:mm:ss')}
         </div>
       </div>
     </div>

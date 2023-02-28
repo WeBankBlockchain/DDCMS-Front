@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const axiosOption = {
-	baseURL: 'http://localhost:8081',
+	baseURL: 'http://116.205.167.248:10880/api/',
 	timeout: 5000
 };
 

@@ -2,43 +2,55 @@ import { List, message } from 'antd';
 import VirtualList from 'rc-virtual-list';
 import { useEffect, useState } from 'react';
 import SchemaCard from '../components/SchemaCard';
+import { PageQuerySchemaApi } from '../request/api';
 import './Home.css';
 
-const fakeDataUrl =
-  'https://randomuser.me/api/?results=20&inc=name,gender,email,nat,picture&noinfo';
-const ContainerHeight = 400;
+const ContainerHeight = 400
 
 export default function Home() {
 
   const [data, setData] = useState([]);
-  const appendData = () => {
-    fetch(fakeDataUrl)
-      .then((res) => res.json())
-      .then((body) => {
-        setData(data.concat(body.results));
-        message.success(`${body.results.length} more items loaded!`);
-      });
-  };
+  const [pageNo, setPageNo] = useState(1);
+  
+  const loadMoreData = () => {
+    const req = {
+      pageNo: pageNo,
+      pageSize: 10
+    }
+
+    PageQuerySchemaApi(req).then((res) => {
+      if(res.code === '0'){
+        setData(data.concat(res.data.data));
+        message.success(`${res.data.data.length} more items loaded!`);
+        if(res.totalPages > pageNo){
+          setPageNo(pageNo => pageNo + 1)
+        }else{
+          message.error(res.msg)
+        }
+      }
+    })
+  }
+
   useEffect(() => {
-    appendData();
+    loadMoreData();
   }, []);
+
   const onScroll = (e) => {
     if (e.currentTarget.scrollHeight - e.currentTarget.scrollTop === ContainerHeight) {
-      appendData();
+      loadMoreData();
     }
   };
   return (
     <List>
       <VirtualList
         data={data}
-        // height={ContainerHeight}
         itemHeight={10}
-        itemKey="email"
+        itemKey="schemaId"
         onScroll={onScroll}
       >
         {(item) => (
-          <List.Item key={item.email}>
-            <SchemaCard />
+          <List.Item key={item.schemaId}>
+            <SchemaCard key={item.schemaId} item={item}/>
           </List.Item>
         )}
       </VirtualList>

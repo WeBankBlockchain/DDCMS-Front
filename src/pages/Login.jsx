@@ -17,10 +17,10 @@ export default function Login() {
         }}
       >
         <div className="main">
-          <div class="title">
+          <div className="title">
             <span>密码登录</span>
           </div>
-          <div class="title-msg">
+          <div className="title-msg">
             <span>请输入登录账户和密码</span>
           </div>
           <div>

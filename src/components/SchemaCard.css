@@ -35,16 +35,16 @@
 
 .owner-info {
 	float: left;
-	width: 600px;
+	width: 500px;
 }
 
 .company-info {
-	width: 350px;
+	width: 300px;
 	float: left;
 }
 
 .product-info {
-	width: 250px;
+	width: 200px;
 	float: left;
 }
 
