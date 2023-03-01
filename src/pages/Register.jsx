@@ -268,7 +268,7 @@ export default function Register() {
                 ]}
               >
                 <Checkbox>
-                  我已阅读并同意 <a href="">协议</a>
+                  我已阅读并同意 <Button type="link">协议</Button>
                 </Checkbox>
               </Form.Item>
               <Form.Item>
