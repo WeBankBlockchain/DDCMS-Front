@@ -1,12 +1,15 @@
 import React from 'react'
 import { Radio, Input } from 'antd';
+import PubSub from 'pubsub-js'
 import './SearchBanner.css'
 
 const { Search } = Input;
 
 export default function SearchBanner() {
 
-  const onSearch = (value) => console.log(value);
+  const onSearch = (value) => {
+    PubSub.publish('keyWord', value);
+  };
 
   return (
     <div className='search-banner'>
@@ -21,8 +24,7 @@ export default function SearchBanner() {
         <Search 
           placeholder="请输入公司/产品/数据目录名称" 
           style={{width: 350}}
-          onSearch={onSearch}
-          // size="large" 
+          onSearch={onSearch} 
           enterButton 
         />
       </div>

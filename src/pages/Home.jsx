@@ -2,8 +2,10 @@ import { List, Button, message } from 'antd';
 import { useEffect, useState } from 'react';
 import SchemaCard from '../components/SchemaCard';
 import { PageQuerySchemaApi } from '../request/api';
+import PubSub from 'pubsub-js';
 import './Home.css';
 
+const pageSize = 10;
 
 export default function Home() {
 
@@ -12,13 +14,23 @@ export default function Home() {
   const [data, setData] = useState([]);
   const [list, setList] = useState([]);
 
+  const [keyWord, setKeyWord] = useState("");
   const [pageNo, setPageNo] = useState(1);
   const [totalPage, setTotalPage] = useState(0);
 
+  const [initRefresh, setInitRefresh] = useState(false);
+
+  PubSub.subscribe('keyWord', (_, data) => {
+    setKeyWord(data)
+    setInitRefresh(!initRefresh)
+    setPageNo(1)
+  })
+
   useEffect(() => {
     const req = {
+      keyWord: keyWord,
       pageNo: pageNo,
-      pageSize: 10
+      pageSize: pageSize
     }
     PageQuerySchemaApi(req).then((res) => {
       if(res.code === '0'){
@@ -32,13 +44,14 @@ export default function Home() {
       }
     })
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [initRefresh]);
 
   const onLoadMore = () => {
     setLoading(true);
     const req = {
+      keyWord: keyWord,
       pageNo: pageNo,
-      pageSize: 10
+      pageSize: pageSize
     }
     PageQuerySchemaApi(req).then((res) => {
       if(res.code === '0'){
@@ -49,6 +62,8 @@ export default function Home() {
         window.dispatchEvent(new Event('resize'));
         setPageNo(pageNo => pageNo + 1);
         setTotalPage(res.data.totalPages);
+      }else{
+        message.error(res.msg);
       }
     })
   }
