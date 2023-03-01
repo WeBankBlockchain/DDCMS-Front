@@ -16,7 +16,7 @@ export default function SchemaCard(props) {
         <div className='schema-title'>
           <EyeOutlined className = {props.item.visible ? 'visible-icon': 'unvisible-icon'}/>
           <EyeInvisibleOutlined className = {props.item.visible ? 'unvisible-icon': 'visible-icon'}/>
-          <Button type="link" style={{fontSize: 18, fontWeight: 500, color: '#000'}}>{props.item.schemaId}</Button>
+          <Button type="link" style={{fontSize: 18, fontWeight: 500, color: '#000'}}>{props.item.schemaName}</Button>
         </div>
         <div className='schema-star'>
           <Space>

@@ -1,7 +1,7 @@
 import React from 'react'
 import {Space, Button} from 'antd';
 import './HomeHeader.css';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 export default function HomeHeader() {
 
@@ -13,12 +13,19 @@ export default function HomeHeader() {
           <div className='logo'
             style={{
               float: 'left',
-              color: '#FFF',
-              fontSize: '35px',
-              fontWeight: 800
+              color: '#FFF'
             }}
           >
-            Data Brain
+            <Link  
+              style={{
+                fontSize: 35, 
+                fontWeight: 800, 
+                color: '#FFF'
+              }}  
+              to='/'
+            >
+              Data Brain
+            </Link>
           </div>
           <Space wrap
             style={{
