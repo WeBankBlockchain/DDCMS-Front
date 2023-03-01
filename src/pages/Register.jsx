@@ -8,7 +8,6 @@ import {
   Layout,
   message,
 } from "antd";
-import { UploadOutlined } from "@ant-design/icons";
 
 import { useState } from "react";
 import CommonFooter from "../components/CommonFooter";

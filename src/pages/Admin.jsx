@@ -6,7 +6,7 @@ import {
 import { Breadcrumb, Layout, Menu, theme } from "antd";
 import React from "react";
 import AdminHeader from "../components/AdminHeader";
-import "./Admin.css";
+import CommonFooter from "../components/CommonFooter";
 
 const { Content, Sider } = Layout;
 ["1", "2", "3"].map((key) => ({
@@ -40,7 +40,11 @@ const Admin = () => {
 
       <Content
         style={{
-          padding: "0 50px",
+          width: "100%",
+          padding: 30,
+          minHeight: 800,
+          alignItems: "center",
+          margin: "0 auto",
         }}
       >
         <Breadcrumb
@@ -84,6 +88,7 @@ const Admin = () => {
           </Content>
         </Layout>
       </Content>
+      <CommonFooter></CommonFooter>
     </Layout>
   );
 };
