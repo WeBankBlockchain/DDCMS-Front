@@ -6,7 +6,6 @@ import Login from '../pages/Login';
 import Register from '../pages/Register';
 import Test from '../pages/Test';
 
-
 export const routeMap = [
 	{
 		path: '/',
@@ -15,11 +14,10 @@ export const routeMap = [
 			{
 				index: true,
 				element: <Home />
-			},
-			
+			}
 		]
-	}, 
-  {
+	},
+	{
 		path: 'Admin',
 		element: <Admin />
 	},

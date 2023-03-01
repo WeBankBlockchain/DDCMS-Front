@@ -18,7 +18,16 @@
 	float: left;
 }
 
-.schema-status {
+.schema-title .visible-icon {
+	color: #000;
+}
+
+.schema-title .unvisible-icon {
+	color: #000;
+	display: none;
+}
+
+.schema-star {
 	float: right;
 }
 

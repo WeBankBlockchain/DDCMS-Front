@@ -13,8 +13,8 @@ export default function SearchBanner() {
       <div className='sort-tab'>
       <Radio.Group defaultValue="a" buttonStyle="solid">
         <Radio.Button value="a">最新发布</Radio.Button>
-        <Radio.Button value="b">综合排序</Radio.Button>
-        <Radio.Button value="c">收藏数</Radio.Button>
+        <Radio.Button value="b" disabled>综合排序</Radio.Button>
+        <Radio.Button value="c" disabled>收藏数</Radio.Button>
       </Radio.Group>
       </div>
       <div className='search-area'>
