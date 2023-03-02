@@ -1,42 +1,40 @@
-import React from 'react'
+import { useEffect, useState, message } from 'react';
 import './SlideCard.css'
 import { Divider, Space, Tag} from 'antd';
 import { Link } from 'react-router-dom';
+import { GetHotTagsApi } from '../../request/api';
 
-const data = [
-  '金融服务',
-  '个人消费',
-  '征信',
-  '企业经营情况',
-  '个人运动',
-  '交通',
-  '高速',
-  '税务',
-  '黑名单',
-  '教育',
-  '房产交易',
-  '民政数据',
-  '理财',
-  '消费贷款',
-  '汽车消费',
-  '企业贷款',
-  '同业拆借',
-  '个人所得税',
-  '社保',
-  '公积金',
-];
+const topCount = 20
 
 export default function TopTags() {
+
+  const [data, setData] = useState([])
+
+  useEffect(() => {
+    const req = {
+      topN: topCount
+    }
+    GetHotTagsApi(req).then((res) => {
+      if(res.code === '0'){
+        console.log(res.data)
+        setData(res.data);
+      }else{
+        message.error(res.msg);
+      }
+    })
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <div className='slide-card'>
       <div className='slide-card-header'>
-        目录分类
+        热门数据分类
       </div>
       <Divider style={{margin: '12px 0 0 0'}}/>
       <Space style={{padding: '12px 0'}} size={[0, 8]} wrap>
         {data.map((item) => (
           <Tag>
-            <Link style={{color: '#000000', fontSize: '14px', padding: '10px 5px'}} to="#">{item}</Link>
+            <Link style={{color: '#000000', fontSize: '14px', padding: '10px 5px'}} to="#">{item.name}</Link>
           </Tag>
         ))}
       </Space>

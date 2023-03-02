@@ -1,25 +1,33 @@
-import React from 'react'
-import { List, Avatar, Divider, Space} from 'antd';
+import { useEffect, useState } from 'react';
+import { List, Avatar, Divider, Space, message} from 'antd';
 import './SlideCard.css'
+import { GetHotCompaniesApi } from '../../request/api';
 
-const data = [
-  '深圳腾讯科技股份有限公司',
-  '深圳前海微众银行股份有限公司',
-  '平安科技股份有限公司',
-  '杭州蚂蚁金融科技股份有限公司',
-  '我的家在东北股份有限公司',
-  '深圳腾讯科技股份有限公司',
-  '深圳前海微众银行股份有限公司',
-  '平安科技股份有限公司',
-  '杭州蚂蚁金融科技股份有限公司',
-  '我的家在东北股份有限公司',
-];
+
+const topN = 8;
 
 export default function TopCompany() {
+
+  const [data, setData] = useState([])
+
+  useEffect(() => {
+    const req = {
+      topN: topN
+    }
+    GetHotCompaniesApi(req).then((res) => {
+      if(res.code === '0'){
+        setData(res.data);
+      }else{
+        message.error(res.msg);
+      }
+    })
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <div className='slide-card'>
       <div className='slide-card-header'>
-        热门公司
+        热门数据公司
       </div>
       <Divider style={{margin: '12px 0 0 0'}}/>
       <List
@@ -28,7 +36,7 @@ export default function TopCompany() {
         renderItem={(item) => (
           <List.Item>
             <Space style={{fontSize: '15px'}}>
-              <Avatar src="https://joesch.moe/api/v1/random" />{item}
+              <Avatar src="https://joesch.moe/api/v1/random" />{item.name}
             </Space>
           </List.Item>
         )}

@@ -35,8 +35,8 @@ export default function Home() {
     PageQuerySchemaApi(req).then((res) => {
       if(res.code === '0'){
         setInitLoading(false);
-        setData(res.data.data);
-        setList(res.data.data);
+        setData(res.data.items);
+        setList(res.data.items);
         setPageNo(pageNo => pageNo + 1);
         setTotalPage(res.data.totalPages);
       }else{
@@ -55,7 +55,7 @@ export default function Home() {
     }
     PageQuerySchemaApi(req).then((res) => {
       if(res.code === '0'){
-        const newData = data.concat(res.data.data);
+        const newData = data.concat(res.data.items);
         setData(newData);
         setList(newData);
         setLoading(false);

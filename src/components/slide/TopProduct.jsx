@@ -1,42 +1,40 @@
-import React from 'react'
+import { useEffect, useState } from 'react';
 import './SlideCard.css'
-import { Divider, Space, Tag} from 'antd';
+import { Divider, Space, Tag, message} from 'antd';
 import { Link } from 'react-router-dom';
+import { GetHotProductsApi } from '../../request/api';
 
-const data = [
-  '微信',
-  '支付宝',
-  '人人网',
-  '飞书',
-  '王者荣耀',
-  '脉脉',
-  '陌陌',
-  '美图秀秀',
-  'Keep',
-  '抖音',
-  'QQ',
-  '美团',
-  '京东',
-  '微信',
-  '支付宝',
-  '人人网',
-  '飞书',
-  '王者荣耀',
-  '脉脉',
-  '陌陌',
-];
+const topN = 20
 
 export default function TopProduct() {
+
+  const [data, setData] = useState([])
+
+  useEffect(() => {
+    const req = {
+      topN: topN
+    }
+    GetHotProductsApi(req).then((res) => {
+      if(res.code === '0'){
+        console.log(res.data)
+        setData(res.data);
+      }else{
+        message.error(res.msg);
+      }
+    })
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <div className='slide-card'>
       <div className='slide-card-header'>
-        热门产品
+        热门数据产品
       </div>
       <Divider style={{margin: '12px 0 0 0'}}/>
       <Space style={{padding: '12px 0'}} size={[0, 8]} wrap>
         {data.map((item) => (
           <Tag>
-            <Link style={{color: '#000000', fontSize: '14px', padding: '10px 5px'}} to="#">{item}</Link>
+            <Link style={{color: '#000000', fontSize: '14px', padding: '10px 5px'}} to="#">{item.productName}</Link>
           </Tag>
         ))}
       </Space>
