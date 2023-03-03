@@ -1,30 +1,59 @@
 import React from "react";
-import { Space } from "antd";
-import { Header } from "antd/es/layout/layout";
-import UserIcon from "./parts/UserIcon";
+import { Space, Button, message, Avatar } from "antd";
+import { useNavigate } from "react-router-dom";
+import { UserOutlined } from "@ant-design/icons";
+import { Link } from "react-router-dom";
+
 export default function AdminHeader() {
+  const navigate = useNavigate();
+
+  const logout = () => {
+    localStorage.removeItem("username");
+    localStorage.removeItem("did");
+    localStorage.removeItem("token");
+    message.success("退出成功!");
+    setTimeout(() => {
+      navigate("/");
+    }, 1000);
+  };
+
   return (
-    <Header>
+    <header>
       <div className="header-content">
         <div
           className="logo"
           style={{
             float: "left",
             color: "#FFF",
-            fontSize: "35px",
-            fontWeight: 800,
           }}
         >
-          Data Brain
+          <Link
+            style={{
+              fontSize: 35,
+              fontWeight: 800,
+              color: "#FFF",
+            }}
+            to="/"
+          >
+            Data Brain
+          </Link>
         </div>
-        <Space
-          style={{
-            float: "right",
-          }}
-        >
-          <UserIcon></UserIcon>
-        </Space>
+        <div className="space-align-block">
+          <Space
+            wrap
+            align="baseline"
+            style={{
+              float: "right",
+            }}
+          >
+            <Avatar icon={<UserOutlined />} />
+            <Avatar size={48}>USER</Avatar>
+            <Button type="primary" onClick={logout} style={{ color: "white" }}>
+              退出
+            </Button>
+          </Space>
+        </div>
       </div>
-    </Header>
+    </header>
   );
 }

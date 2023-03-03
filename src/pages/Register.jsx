@@ -8,22 +8,68 @@ import {
   Layout,
   message,
 } from "antd";
-
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import CommonFooter from "../components/CommonFooter";
 import HomeHeader from "../components/HomeHeader";
 import "../assets/common.css";
+import { RegisterApi } from "../request/api.js";
 
 const { Content } = Layout;
 const { Option } = Select;
-
 
 export default function Register() {
   const [form] = Form.useForm();
   const [personalVisible, setPersonalVisible] = useState(true);
   const [companyVisible, setCompanyVisible] = useState(false);
+  const [userType, setUserType] = useState("personal");
+  const navigate = useNavigate();
+
   const onFinish = (values) => {
-    console.log("Received values of form: ", values);
+    let registRequest, detailJsonStr;
+    if (userType === "personal") {
+      console.log(userType);
+      detailJsonStr = JSON.stringify({
+        name: values.name,
+        contact: values.phone,
+        email: values.email,
+        certType: values.certType,
+        certNum: values.certNo,
+      });
+      registRequest = {
+        accountType: "0",
+        username: values.username,
+        password: values.password,
+        detailJson: detailJsonStr,
+      };
+    } else {
+      console.log(userType);
+      detailJsonStr = JSON.stringify({
+        orgName: values.name,
+        contact: values.phone,
+        certType: values.certType,
+      });
+      registRequest = {
+        accountType: "1",
+        username: values.username,
+        password: values.password,
+        detailJson: detailJsonStr,
+      };
+    }
+    RegisterApi(registRequest).then((res) => {
+      if (res.code === "0") {
+        console.log("success");
+        message.success("注册成功!");
+        localStorage.setItem("username", values.username);
+        localStorage.setItem("did", res.data.did);
+        localStorage.setItem("token", res.data.token);
+        setTimeout(() => navigate("/admin"), 1000);
+      } else {
+        console.log(res);
+        message.error("登录失败!");
+        message.error(res.msg);
+      }
+    });
     message.success("提交成功");
   };
 
@@ -40,12 +86,13 @@ export default function Register() {
     if (ut === "personal") {
       setPersonalVisible(true);
       setCompanyVisible(false);
+      setUserType("personal");
     } else {
       setPersonalVisible(false);
       setCompanyVisible(true);
+      setUserType("company");
     }
   };
-  
 
   return (
     <Layout className="layout">
@@ -73,13 +120,13 @@ export default function Register() {
                 maxWidth: 600,
               }}
               scrollToFirstError
+              initialValues={{ userType: "personal" }}
             >
               <Form.Item
                 name="userType"
                 rules={[{ required: true, message: "请选择用户类型" }]}
               >
                 <Radio.Group
-                  defaultValue="personal"
                   buttonStyle="solid"
                   style={{
                     marginTop: 16,
@@ -95,7 +142,7 @@ export default function Register() {
               </Form.Item>
 
               <Form.Item
-                name="nickname"
+                name="username"
                 rules={[
                   {
                     required: true,
