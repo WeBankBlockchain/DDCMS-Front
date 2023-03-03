@@ -5,6 +5,7 @@ import Admin from '../pages/Admin';
 import Login from '../pages/Login';
 import Register from '../pages/Register';
 import Test from '../pages/Test';
+import ProductList from '../pages/ProductList';
 
 export const routeMap = [
 	{
@@ -14,6 +15,10 @@ export const routeMap = [
 			{
 				index: true,
 				element: <Home />
+			},
+			{
+				path: 'productlist',
+				element: <ProductList />
 			}
 		]
 	},
