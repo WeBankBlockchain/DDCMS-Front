@@ -1,13 +1,14 @@
 import { List, Button, message } from 'antd';
 import { useEffect, useState } from 'react';
 import ProductCard from '../components/ProductCard';
-import { PageQuerySchemaApi } from '../request/api';
+import { pageQueryProductApi } from '../request/api';
+import { useLocation } from 'react-router-dom'
 import PubSub from 'pubsub-js';
 import './Home.css';
 
 const pageSize = 10;
 
-export default function Home() {
+export default function ProjectList() {
 
   const [initLoading, setInitLoading] = useState(true);
   const [loading, setLoading] = useState(false);
@@ -20,6 +21,11 @@ export default function Home() {
 
   const [initRefresh, setInitRefresh] = useState(false);
 
+  //获取路由带过来的providerId并进行set
+  const location = useLocation()
+  console.log('list:' + location.state.providerId)
+
+
   PubSub.subscribe('keyWord', (_, data) => {
     setKeyWord(data)
     setInitRefresh(!initRefresh)
@@ -27,12 +33,13 @@ export default function Home() {
   })
 
   useEffect(() => {
+
     const req = {
       keyWord: keyWord,
       pageNo: pageNo,
       pageSize: pageSize
     }
-    PageQuerySchemaApi(req).then((res) => {
+    pageQueryProductApi(req).then((res) => {
       if(res.code === '0'){
         setInitLoading(false);
         setData(res.data.items);
@@ -53,7 +60,7 @@ export default function Home() {
       pageNo: pageNo,
       pageSize: pageSize
     }
-    PageQuerySchemaApi(req).then((res) => {
+    pageQueryProductApi(req).then((res) => {
       if(res.code === '0'){
         const newData = data.concat(res.data.items);
         setData(newData);
@@ -92,7 +99,7 @@ export default function Home() {
       dataSource={list}
       renderItem={(item) => (
         <List.Item key={item.schemaId}>
-          <SchemaCard key={item.schemaId} item={item}/>
+          <ProductCard key={item.schemaId} item={item}/>
         </List.Item>
       )}
     />

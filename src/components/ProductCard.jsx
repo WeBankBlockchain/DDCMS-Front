@@ -1,5 +1,5 @@
 import React from 'react'
-import './SchemaCard.css'
+import './ProductCard.css'
 import { Space, Button} from 'antd';
 import {
   EyeOutlined,
@@ -11,25 +11,23 @@ import moment from 'moment'
 
 export default function ProductCard(props) {
   return (
-    <div className='schema-card'>
-      <div className='schema-header'>
-        <div className='schema-title'>
-          <EyeOutlined className = {props.item.visible ? 'visible-icon': 'unvisible-icon'}/>
-          <EyeInvisibleOutlined className = {props.item.visible ? 'unvisible-icon': 'visible-icon'}/>
-          <Button type="link" style={{fontSize: 18, fontWeight: 500, color: '#000'}}>{props.item.schemaName}</Button>
+    <div className='product-card'>
+      <div className='product-header'>
+        <div className='product-title'>
+          <Button type="link" style={{fontSize: 18, fontWeight: 500, color: '#000'}}>{props.item.productName}</Button>
         </div>
-        <div className='schema-star'>
+        <div className='product-star'>
           <Space>
             <HeartOutlined style={{fontSize: '20px'}}/>
           </Space>
         </div>
       </div>
-      <div className='schema-body'>
-        <div className='schema-desc'>
-          {props.item.description}
+      <div className='product-body'>
+        <div className='product-desc'>
+          {props.item.information}
         </div>
       </div>
-      <div className='schema-footer'>
+      <div className='product-footer'>
         <div className='owner-info'>
           <div className='company-info'>
             企业名称：{props.item.providerName}
