@@ -19,7 +19,7 @@ export default function AdminHeader() {
 
   return (
     <header>
-      <div className="header-content">
+      <div className="header-content" style={{width: '100%', padding: '0 30px'}}>
         <div
           className="logo"
           style={{
