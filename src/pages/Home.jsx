@@ -2,6 +2,7 @@ import { List, Button, message } from 'antd';
 import { useEffect, useState } from 'react';
 import SchemaCard from '../components/SchemaCard';
 import { PageQuerySchemaApi } from '../request/api';
+import { useLocation } from 'react-router-dom'
 import PubSub from 'pubsub-js';
 import './Home.css';
 
@@ -20,7 +21,20 @@ export default function Home() {
 
   const [initRefresh, setInitRefresh] = useState(false);
 
+  //保存页面跳转获得的productId
+  const [productId, setProductId] = useState("")
+
+  //获取路由带过来的productId
+  const location = useLocation()
+  if(location.state !== null && location.state.productId !== productId){
+    setProductId(location.state.productId)
+    setKeyWord("")
+    setInitRefresh(!initRefresh)
+    setPageNo(1)
+  }
+
   PubSub.subscribe('keyWord', (_, data) => {
+    setProductId("")
     setKeyWord(data)
     setInitRefresh(!initRefresh)
     setPageNo(1)
@@ -30,7 +44,8 @@ export default function Home() {
     const req = {
       keyWord: keyWord,
       pageNo: pageNo,
-      pageSize: pageSize
+      pageSize: pageSize,
+      productId: productId
     }
     PageQuerySchemaApi(req).then((res) => {
       if(res.code === '0'){

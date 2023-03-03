@@ -21,9 +21,9 @@ export default function ProjectList() {
 
   const [initRefresh, setInitRefresh] = useState(false);
 
-  //获取路由带过来的providerId并进行set
+  //获取路由带过来的providerId
   const location = useLocation()
-  console.log('list:' + location.state.providerId)
+  console.log(location.state.providerId)
 
 
   PubSub.subscribe('keyWord', (_, data) => {

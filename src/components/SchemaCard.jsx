@@ -8,22 +8,28 @@ import {
 } from '@ant-design/icons';
 
 import { useNavigate } from 'react-router-dom';
-
 import moment from 'moment'
 
 export default function SchemaCard(props) {
 
   const navigate = useNavigate()
 
+  const schemaOnClick = (schemaId) => {
+    navigate('/schema/detail', {
+      state: {schemaId: schemaId}
+    })
+  }
+
   const providerOnClick = (providerId) => {
-    console.log('schema:' + providerId)
     navigate('/productlist', {
       state: {providerId: providerId}
     })
   }
 
   const productOnClick = (productId) => {
-    console.log(productId)
+    navigate('/home', {
+      state: {productId: productId}
+    })
   }
   return (
     <div className='schema-card'>
@@ -31,7 +37,13 @@ export default function SchemaCard(props) {
         <div className='schema-title'>
           <EyeOutlined className = {props.item.visible ? 'visible-icon': 'unvisible-icon'}/>
           <EyeInvisibleOutlined className = {props.item.visible ? 'unvisible-icon': 'visible-icon'}/>
-          <Button type="link" style={{fontSize: 18, fontWeight: 500, color: '#000'}}>{props.item.schemaName}</Button>
+          <Button 
+            type="link" 
+            style={{fontSize: 18, fontWeight: 500, color: '#000'}}
+            onClick={()=>{schemaOnClick(props.item.schemaId)}}
+          >
+            {props.item.schemaName}
+          </Button>
         </div>
         <div className='schema-star'>
           <Space>

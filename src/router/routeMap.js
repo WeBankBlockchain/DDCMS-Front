@@ -6,6 +6,7 @@ import Login from '../pages/Login';
 import Register from '../pages/Register';
 import Test from '../pages/Test';
 import ProductList from '../pages/ProductList';
+import SchemaDetail from '../pages/SchemaDetail';
 
 export const routeMap = [
 	{
@@ -17,8 +18,16 @@ export const routeMap = [
 				element: <Home />
 			},
 			{
+				path: 'home',
+				element: <Home />
+			},
+			{
 				path: 'productlist',
 				element: <ProductList />
+			},
+			{
+				path: 'schema/detail',
+				element: <SchemaDetail />
 			}
 		]
 	},

@@ -1,14 +1,21 @@
 import { useEffect, useState } from 'react';
 import './SlideCard.css'
-import { Divider, Space, Tag, message} from 'antd';
-import { Link } from 'react-router-dom';
+import { Divider, Space, message, Button} from 'antd';
 import { GetHotProductsApi } from '../../request/api';
+import { useNavigate } from 'react-router-dom';
 
 const topN = 20
 
 export default function TopProduct() {
 
   const [data, setData] = useState([])
+
+  const navigate = useNavigate()
+  const onClick = (productId) => {
+    navigate('/home', {
+      state: {productId: productId}
+    })
+  }
 
   useEffect(() => {
     const req = {
@@ -32,9 +39,12 @@ export default function TopProduct() {
       <Divider style={{margin: '12px 0 0 0'}}/>
       <Space style={{padding: '12px 0'}} size={[0, 8]} wrap>
         {data.map((item) => (
-          <Tag key={item.productId}>
-            <Link style={{color: '#000000', fontSize: '14px', padding: '10px 5px'}} to="#">{item.productName}</Link>
-          </Tag>
+          <Button 
+            style={{color: '#000000', fontSize: '14px', margin: '0 4px'}}
+            onClick={() => {onClick(item.productId)}}
+          >
+            {item.productName}
+          </Button>
         ))}
       </Space>
       <Divider style={{margin: '0 0 12px 0'}}/>
