@@ -9,7 +9,7 @@ import {
 
 import moment from 'moment'
 
-export default function Product(props) {
+export default function ProductCard(props) {
   return (
     <div className='schema-card'>
       <div className='schema-header'>

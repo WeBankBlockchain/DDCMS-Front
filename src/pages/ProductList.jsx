@@ -1,6 +1,6 @@
 import { List, Button, message } from 'antd';
 import { useEffect, useState } from 'react';
-import SchemaCard from '../components/SchemaCard';
+import ProductCard from '../components/ProductCard';
 import { PageQuerySchemaApi } from '../request/api';
 import PubSub from 'pubsub-js';
 import './Home.css';
