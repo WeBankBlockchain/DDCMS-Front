@@ -16,7 +16,6 @@ export default function TopTags() {
     }
     GetHotTagsApi(req).then((res) => {
       if(res.code === '0'){
-        console.log(res.data)
         setData(res.data);
       }else{
         message.error(res.msg);
@@ -33,7 +32,7 @@ export default function TopTags() {
       <Divider style={{margin: '12px 0 0 0'}}/>
       <Space style={{padding: '12px 0'}} size={[0, 8]} wrap>
         {data.map((item) => (
-          <Tag>
+          <Tag key={item.name}>
             <Link style={{color: '#000000', fontSize: '14px', padding: '10px 5px'}} to="#">{item.name}</Link>
           </Tag>
         ))}

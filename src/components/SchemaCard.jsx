@@ -7,9 +7,24 @@ import {
   HeartOutlined,
 } from '@ant-design/icons';
 
+import { useNavigate } from 'react-router-dom';
+
 import moment from 'moment'
 
 export default function SchemaCard(props) {
+
+  const navigate = useNavigate()
+
+  const providerOnClick = (providerId) => {
+    console.log('schema:' + providerId)
+    navigate('/productlist', {
+      state: {providerId: providerId}
+    })
+  }
+
+  const productOnClick = (productId) => {
+    console.log(productId)
+  }
   return (
     <div className='schema-card'>
       <div className='schema-header'>
@@ -32,9 +47,25 @@ export default function SchemaCard(props) {
       <div className='schema-footer'>
         <div className='owner-info'>
           <div className='company-info'>
-            企业名称：{props.item.providerName}
+            企业名称：
+            <Button 
+              type='link'
+              style={{fontSize: 14, padding: '0 0', color: 'rgb(134, 132, 132)'}}
+              onClick={() => providerOnClick(props.item.providerId)}
+            >
+              {props.item.providerName}
+            </Button>
           </div>
-          <div className='product-info'>产品名称：{props.item.productName}</div>
+          <div className='product-info'>
+            产品名称：
+            <Button 
+              type='link' 
+              style={{fontSize: 14, padding: '0 0', color: 'rgb(134, 132, 132)'}}
+              onClick={() => productOnClick(props.item.productId)}
+            >
+              {props.item.productName}
+            </Button>
+          </div>
         </div>
         <div className='publish-time'>
           发布时间: {moment(props.item.createTime).format('YYYY-MM-DD')}

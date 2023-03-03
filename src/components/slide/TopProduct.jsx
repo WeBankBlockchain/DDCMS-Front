@@ -16,7 +16,6 @@ export default function TopProduct() {
     }
     GetHotProductsApi(req).then((res) => {
       if(res.code === '0'){
-        console.log(res.data)
         setData(res.data);
       }else{
         message.error(res.msg);
@@ -33,7 +32,7 @@ export default function TopProduct() {
       <Divider style={{margin: '12px 0 0 0'}}/>
       <Space style={{padding: '12px 0'}} size={[0, 8]} wrap>
         {data.map((item) => (
-          <Tag>
+          <Tag key={item.productId}>
             <Link style={{color: '#000000', fontSize: '14px', padding: '10px 5px'}} to="#">{item.productName}</Link>
           </Tag>
         ))}
