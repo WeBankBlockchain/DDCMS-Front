@@ -1,13 +1,15 @@
 import { List, Button, message } from 'antd';
 import { useEffect, useState } from 'react';
 import ProductCard from '../components/ProductCard';
-import { PageQuerySchemaApi } from '../request/api';
+import { pageQueryProductApi } from '../request/api';
 import PubSub from 'pubsub-js';
 import './Home.css';
 
 const pageSize = 10;
 
-export default function Home() {
+
+
+export default function ProjectList() {
 
   const [initLoading, setInitLoading] = useState(true);
   const [loading, setLoading] = useState(false);
@@ -32,7 +34,7 @@ export default function Home() {
       pageNo: pageNo,
       pageSize: pageSize
     }
-    PageQuerySchemaApi(req).then((res) => {
+    pageQueryProductApi(req).then((res) => {
       if(res.code === '0'){
         setInitLoading(false);
         setData(res.data.items);
@@ -53,7 +55,7 @@ export default function Home() {
       pageNo: pageNo,
       pageSize: pageSize
     }
-    PageQuerySchemaApi(req).then((res) => {
+    pageQueryProductApi(req).then((res) => {
       if(res.code === '0'){
         const newData = data.concat(res.data.items);
         setData(newData);
@@ -92,7 +94,7 @@ export default function Home() {
       dataSource={list}
       renderItem={(item) => (
         <List.Item key={item.schemaId}>
-          <SchemaCard key={item.schemaId} item={item}/>
+          <ProductCard key={item.schemaId} item={item}/>
         </List.Item>
       )}
     />
