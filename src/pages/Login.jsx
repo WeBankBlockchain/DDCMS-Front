@@ -1,12 +1,43 @@
-import { Form, Input, Button, Layout } from "antd";
+import { Form, Input, Button, Layout, message } from "antd";
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import CommonFooter from "../components/CommonFooter";
 import HomeHeader from "../components/HomeHeader";
 import "../assets/common.css";
+import { LoginApi } from "../request/api";
 
 const { Content } = Layout;
 
 export default function Login() {
+  const navigate = useNavigate();
+
+  const onFinish = (values) => {
+    let loginRequest = {
+      username: values.username,
+      password: values.password,
+    };
+    LoginApi(loginRequest).then((res) => {
+      if (res.code === "0") {
+        console.log("succ");
+        message.success("登录成功!");
+        localStorage.setItem("username", values.username);
+        localStorage.setItem("did", res.data.did);
+        localStorage.setItem("token", res.data.token);
+        setTimeout(() => navigate("/admin"), 1000);
+      } else {
+        console.log(res);
+        message.error("登录失败!");
+        message.error(res.msg);
+      }
+    });
+    console.log("Received values of form: ", values);
+  };
+
+  const onFinishFailed = (errorInfo) => {
+    console.log("Failed:", errorInfo);
+    message.error("表单提交错误", errorInfo);
+  };
+
   return (
     <Layout className="layout">
       <HomeHeader></HomeHeader>
@@ -28,6 +59,8 @@ export default function Login() {
               name="normal_login"
               className="login-form"
               initialValues={{ remember: true }}
+              onFinish={onFinish}
+              onFinishFailed={onFinishFailed}
               style={{
                 maxWidth: 600,
               }}
