@@ -1,5 +1,5 @@
-import React from 'react'
-import { Radio, Input } from 'antd';
+import React, { useState } from 'react'
+import { Input, Breadcrumb } from 'antd';
 import PubSub from 'pubsub-js'
 import './SearchBanner.css'
 
@@ -7,18 +7,20 @@ const { Search } = Input;
 
 export default function SearchBanner() {
 
+  const [data, setData] = useState(['最新', '数据目录列表'])
+
   const onSearch = (value) => {
     PubSub.publish('keyWord', value);
   };
-
+ 
   return (
     <div className='search-banner'>
       <div className='sort-tab'>
-      <Radio.Group defaultValue="a" buttonStyle="solid">
-        <Radio.Button value="a">最新发布</Radio.Button>
-        <Radio.Button value="b" disabled>综合排序</Radio.Button>
-        <Radio.Button value="c" disabled>收藏数</Radio.Button>
-      </Radio.Group>
+        <Breadcrumb style={{fontSize: 20, fontWeight: 700}}>
+          {data.map((item) => (
+            <Breadcrumb.Item key={item}>{item}</Breadcrumb.Item>
+          ))}
+        </Breadcrumb>
       </div>
       <div className='search-area'>
         <Search 

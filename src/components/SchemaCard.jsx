@@ -31,6 +31,7 @@ export default function SchemaCard(props) {
       state: {productId: productId}
     })
   }
+
   return (
     <div className='schema-card'>
       <div className='schema-header'>

@@ -39,7 +39,7 @@ export default function TopProduct() {
       <Divider style={{margin: '12px 0 0 0'}}/>
       <Space style={{padding: '12px 0'}} size={[0, 8]} wrap>
         {data.map((item) => (
-          <Button 
+          <Button key={item.productId}
             style={{color: '#000000', fontSize: '14px', margin: '0 4px'}}
             onClick={() => {onClick(item.productId)}}
           >
