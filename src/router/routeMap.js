@@ -7,6 +7,7 @@ import Register from '../pages/Register';
 import Test from '../pages/Test';
 import ProductList from '../pages/ProductList';
 import SchemaDetail from '../pages/SchemaDetail';
+import ProductDetail from '../pages/ProductDetail';
 
 export const routeMap = [
 	{
@@ -28,6 +29,10 @@ export const routeMap = [
 			{
 				path: 'schema/detail',
 				element: <SchemaDetail />
+			},
+			{
+				path: 'product/detail',
+				element: <ProductDetail />
 			}
 		]
 	},
