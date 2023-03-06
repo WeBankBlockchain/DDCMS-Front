@@ -3,6 +3,9 @@ import HomeHeader from "../components/HomeHeader";
 import React, { useEffect,useState } from 'react';
 import { queryProductByIdApi } from '../request/api';
 import { message } from 'antd';
+import { useLocation } from 'react-router-dom'
+import moment from 'moment'
+
 import {
     Button,
     Checkbox,
@@ -15,12 +18,36 @@ import {
 const { Content } = Layout;
 
 
-export default function ProductDetail({productId}) {
+export default function ProductDetail({}) {
     const [editing, setEditing] = useState(false);
-    const [data, setData] = useState([]);
+    const [product, setProduct] = useState("");
     const [initRefresh, setInitRefresh] = useState(false);
     const [initLoading, setInitLoading] = useState(true);
     const [form] = Form.useForm();
+    const [productId, setProductId] = useState("")
+
+    //获取路由带过来的providerId
+    const location = useLocation()
+    if(location.state !== null && location.state.productId !== productId){
+        setProductId(location.state.productId)
+        setInitRefresh(!initRefresh)
+    }
+
+    useEffect(() => {
+        const req = {
+          productId: productId
+        }
+        queryProductByIdApi(req).then((res) => {
+          if(res.code === '0'){
+            setInitLoading(false);
+            setProduct(res.data);
+          }else{
+            message.error(res.msg);
+          }
+        })
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [initRefresh]);
+
 
     const onFinish = (values) => {
         console.log("Received values of form: ", values);
@@ -33,21 +60,6 @@ export default function ProductDetail({productId}) {
         message.error("表单提交错误");
     };
 
-    useEffect(() => {
-        const req = {
-          productId: productId
-        }
-        queryProductByIdApi(req).then((res) => {
-          if(res.code === '0'){
-            setInitLoading(false);
-            setData(res.data);
-          }else{
-            message.error(res.msg);
-          }
-        })
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-      }, [initRefresh]);
-  
     return (
         <Layout className="layout">
         <HomeHeader></HomeHeader>
@@ -66,38 +78,59 @@ export default function ProductDetail({productId}) {
         <div className="brain-form-page-bg">
         <div className="brain-form-page-main">
       <div>
-        {editing ? ( // 编辑状态显示表单，非编辑状态显示内容
-    
+        {
+        editing ?
+         ( // 编辑状态显示表单，非编辑状态显示内容
             <Form
               form={form}
-              name="register"
+              name="productDetail"
               onFinish={onFinish}
               onFinishFailed={onFinishFailed}
               style={{
-                maxWidth: 600,
+                maxWidth: 700,
               }}
               scrollToFirstError
             >
               <Form.Item
-                name="userType"
-                rules={[{ required: true, message: "请选择用户类型" }]}
+                label="产品名称"
+                name = "productName"
+                rules={[
+                    {
+                      required: true,
+                      message: "请输入产品名称！",
+                      whitespace: true,
+                    },
+                ]}
               >
-        
+                <Input placeholder={product.productName} />
               </Form.Item>
 
               <Form.Item
-                name="nickname"
-                rules={[
-                  {
-                    required: true,
-                    message: "请输入登录名！",
-                    whitespace: true,
-                  },
-                ]}
+                label="提供方名称"
+                
               >
-                <Input placeholder={"请输入登录名"} />
+                 <label>{product.providerName} </label>
               </Form.Item>
 
+              <Form.Item
+                label="详细描述"
+                name = "information"
+                rules={[
+                    {
+                      required: true,
+                      message: "请输入产品详细描述",
+                      whitespace: true,
+                    },
+                ]}
+              >
+                <Input placeholder={product.information} />
+              </Form.Item>
+
+              <Form.Item
+                label="创建时间"
+              >
+                <label> {moment(product.createTime).format('YYYY-MM-DD')}</label>
+              </Form.Item>
 
               <Form.Item>
                 <Button
@@ -106,14 +139,43 @@ export default function ProductDetail({productId}) {
                   block
                   style={{ height: "40PX", borderRadius: "12PX" }}
                 >
-                  同意协议并提交
+                  保存
                 </Button>
               </Form.Item>
             </Form>
-        ) : (
+        ) 
+        : (
           <>
-            <h1>{data.name}</h1>
-            <p>{data.description}</p>
+            <Form
+              style={{
+                maxWidth: 700,
+              }}
+              scrollToFirstError
+            >
+              <Form.Item
+                label="产品名称"
+              >
+                <label>{product.productName} </label>
+              </Form.Item>
+
+              <Form.Item
+                label="提供方名称"
+              >
+                 <label>{product.providerName} </label>
+              </Form.Item>
+
+              <Form.Item
+                label="详细描述"
+              >
+                <label>{product.information} </label>
+              </Form.Item>
+
+              <Form.Item
+                label="创建时间"
+              >
+                <label> {moment(product.createTime).format('YYYY-MM-DD')}</label>
+              </Form.Item>
+            </Form>
             <Button
                 type="primary"
                 htmlType="submit"
@@ -122,7 +184,8 @@ export default function ProductDetail({productId}) {
                 onClick={() => setEditing(true)}>修改
             </Button>
           </>
-        )}
+        )
+        }
          </div> 
          </div>
       </div>

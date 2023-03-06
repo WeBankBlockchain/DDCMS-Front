@@ -20,10 +20,14 @@ export default function ProjectList() {
   const [totalPage, setTotalPage] = useState(0);
 
   const [initRefresh, setInitRefresh] = useState(false);
+  const [providerId, setProviderId] = useState("")
 
   //获取路由带过来的providerId
   const location = useLocation()
-  console.log(location.state.providerId)
+  if(location.state !== null && location.state.providerId !== providerId){
+    setProviderId(location.state.providerId)
+    setInitRefresh(!initRefresh)
+}
 
 
   PubSub.subscribe('keyWord', (_, data) => {
@@ -36,6 +40,7 @@ export default function ProjectList() {
 
     const req = {
       keyWord: keyWord,
+      providerId: providerId,
       pageNo: pageNo,
       pageSize: pageSize
     }
