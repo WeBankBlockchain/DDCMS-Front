@@ -1,5 +1,3 @@
-import CommonFooter from "../components/CommonFooter";
-import HomeHeader from "../components/HomeHeader";
 import React, { useEffect,useState } from 'react';
 import { queryProductByIdApi,createProductApi } from '../request/api';
 import { message } from 'antd';
@@ -16,6 +14,7 @@ import {
     Layout,
   } from "antd";
 const { Content } = Layout;
+const { TextArea } = Input;
 
 
 export default function ProductDetail({}) {
@@ -72,7 +71,6 @@ export default function ProductDetail({}) {
 
     return (
         <Layout className="layout">
-        <HomeHeader></HomeHeader>
         <Content
           style={{
             width: "100%",
@@ -133,7 +131,8 @@ export default function ProductDetail({}) {
                     },
                 ]}
               >
-                <Input placeholder={product.information} />
+                 <TextArea rows={4} placeholder={product.information} maxLength={6} />
+                {/* <Input placeholder={product.information} /> */}
               </Form.Item>
 
               <Form.Item
@@ -177,7 +176,7 @@ export default function ProductDetail({}) {
               <Form.Item
                 label="详细描述"
               >
-                <label>{product.information} </label>
+                <TextArea rows={4} placeholder={product.information} maxLength={6} disabled = "true"/>
               </Form.Item>
 
               <Form.Item
@@ -200,7 +199,6 @@ export default function ProductDetail({}) {
          </div>
       </div>
       </Content>
-      <CommonFooter></CommonFooter>
     </Layout>
     );
   }
