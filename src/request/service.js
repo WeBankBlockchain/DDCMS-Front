@@ -1,7 +1,9 @@
 import axios from "axios";
 
+export const baseURL = "http://116.205.167.248:10880/api/";
+
 const axiosOption = {
-  baseURL: "http://116.205.167.248:10880/api/",
+  baseURL: baseURL,
   // baseURL: 'http://127.0.0.1:10880/api/',
   timeout: 5000,
 };
