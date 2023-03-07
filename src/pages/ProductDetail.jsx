@@ -96,6 +96,12 @@ export default function ProductDetail({}) {
               onFinishFailed={onFinishFailed}
               style={{
                 maxWidth: 700,
+                width: "100%",
+                padding: 30,
+                minHeight: 800,
+                alignItems: "center",
+                margin: "0 auto",
+                marginTop: 30,
               }}
               scrollToFirstError
             >
@@ -119,7 +125,11 @@ export default function ProductDetail({}) {
               >
                  <label>{product.providerName} </label>
               </Form.Item>
-
+              <Form.Item
+                label="创建时间"
+              >
+                <label> {moment(product.createTime).format('YYYY-MM-DD')}</label>
+              </Form.Item>
               <Form.Item
                 label="详细描述"
                 name = "information"
@@ -135,11 +145,7 @@ export default function ProductDetail({}) {
                 {/* <Input placeholder={product.information} /> */}
               </Form.Item>
 
-              <Form.Item
-                label="创建时间"
-              >
-                <label> {moment(product.createTime).format('YYYY-MM-DD')}</label>
-              </Form.Item>
+            
 
               <Form.Item>
                 <Button
@@ -158,7 +164,13 @@ export default function ProductDetail({}) {
             <Form
               style={{
                 maxWidth: 700,
-              }}
+                width: "100%",
+                padding: 30,
+                minHeight: 800,
+                alignItems: "center",
+                margin: "0 auto",
+                marginTop: 30,  
+            }}
               scrollToFirstError
             >
               <Form.Item
@@ -172,6 +184,13 @@ export default function ProductDetail({}) {
               >
                  <label>{product.providerName} </label>
               </Form.Item>
+              <Form.Item
+                label="创建时间"
+              >
+                <label> 
+                {moment(product.createTime).format('YYYY-MM-DD')}
+                </label>
+                </Form.Item>
 
               <Form.Item
                 label="详细描述"
@@ -179,19 +198,15 @@ export default function ProductDetail({}) {
                 <TextArea rows={4} placeholder={product.information} maxLength={6} disabled = "true"/>
               </Form.Item>
 
-              <Form.Item
-                label="创建时间"
-              >
-                <label> {moment(product.createTime).format('YYYY-MM-DD')}</label>
-              </Form.Item>
-            </Form>
-            <Button
+            
+              <Button
                 type="primary"
                 htmlType="submit"
                 block
                 style={{ height: "40PX", borderRadius: "12PX" }}
                 onClick={() => setEditing(true)}>修改
             </Button>
+            </Form>
           </>
         )
         }
