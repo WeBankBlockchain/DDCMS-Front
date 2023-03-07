@@ -1,7 +1,7 @@
 import CommonFooter from "../components/CommonFooter";
 import HomeHeader from "../components/HomeHeader";
 import React, { useEffect,useState } from 'react';
-import { queryProductByIdApi } from '../request/api';
+import { queryProductByIdApi,createProductApi } from '../request/api';
 import { message } from 'antd';
 import { useLocation } from 'react-router-dom'
 import moment from 'moment'
@@ -51,6 +51,16 @@ export default function ProductDetail({}) {
 
     const onFinish = (values) => {
         console.log("Received values of form: ", values);
+        createProductApi(form).then((res) => {
+            if(res.code === '0'){
+                setEditing(false);
+                setInitLoading(true);
+                setProduct(res.data);
+            }else{
+                message.error(res.msg);
+            }
+        })
+
         message.success("提交成功");
       };
     
