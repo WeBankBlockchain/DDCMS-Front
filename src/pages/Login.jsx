@@ -16,20 +16,24 @@ export default function Login() {
       username: values.username,
       password: values.password,
     };
-    LoginApi(loginRequest).then((res) => {
-      if (res.code === "0") {
-        console.log("succ");
-        message.success("登录成功!");
-        localStorage.setItem("username", values.username);
-        localStorage.setItem("did", res.data.did);
-        localStorage.setItem("token", res.data.token);
-        setTimeout(() => navigate("/admin"), 1000);
-      } else {
-        console.log(res);
-        message.error("登录失败!");
-        message.error(res.msg);
-      }
-    });
+    LoginApi(loginRequest)
+      .then((res) => {
+        if (res.code === "0") {
+          console.log("succ");
+          message.success("登录成功!");
+          localStorage.setItem("username", values.username);
+          localStorage.setItem("did", res.data.did);
+          localStorage.setItem("token", res.data.token);
+          setTimeout(() => navigate("/admin"), 1000);
+        } else {
+          console.log(res);
+          message.error("登录失败!");
+          message.error(res.msg);
+        }
+      })
+      .catch((error) => {
+        message.error(error.response.data.message);
+      });
     console.log("Received values of form: ", values);
   };
 

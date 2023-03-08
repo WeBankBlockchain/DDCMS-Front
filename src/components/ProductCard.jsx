@@ -8,13 +8,29 @@ import {
 } from '@ant-design/icons';
 
 import moment from 'moment'
+import { useNavigate } from 'react-router-dom';
 
 export default function ProductCard(props) {
-  return (
+
+    const navigate = useNavigate()
+
+    const productOnClick = (productId) => {
+        navigate('/product/detail', {
+          state: {productId: productId}
+        })
+      }
+
+    return (
     <div className='product-card'>
       <div className='product-header'>
         <div className='product-title'>
-          <Button type="link" style={{fontSize: 18, fontWeight: 500, color: '#000'}}>{props.item.productName}</Button>
+        <Button 
+            type="link" 
+            style={{fontSize: 18, fontWeight: 500, color: '#000'}}
+            onClick={()=>{productOnClick(props.item.productId)}}
+          >
+            {props.item.productName}
+          </Button>
         </div>
         <div className='product-star'>
           <Space>

@@ -17,4 +17,8 @@ export const GetHotProductsApi = (params) => service.post('product/getHotProduct
 
 export const pageQueryProductApi = (params) => service.post('product/pageQueryProduct', params);
 
+export const queryProductByIdApi = (params) => service.post('product/queryProductById', params);
+
+export const createProductApi = (params) => service.post('product/createProduct', params);
+
 export const GetHotTagsApi = (params) => service.post('tag/getHotTags', params);

@@ -14,6 +14,7 @@ import CommonFooter from "../components/CommonFooter";
 import HomeHeader from "../components/HomeHeader";
 import "../assets/common.css";
 import { RegisterApi } from "../request/api.js";
+import FileUploader from "../components/FileUploader";
 
 const { Content } = Layout;
 const { Option } = Select;
@@ -24,6 +25,7 @@ export default function Register() {
   const [companyVisible, setCompanyVisible] = useState(false);
   const [userType, setUserType] = useState("personal");
   const navigate = useNavigate();
+  const [fileName, setFileName] = useState(null);
 
   const onFinish = (values) => {
     let registRequest, detailJsonStr;
@@ -45,9 +47,10 @@ export default function Register() {
     } else {
       console.log(userType);
       detailJsonStr = JSON.stringify({
-        orgName: values.name,
+        orgName: values.orgName,
         contact: values.phone,
         certType: values.certType,
+        fileName: fileName,
       });
       registRequest = {
         accountType: "1",
@@ -56,20 +59,24 @@ export default function Register() {
         detailJson: detailJsonStr,
       };
     }
-    RegisterApi(registRequest).then((res) => {
-      if (res.code === "0") {
-        console.log("success");
-        message.success("注册成功!");
-        localStorage.setItem("username", values.username);
-        localStorage.setItem("did", res.data.did);
-        localStorage.setItem("token", res.data.token);
-        setTimeout(() => navigate("/admin"), 1000);
-      } else {
-        console.log(res);
-        message.error("登录失败!");
-        message.error(res.msg);
-      }
-    });
+    RegisterApi(registRequest)
+      .then((res) => {
+        if (res.code === "0") {
+          console.log("success");
+          message.success("注册成功!");
+          localStorage.setItem("username", values.username);
+          localStorage.setItem("did", res.data.did);
+          localStorage.setItem("token", res.data.token);
+          setTimeout(() => navigate("/admin"), 1000);
+        } else {
+          console.log(res);
+          message.error("登录失败!");
+          message.error(res.msg);
+        }
+      })
+      .catch((error) => {
+        message.error(error.response.data.message);
+      });
     message.success("提交成功");
   };
 
@@ -92,6 +99,13 @@ export default function Register() {
       setCompanyVisible(true);
       setUserType("company");
     }
+  };
+
+  // 定义一个函数，用于接收子组件传递过来的数据
+  const handleFileChange = (res) => {
+    console.log(res);
+    // 更新状态变量
+    setFileName(res);
   };
 
   return (
@@ -270,6 +284,30 @@ export default function Register() {
                   }}
                 />
               </Form.Item>
+
+              {companyVisible && (
+                <Form.Item
+                  name="orgCert"
+                  rules={[
+                    {
+                      validator: () =>
+                        fileName
+                          ? Promise.resolve()
+                          : Promise.reject(
+                              new Error("Should accept agreement")
+                            ),
+                      message: "请上传机构证件照片",
+                    },
+                  ]}
+                >
+                  <FileUploader
+                    onFileChange={handleFileChange}
+                    label="请上传证件照片"
+                  >
+                    {" "}
+                  </FileUploader>
+                </Form.Item>
+              )}
 
               <Form.Item
                 name="phone"
