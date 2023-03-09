@@ -1,37 +1,33 @@
-import { UploadOutlined } from '@ant-design/icons';
-import { Button, message, Upload } from 'antd';
-import {baseURL} from "../request/service.js";
-
-const uploadFile = (file) => {
-  // create a FormData object
-  const formData = new FormData();
-  // append the file to the formData
-  formData.append('file', file);
-  // append other data to the formData
-  formData.append('name', 'test');
-  return formData;
-};
-
-const url = baseURL + 'file/upload';
-
-const props = {
-  name: 'file',
-  action: url,
-  data: {uploadFile},
-  onChange(info) {
-    if (info.file.status !== 'uploading') {
-      console.log(info.file, info.fileList);
-    }
-    if (info.file.status === 'done') {
-      message.success(`${info.file.name} file uploaded successfully`);
-    } else if (info.file.status === 'error') {
-      message.error(`${info.file.name} file upload failed.`);
-    }
-  },
-};
-const App = () => (
-  <Upload {...props}>
-    <Button icon={<UploadOutlined />}>Click to Upload</Button>
-  </Upload>
+import { Badge, Descriptions } from 'antd';
+const Test = () => (
+  <Descriptions title="User Info" bordered>
+    <Descriptions.Item label="Product">Cloud Database</Descriptions.Item>
+    <Descriptions.Item label="Billing Mode">Prepaid</Descriptions.Item>
+    <Descriptions.Item label="Automatic Renewal">YES</Descriptions.Item>
+    <Descriptions.Item label="Order time">2018-04-24 18:00:00</Descriptions.Item>
+    <Descriptions.Item label="Usage Time" span={2}>
+      2019-04-24 18:00:00
+    </Descriptions.Item>
+    <Descriptions.Item label="Status" span={3}>
+      <Badge status="processing" text="Running" />
+    </Descriptions.Item>
+    <Descriptions.Item label="Negotiated Amount">$80.00</Descriptions.Item>
+    <Descriptions.Item label="Discount">$20.00</Descriptions.Item>
+    <Descriptions.Item label="Official Receipts">$60.00</Descriptions.Item>
+    <Descriptions.Item label="Config Info">
+      Data disk type: MongoDB
+      <br />
+      Database version: 3.4
+      <br />
+      Package: dds.mongo.mid
+      <br />
+      Storage space: 10 GB
+      <br />
+      Replication factor: 3
+      <br />
+      Region: East China 1
+      <br />
+    </Descriptions.Item>
+  </Descriptions>
 );
-export default App;
+export default Test;

@@ -47,7 +47,7 @@ export default function AdminHeader() {
             }}
           >
             <Avatar icon={<UserOutlined />} />
-            <Avatar size={48}>USER</Avatar>
+            <Avatar size={48}>{localStorage.getItem("username")}</Avatar>
             <Button type="primary" onClick={logout} style={{ color: "white" }}>
               退出
             </Button>
