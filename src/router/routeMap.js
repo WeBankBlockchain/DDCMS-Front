@@ -1,10 +1,11 @@
 import App from '../App';
 import Home from '../pages/Home';
 import Error from '../pages/Error';
-import Admin from '../pages/Admin';
+import UserInfo from '../pages/UserInfo';
 import Login from '../pages/Login';
 import Register from '../pages/Register';
 import Test from '../pages/Test';
+import Admin from '../pages/Admin';
 import ProductList from '../pages/ProductList';
 import SchemaDetail from '../pages/SchemaDetail';
 import ProductDetail from '../pages/ProductDetail';
@@ -37,8 +38,12 @@ export const routeMap = [
 		]
 	},
 	{
-		path: 'Admin',
+		path: 'admin',
 		element: <Admin />
+	},
+	{
+		path: 'userInfo',
+		element: <UserInfo />
 	},
 	{
 		path: 'login',

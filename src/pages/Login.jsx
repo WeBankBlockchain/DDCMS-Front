@@ -24,6 +24,7 @@ export default function Login() {
           localStorage.setItem("username", values.username);
           localStorage.setItem("did", res.data.did);
           localStorage.setItem("token", res.data.token);
+          localStorage.setItem("accountType", res.data.accountType);
           setTimeout(() => navigate("/admin"), 1000);
         } else {
           console.log(res);

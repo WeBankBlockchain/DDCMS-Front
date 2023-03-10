@@ -1,8 +1,8 @@
 import { Breadcrumb, Layout, theme } from "antd";
 import React from "react";
-import AdminHeader from "../components/AdminHeader";
-import CommonFooter from "../components/CommonFooter";
-import AdminSlider from "../components/AdminSlider";
+import AdminHeader from "./AdminHeader";
+import CommonFooter from "./CommonFooter";
+import AdminSlider from "./AdminSlider";
 
 const { Content } = Layout;
 

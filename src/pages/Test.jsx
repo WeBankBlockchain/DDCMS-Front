@@ -1,33 +1,116 @@
-import { Badge, Descriptions } from 'antd';
-const Test = () => (
-  <Descriptions title="User Info" bordered>
-    <Descriptions.Item label="Product">Cloud Database</Descriptions.Item>
-    <Descriptions.Item label="Billing Mode">Prepaid</Descriptions.Item>
-    <Descriptions.Item label="Automatic Renewal">YES</Descriptions.Item>
-    <Descriptions.Item label="Order time">2018-04-24 18:00:00</Descriptions.Item>
-    <Descriptions.Item label="Usage Time" span={2}>
-      2019-04-24 18:00:00
-    </Descriptions.Item>
-    <Descriptions.Item label="Status" span={3}>
-      <Badge status="processing" text="Running" />
-    </Descriptions.Item>
-    <Descriptions.Item label="Negotiated Amount">$80.00</Descriptions.Item>
-    <Descriptions.Item label="Discount">$20.00</Descriptions.Item>
-    <Descriptions.Item label="Official Receipts">$60.00</Descriptions.Item>
-    <Descriptions.Item label="Config Info">
-      Data disk type: MongoDB
-      <br />
-      Database version: 3.4
-      <br />
-      Package: dds.mongo.mid
-      <br />
-      Storage space: 10 GB
-      <br />
-      Replication factor: 3
-      <br />
-      Region: East China 1
-      <br />
-    </Descriptions.Item>
-  </Descriptions>
-);
+import { Button, Space, Table } from 'antd';
+import { useState } from 'react';
+const data = [
+  {
+    key: '1',
+    name: 'John Brown',
+    age: 32,
+    address: 'New York No. 1 Lake Park',
+  },
+  {
+    key: '2',
+    name: 'Jim Green',
+    age: 42,
+    address: 'London No. 1 Lake Park',
+  },
+  {
+    key: '3',
+    name: 'Joe Black',
+    age: 32,
+    address: 'Sydney No. 1 Lake Park',
+  },
+  {
+    key: '4',
+    name: 'Jim Red',
+    age: 32,
+    address: 'London No. 2 Lake Park',
+  },
+];
+const Test = () => {
+  const [filteredInfo, setFilteredInfo] = useState({});
+  const [sortedInfo, setSortedInfo] = useState({});
+  const handleChange = (pagination, filters, sorter) => {
+    console.log('Various parameters', pagination, filters, sorter);
+    setFilteredInfo(filters);
+    setSortedInfo(sorter);
+  };
+  const clearFilters = () => {
+    setFilteredInfo({});
+  };
+  const clearAll = () => {
+    setFilteredInfo({});
+    setSortedInfo({});
+  };
+  const setAgeSort = () => {
+    setSortedInfo({
+      order: 'descend',
+      columnKey: 'age',
+    });
+  };
+  const columns = [
+    {
+      title: '用户名',
+      dataIndex: 'name',
+      key: 'name',
+      filters: [
+        {
+          text: 'Joe',
+          value: 'Joe',
+        },
+        {
+          text: 'Jim',
+          value: 'Jim',
+        },
+      ],
+      filteredValue: filteredInfo.name || null,
+      onFilter: (value, record) => record.name.includes(value),
+      sorter: (a, b) => a.name.length - b.name.length,
+      sortOrder: sortedInfo.columnKey === 'name' ? sortedInfo.order : null,
+      ellipsis: true,
+    },
+    {
+      title: 'Age',
+      dataIndex: 'age',
+      key: 'age',
+      sorter: (a, b) => a.age - b.age,
+      sortOrder: sortedInfo.columnKey === 'age' ? sortedInfo.order : null,
+      ellipsis: true,
+    },
+    {
+      title: 'Address',
+      dataIndex: 'address',
+      key: 'address',
+      filters: [
+        {
+          text: 'London',
+          value: 'London',
+        },
+        {
+          text: 'New York',
+          value: 'New York',
+        },
+      ],
+      filteredValue: filteredInfo.address || null,
+      onFilter: (value, record) => record.address.includes(value),
+      sorter: (a, b) => a.address.length - b.address.length,
+      sortOrder: sortedInfo.columnKey === 'address' ? sortedInfo.order : null,
+      ellipsis: true,
+    },
+    
+  ];
+  return (
+    <>
+      <Space
+        style={{
+          marginBottom: 16,
+        }}
+      >
+        <Button onClick={setAgeSort}>Sort age</Button>
+        <Button onClick={clearFilters}>Clear filters</Button>
+        <Button onClick={clearAll}>Clear filters and sorters</Button>
+      </Space>
+      <Table columns={columns} dataSource={data} onChange={handleChange} />
+    </>
+  );
+};
 export default Test;
