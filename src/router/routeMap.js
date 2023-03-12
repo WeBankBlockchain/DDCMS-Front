@@ -1,7 +1,7 @@
 import App from '../App';
 import Home from '../pages/Home';
 import Error from '../pages/Error';
-import UserInfo from '../pages/UserInfo';
+import OrgInfo from '../pages/OrgInfo';
 import Login from '../pages/Login';
 import Register from '../pages/Register';
 import Test from '../pages/Test';
@@ -43,8 +43,8 @@ export const routeMap = [
 		element: <Admin />
 	},
 	{
-		path: 'userInfo',
-		element: <UserInfo />
+		path: 'orgInfo',
+		element: <OrgInfo />
 	},
 	{
 		path: 'login',

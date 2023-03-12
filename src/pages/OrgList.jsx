@@ -181,8 +181,8 @@ export default function OrgList() {
 
   const AdminPage = AdminTemplate(usersList);
   const breadcrumb = {
-    home: "账户管理",
-    list: "机构账户管理",
+    home: "首页",
+    list: "账户管理",
     app: "机构注册审核",
   };
 

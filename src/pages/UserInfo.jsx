@@ -2,6 +2,7 @@ import React from "react";
 import AdminTemplate from "../components/AdminTemplate";
 import { Badge, Descriptions } from "antd";
 
+
 const Profile = () => (
   <Descriptions title="用户信息" bordered>
     <Descriptions.Item label="账户类型">机构</Descriptions.Item>
@@ -24,9 +25,9 @@ const Profile = () => (
 export default function UserInfo() {
   const AdminPage = AdminTemplate(Profile);
   const breadcrumb = {
-    home: "账户管理",
-    list: "机构账户管理",
-    app: "账户查询",
+    home: "首页",
+    list: "账户管理",
+    app: "机构信息查询",
   };
   return (
     <AdminPage

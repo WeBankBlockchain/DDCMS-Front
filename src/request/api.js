@@ -22,6 +22,9 @@ export const PageQueryCompanyApi = (params) =>
 export const GetHotCompaniesApi = (params) =>
   service.post("account/getHotCompanies", params);
 
+export const QueryCompanyByUsernameApi = (params) =>
+  service.post("account/queryCompanyByUsername", params);
+
 export const GetHotProductsApi = (params) =>
   service.post("product/getHotProducts", params);
 
