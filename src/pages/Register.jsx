@@ -47,10 +47,11 @@ export default function Register() {
     } else {
       console.log(userType);
       detailJsonStr = JSON.stringify({
-        orgName: values.orgName,
+        companyName: values.orgName,
         contact: values.phone,
         certType: values.certType,
-        fileName: fileName,
+        certNo: values.certNo,
+        certFileUrl: fileName,
       });
       registRequest = {
         accountType: "1",
@@ -61,7 +62,7 @@ export default function Register() {
     }
     RegisterApi(registRequest)
       .then((res) => {
-        if (res.code === "0") {
+        if (res.code === 0) {
           console.log("success");
           message.success("注册成功!");
           localStorage.setItem("username", values.username);

@@ -11,7 +11,7 @@ const AdminTemplate = (WrappedComponent) => {
     token: { colorBgContainer },
   } = theme.useToken();
   return (props) => {
-    const { defaultSelectedKeys, defaultOpenKeys, ...restProps } = props;
+    const { breadcrumb, defaultSelectedKeys, defaultOpenKeys, ...restProps } = props;
 
     return (
       <Layout>
@@ -30,9 +30,9 @@ const AdminTemplate = (WrappedComponent) => {
               margin: "16px 0",
             }}
           >
-            <Breadcrumb.Item>Home</Breadcrumb.Item>
-            <Breadcrumb.Item>List</Breadcrumb.Item>
-            <Breadcrumb.Item>App</Breadcrumb.Item>
+            <Breadcrumb.Item>{breadcrumb.home}</Breadcrumb.Item>
+            <Breadcrumb.Item>{breadcrumb.list}</Breadcrumb.Item>
+            <Breadcrumb.Item>{breadcrumb.app}</Breadcrumb.Item>
           </Breadcrumb>
           <Layout
             style={{

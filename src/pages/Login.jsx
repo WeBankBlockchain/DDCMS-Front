@@ -18,7 +18,7 @@ export default function Login() {
     };
     LoginApi(loginRequest)
       .then((res) => {
-        if (res.code === "0") {
+        if (res.code === 0) {
           console.log("succ");
           message.success("登录成功!");
           localStorage.setItem("username", values.username);

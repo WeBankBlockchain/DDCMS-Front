@@ -9,6 +9,7 @@ import Admin from '../pages/Admin';
 import ProductList from '../pages/ProductList';
 import SchemaDetail from '../pages/SchemaDetail';
 import ProductDetail from '../pages/ProductDetail';
+import OrgList from '../pages/OrgList';
 
 export const routeMap = [
 	{
@@ -52,6 +53,10 @@ export const routeMap = [
 	{
 		path: 'register',
 		element: <Register />
+	},
+	{
+		path: 'orgList',
+		element: <OrgList />
 	},
 	{
 		path: 'test',

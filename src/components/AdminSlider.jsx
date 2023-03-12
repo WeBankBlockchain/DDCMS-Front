@@ -7,27 +7,55 @@ import { Layout, Menu } from "antd";
 import React from "react";
 
 const { Sider } = Layout;
-["1", "2", "3"].map((key) => ({
-  key,
-  label: `nav ${key}`,
-}));
-const items2 = [UserOutlined, LaptopOutlined, NotificationOutlined].map(
-  (icon, index) => {
-    const key = String(index + 1);
-    return {
-      key: `sub${key}`,
-      icon: React.createElement(icon),
-      label: `subnav ${key}`,
-      children: new Array(4).fill(null).map((_, j) => {
-        const subKey = index * 4 + j + 1;
-        return {
-          key: subKey,
-          label: `option${subKey}`,
-        };
-      }),
-    };
-  }
-);
+
+const sliderItems = [
+  {
+    key: "sub1",
+    icon: React.createElement(UserOutlined),
+    label: "数据目录管理",
+    children: [
+      {
+        key: 11,
+        label: "option11",
+      },
+      {
+        key: 12,
+        label: "option12",
+      },
+    ],
+  },
+  {
+    key: "sub2",
+    icon: React.createElement(LaptopOutlined),
+    label: "产品管理",
+    children: [
+      {
+        key: 21,
+        label: "option21",
+      },
+      {
+        key: 22,
+        label: "option22",
+      },
+    ],
+  },
+  {
+    key: "sub3",
+    icon: React.createElement(NotificationOutlined),
+
+    label: "机构账户管理",
+    children: [
+      {
+        key: 31,
+        label: "机构注册审核",
+      },
+      {
+        key: 32,
+        label: "option32",
+      },
+    ],
+  },
+];
 
 export default function AdminSlider(props) {
   return (
@@ -44,7 +72,7 @@ export default function AdminSlider(props) {
         style={{
           height: "100%",
         }}
-        items={items2}
+        items={sliderItems}
       />
     </Sider>
   );
