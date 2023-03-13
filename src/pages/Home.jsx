@@ -48,7 +48,7 @@ export default function Home() {
       productId: productId
     }
     PageQuerySchemaApi(req).then((res) => {
-      if(res.code === '0'){
+      if(res.code === 0){
         setInitLoading(false);
         setData(res.data.items);
         setList(res.data.items);
@@ -69,7 +69,7 @@ export default function Home() {
       pageSize: pageSize
     }
     PageQuerySchemaApi(req).then((res) => {
-      if(res.code === '0'){
+      if(res.code === 0){
         const newData = data.concat(res.data.items);
         setData(newData);
         setList(newData);

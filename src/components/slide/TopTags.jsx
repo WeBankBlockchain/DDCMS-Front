@@ -32,8 +32,8 @@ export default function TopTags() {
       <Divider style={{margin: '12px 0 0 0'}}/>
       <Space style={{padding: '12px 0'}} size={[0, 8]} wrap>
         {data.map((item) => (
-          <Tag key={item.name}>
-            <Link style={{color: '#000000', fontSize: '14px', padding: '10px 5px'}} to="#">{item.name}</Link>
+          <Tag key={item.tagName}>
+            <Link style={{color: '#000000', fontSize: '14px', padding: '10px 5px'}} to="#">{item.tagName}</Link>
           </Tag>
         ))}
       </Space>
