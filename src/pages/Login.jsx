@@ -18,12 +18,13 @@ export default function Login() {
     };
     LoginApi(loginRequest)
       .then((res) => {
-        if (res.code === "0") {
+        if (res.code === 0) {
           console.log("succ");
           message.success("登录成功!");
           localStorage.setItem("username", values.username);
           localStorage.setItem("did", res.data.did);
           localStorage.setItem("token", res.data.token);
+          localStorage.setItem("accountType", res.data.accountType);
           setTimeout(() => navigate("/admin"), 1000);
         } else {
           console.log(res);

@@ -1,13 +1,15 @@
 import App from '../App';
 import Home from '../pages/Home';
 import Error from '../pages/Error';
-import Admin from '../pages/Admin';
+import OrgInfo from '../pages/OrgInfo';
 import Login from '../pages/Login';
 import Register from '../pages/Register';
 import Test from '../pages/Test';
+import Admin from '../pages/Admin';
 import ProductList from '../pages/ProductList';
 import SchemaDetail from '../pages/SchemaDetail';
 import ProductDetail from '../pages/ProductDetail';
+import OrgList from '../pages/OrgList';
 
 export const routeMap = [
 	{
@@ -37,8 +39,12 @@ export const routeMap = [
 		]
 	},
 	{
-		path: 'Admin',
+		path: 'admin',
 		element: <Admin />
+	},
+	{
+		path: 'orgInfo',
+		element: <OrgInfo />
 	},
 	{
 		path: 'login',
@@ -47,6 +53,10 @@ export const routeMap = [
 	{
 		path: 'register',
 		element: <Register />
+	},
+	{
+		path: 'orgList',
+		element: <OrgList />
 	},
 	{
 		path: 'test',
