@@ -35,7 +35,7 @@ export const routeMap = [
 			{
 				path: 'product/detail',
 				element: <ProductDetail />
-			}
+			},
 		]
 	},
 	{
