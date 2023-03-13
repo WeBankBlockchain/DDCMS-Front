@@ -2,7 +2,15 @@ import React from "react";
 import { useEffect, useState } from "react";
 import AdminTemplate from "../components/AdminTemplate";
 import { ApproveAccount, SearchCompany } from "../request/api";
-import { Table, Space, Button, message } from "antd";
+import {
+  Table,
+  Space,
+  Button,
+  Descriptions,
+  Popover,
+  message,
+  Badge,
+} from "antd";
 import moment from "moment";
 
 // const mockData = [
@@ -172,12 +180,47 @@ export default function OrgList() {
       key: "action",
       render: (_, record) => (
         <Space size="middle">
-          <a>查询详情</a>
+          <Popover content={OrgProfile(record)} >
+            <a>查看详情</a>
+          </Popover>
           <a onClick={() => approve(record.did)}>审核</a>
         </Space>
       ),
     },
   ];
+
+  const OrgProfile = (data) =>
+    data && (
+      <Descriptions title="用户信息" bordered>
+        <Descriptions.Item label="账户类型">机构</Descriptions.Item>
+        <Descriptions.Item label="账户名称">
+          {data.companyName}
+        </Descriptions.Item>
+        <Descriptions.Item label="证件类型">
+          {data.companyCertType}
+        </Descriptions.Item>
+        <Descriptions.Item label="证件号码"> </Descriptions.Item>
+        <Descriptions.Item label="did" span={2}>
+          {data.did}
+        </Descriptions.Item>
+        <Descriptions.Item label="证件影像文件" span={3}>
+          {data.companyCertFileUri}
+        </Descriptions.Item>
+        <Descriptions.Item label="私钥地址" span={3}>
+          {data.keyAddress}
+        </Descriptions.Item>
+        <Descriptions.Item label="开户日期" span={2}>
+          {moment(data.createTime).format("YYYY-MM-DD HH:mm:ss")}
+        </Descriptions.Item>
+        <Descriptions.Item label="审核状态">
+          {data.status === 1 && <Badge status="processing" text="审核中" />}
+          {data.status === 2 && <Badge status="success" text="已审核" />}
+        </Descriptions.Item>
+        <Descriptions.Item label="联系方式">
+          {data.companyContact}
+        </Descriptions.Item>
+      </Descriptions>
+    );
 
   const AdminPage = AdminTemplate(usersList);
   const breadcrumb = {
