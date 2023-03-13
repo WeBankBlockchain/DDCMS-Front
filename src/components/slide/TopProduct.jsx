@@ -22,7 +22,7 @@ export default function TopProduct() {
       topN: topN
     }
     GetHotProductsApi(req).then((res) => {
-      if(res.code === '0'){
+      if(res.code === 0){
         setData(res.data);
       }else{
         message.error(res.msg);
@@ -39,11 +39,11 @@ export default function TopProduct() {
       <Divider style={{margin: '12px 0 0 0'}}/>
       <Space style={{padding: '12px 0'}} size={[0, 8]} wrap>
         {data.map((item) => (
-          <Button key={item.productId}
+          <Button key={item.id}
             style={{color: '#000000', fontSize: '14px', margin: '0 4px'}}
-            onClick={() => {onClick(item.productId)}}
+            onClick={() => {onClick(item.id)}}
           >
-            {item.productName}
+            {item.name}
           </Button>
         ))}
       </Space>
