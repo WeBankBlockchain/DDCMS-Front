@@ -15,8 +15,8 @@ export default function TopTags() {
       topN: topCount
     }
     GetHotTagsApi(req).then((res) => {
-      if(res.code === '0'){
-        setData(res.data);
+      if(res.code === 0){
+        setData(res.data.items);
       }else{
         message.error(res.msg);
       }
