@@ -1,17 +1,32 @@
 import { Content, Footer, Header } from 'antd/es/layout/layout';
-import React from 'react';
-import { Form, Input, Button, Layout, message } from "antd";
+import React,{useState} from 'react';
+import { Form, Input, Button, Layout, message, Select, Tag } from "antd";
 
 import { useLocation } from 'react-router-dom';
 import {NewDataSchemaApi} from '../request/api';
+
+const { Option } = Select;
 
 export default function NewDataSchema() {
     
   
     //获取路由带过来的providerId
     const location = useLocation();
-    
-    
+
+    //获取当前的did
+    const productGid = location.state?.productGid;
+    const {currUserDid, currUserPkId} = getCurrAccountInfo();
+    const [tags, setTags] = useState([]);
+
+    const handleInputPressEnter = (event) => {
+        const value = event.target.value.trim();
+        if (value) {
+          const newTags = [...tags, value];
+          setTags(newTags);
+          event.target.value = '';
+        }
+      };
+      
     return (
         <Layout>
             <Content
@@ -48,19 +63,25 @@ export default function NewDataSchema() {
                             <Input placeholder="请输入数据目录名称" bordered={false} />
                         </Form.Item>
                         <Form.Item
-                            name="password"
+                            name=""
                             rules={[
-                            { required: true, message: "请输入密码!" },
+                            { required: true, message: "请输入目录描述信息" },
                             { pattern: "^[^ ]+$", message: "密码不能有空格" },
                             ]}
                         >
                             <Input
                             bordered={false}
-                            type="password"
-                            placeholder="请输入密码"
+                            placeholder="请输入目录描述信息"
                             />
                         </Form.Item>
-
+                        <Form.Item label="Tags">
+                            <Input onPressEnter={handleInputPressEnter} />
+                            {tags.map((tag) => (
+                                <Tag key={tag} closable onClose={() => setTags(tags.filter((t) => t !== tag))}>
+                                    {tag}
+                                </Tag>
+                            ))}
+                        </Form.Item>
                         <Form.Item>
                             <a href="register">创建账号</a>
                         </Form.Item>
@@ -83,3 +104,7 @@ export default function NewDataSchema() {
     )
   }
   
+
+  function getCurrAccountInfo() {
+    return {currUserDid: "111", currUserPkId: 1}
+  }
