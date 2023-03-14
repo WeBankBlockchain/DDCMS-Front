@@ -32,15 +32,15 @@ export default function Register() {
     if (userType === "personal") {
       console.log(userType);
       detailJsonStr = JSON.stringify({
-        name: values.name,
-        contact: values.phone,
-        email: values.email,
-        certType: values.certType,
-        certNum: values.certNo,
+        personName: values.name,
+        personContact: values.phone,
+        personEmail: values.email,
+        personCertType: values.certType,
+        personCertNo: values.certNo,
       });
       registRequest = {
         accountType: "0",
-        username: values.username,
+        userName: values.userName,
         password: values.password,
         detailJson: detailJsonStr,
       };
@@ -48,14 +48,14 @@ export default function Register() {
       console.log(userType);
       detailJsonStr = JSON.stringify({
         companyName: values.orgName,
-        contact: values.phone,
-        certType: values.certType,
-        certNo: values.certNo,
-        certFileUrl: fileName,
+        companyContact: values.phone,
+        companyCertType: values.certType,
+        companyCertNo: values.certNo,
+        companyCertFileUri: fileName,
       });
       registRequest = {
         accountType: "1",
-        username: values.username,
+        userName: values.userName,
         password: values.password,
         detailJson: detailJsonStr,
       };
@@ -65,10 +65,10 @@ export default function Register() {
         if (res.code === 0) {
           console.log("success");
           message.success("注册成功!");
-          localStorage.setItem("username", values.username);
-          localStorage.setItem("did", res.data.did);
-          localStorage.setItem("token", res.data.token);
-          setTimeout(() => navigate("/admin"), 1000);
+          // localStorage.setItem("userName", values.userName);
+          // localStorage.setItem("did", res.data.did);
+          // localStorage.setItem("token", res.data.token);
+          setTimeout(() => navigate("/login"), 1000);
         } else {
           console.log(res);
           message.error("登录失败!");
@@ -157,7 +157,7 @@ export default function Register() {
               </Form.Item>
 
               <Form.Item
-                name="username"
+                name="userName"
                 rules={[
                   {
                     required: true,

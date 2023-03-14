@@ -1,15 +1,16 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import AdminTemplate from "../components/AdminTemplate";
-import { ApproveAccount, SearchCompany } from "../request/api";
+import { ApproveAccount, SearchCompany, SearchPerson } from "../request/api";
 import {
   Table,
   Space,
-  Button,
   Descriptions,
   Popover,
   message,
   Badge,
+  Form,
+  Radio,
 } from "antd";
 import moment from "moment";
 
@@ -40,10 +41,10 @@ export default function OrgList() {
   const [sortedInfo, setSortedInfo] = useState({});
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState();
+  const [form] = Form.useForm();
+  const [userType, setUserType] = useState("0");
+
   const [tableParams, setTableParams] = useState({
-    condition: {
-      accountStatus: "Registered",
-    },
     pageNo: 1,
     pageSize: 10,
     pagination: {
@@ -52,17 +53,14 @@ export default function OrgList() {
     },
   });
 
-  useEffect(() => {
-    fetchData();
-  }, [JSON.stringify(tableParams)]);
+ 
 
-  const fetchData = () => {
-    setLoading(true);
-    SearchCompany(tableParams)
+  const queryApi = (action) => {
+    action(tableParams)
       .then((res) => {
         if (res.code === 0) {
           console.log(res.data.result);
-          const r = res.data.result.items;
+          const r = res.data.itemList;
           setData(
             r.map((item, index) => ({
               ...item,
@@ -72,13 +70,9 @@ export default function OrgList() {
           setLoading(false);
           setTableParams({
             ...tableParams,
-            condition: {
-              accountStatus: "Registered",
-            },
             pagination: {
               ...tableParams.pagination,
-              // TODO
-              total: 20,
+              total: res.data.totalCount,
             },
           });
         } else {
@@ -90,16 +84,26 @@ export default function OrgList() {
       .catch((error) => {
         message.error(error.response.data.message);
       });
-    message.success("提交成功");
   };
+
+  const fetchData = () => {
+    setLoading(true);
+    if (userType === "1") {
+      queryApi(SearchCompany);
+    }
+    if (userType === "0") {
+      queryApi(SearchPerson);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, [JSON.stringify(tableParams), userType]);
 
   const handleChange = (pagination, _, sorter) => {
     console.log("Various parameters", pagination, sorter);
     setSortedInfo(sorter);
     setTableParams({
-      condition: {
-        accountStatus: "Registered",
-      },
       pagination,
       ...sorter,
       pageNo: pagination.current,
@@ -109,10 +113,6 @@ export default function OrgList() {
     if (pagination.pageSize !== tableParams.pagination?.pageSize) {
       setData([]);
     }
-  };
-
-  const reset = () => {
-    setSortedInfo({});
   };
 
   const approve = (did) => {
@@ -136,15 +136,47 @@ export default function OrgList() {
       });
   };
 
+  const onUserTypeChange = (value) => {
+    let ut = value.target.value;
+    if (ut === "0") {
+      setUserType("0");
+    } else {
+      setUserType("1");
+    }
+    console.log(ut);
+  };
+
   const usersList = () => (
     <>
-      <Space
+      <Form
+        form={form}
+        name="register"
         style={{
-          marginBottom: 16,
+          maxWidth: 600,
         }}
+        scrollToFirstError
+        initialValues={{ userType: "0" }}
       >
-        <Button onClick={reset}>重置</Button>
-      </Space>
+        <Form.Item
+          name="userType"
+          rules={[{ required: true, message: "请选择用户类型" }]}
+        >
+          <Radio.Group
+            buttonStyle="solid"
+            style={{
+              marginTop: 16,
+            }}
+          >
+            <Radio.Button value="0" onChange={onUserTypeChange}>
+              个人用户
+            </Radio.Button>
+            <Radio.Button value="1" onChange={onUserTypeChange}>
+              机构用户
+            </Radio.Button>
+          </Radio.Group>
+        </Form.Item>
+      </Form>
+
       <Table
         columns={columns}
         dataSource={data}
@@ -157,15 +189,6 @@ export default function OrgList() {
 
   const columns = [
     {
-      title: "机构名称",
-      dataIndex: "companyName",
-      key: "companyName",
-      sorter: (a, b) => a.companyName.length - b.companyName.length,
-      sortOrder:
-        sortedInfo.columnKey === "companyName" ? sortedInfo.order : null,
-      ellipsis: true,
-    },
-    {
       title: "注册时间",
       dataIndex: "createTime",
       key: "createTime",
@@ -176,24 +199,74 @@ export default function OrgList() {
       ellipsis: true,
     },
     {
+      title: "注册状态",
+      dataIndex: "status",
+      key: "status",
+      render: (status) => {
+        if (status === 0) {
+          return <Badge status="default" text="未注册" />;
+        } else if (status === 1) {
+          return <Badge status="processing" text="审核中" />;
+        } else if (status === 2) {
+          return <Badge status="success" text="已审核" />;
+        } else if (status === 3) {
+          return <Badge status="error" text="已拒绝" />;
+        }
+      },
+      sorter: (a, b) => a.status - b.status,
+      sortOrder: sortedInfo.status === "status" ? sortedInfo.status : null,
+      ellipsis: true,
+    },
+    {
       title: "操作",
       key: "action",
       render: (_, record) => (
         <Space size="middle">
-          <Popover content={OrgProfile(record)} >
+          <Popover
+            content={
+              record.hasOwnProperty("companyName")
+                ? OrgProfile(record)
+                : PersonProfile(record)
+            }
+          >
             <a>查看详情</a>
           </Popover>
-          <a onClick={() => approve(record.did)}>审核</a>
+          {record.status === 1 && (
+            <a onClick={() => approve(record.did)}>审核</a>
+          )}
         </Space>
       ),
     },
   ];
 
+  if (userType === "0") {
+    columns.unshift({
+      title: "个人名称",
+      dataIndex: "personName",
+      key: "personName",
+      sorter: (a, b) => a.personName.length - b.personName.length,
+      sortOrder:
+        sortedInfo.columnKey === "personName" ? sortedInfo.order : null,
+      ellipsis: true,
+    });
+  }
+  if (userType === "1") {
+    columns.unshift({
+      title: "机构名称",
+      dataIndex: "companyName",
+      key: "companyName",
+      sorter: (a, b) => a.companyName.length - b.companyName.length,
+      sortOrder:
+        sortedInfo.columnKey === "companyName" ? sortedInfo.order : null,
+      ellipsis: true,
+    });
+  }
+
   const OrgProfile = (data) =>
     data && (
-      <Descriptions title="用户信息" bordered>
+      <Descriptions title="机构用户信息" bordered>
         <Descriptions.Item label="账户类型">机构</Descriptions.Item>
-        <Descriptions.Item label="账户名称">
+        <Descriptions.Item label="机构名称">
           {data.companyName}
         </Descriptions.Item>
         <Descriptions.Item label="证件类型">
@@ -213,11 +286,52 @@ export default function OrgList() {
           {moment(data.createTime).format("YYYY-MM-DD HH:mm:ss")}
         </Descriptions.Item>
         <Descriptions.Item label="审核状态">
+          {data.status === 0 && <Badge status="default" text="未注册" />}
           {data.status === 1 && <Badge status="processing" text="审核中" />}
           {data.status === 2 && <Badge status="success" text="已审核" />}
+          {data.status === 3 && <Badge status="error" text="已拒绝" />}
         </Descriptions.Item>
         <Descriptions.Item label="联系方式">
           {data.companyContact}
+        </Descriptions.Item>
+      </Descriptions>
+    );
+
+  const PersonProfile = (data) =>
+    data && (
+      <Descriptions title="个人用户信息" bordered>
+        <Descriptions.Item label="账户类型">个人</Descriptions.Item>
+        <Descriptions.Item label="登录名">{data.userName}</Descriptions.Item>
+        <Descriptions.Item label="个人姓名">
+          {data.personName}
+        </Descriptions.Item>
+        <Descriptions.Item label="证件类型">
+          {data.personCertType}
+        </Descriptions.Item>
+        <Descriptions.Item label="证件号码">
+          {" "}
+          {data.personCertNo}{" "}
+        </Descriptions.Item>
+        <Descriptions.Item label="did" span={2}>
+          {data.did}
+        </Descriptions.Item>
+        <Descriptions.Item label="私钥地址" span={3}>
+          {data.privateKey}
+        </Descriptions.Item>
+        <Descriptions.Item label="开户日期" span={2}>
+          {moment(data.createTime).format("YYYY-MM-DD HH:mm:ss")}
+        </Descriptions.Item>
+        <Descriptions.Item label="审核状态">
+          {data.status === 0 && <Badge status="default" text="未注册" />}
+          {data.status === 1 && <Badge status="processing" text="审核中" />}
+          {data.status === 2 && <Badge status="success" text="已审核" />}
+          {data.status === 3 && <Badge status="error" text="已拒绝" />}
+        </Descriptions.Item>
+        <Descriptions.Item label="联系方式">
+          {data.personContact}
+        </Descriptions.Item>
+        <Descriptions.Item label="电子邮箱">
+          {data.personEmail}
         </Descriptions.Item>
       </Descriptions>
     );
@@ -226,7 +340,7 @@ export default function OrgList() {
   const breadcrumb = {
     home: "首页",
     list: "账户管理",
-    app: "机构注册审核",
+    app: "账户注册审核",
   };
 
   return (

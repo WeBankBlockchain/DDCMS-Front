@@ -10,6 +10,9 @@ export const LogoutApi = (params) => service.post("account/logout", params);
 export const SearchCompany = (params) =>
   service.post("account/searchCompany", params);
 
+export const SearchPerson = (params) =>
+  service.post("account/searchPerson", params);
+
 export const ApproveAccount = (params) =>
   service.post("account/approveAccount", params);
 
