@@ -54,12 +54,12 @@ const sliderItems = [
       },
       {
         key: 32,
-        label: "机构信息查询",
+        label: "用户信息查询",
         path: "../orgInfo",
       },
       {
         key: 33,
-        label: "个人信息查询",
+        label: "option33",
       },
     ],
   },

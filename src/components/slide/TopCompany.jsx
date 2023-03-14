@@ -23,8 +23,8 @@ export default function TopCompany() {
       topN: topN
     }
     GetHotCompaniesApi(req).then((res) => {
-      if(res.code === '0'){
-        setData(res.data);
+      if(res.code === 0){
+        setData(res.data.items);
       }else{
         message.error(res.msg);
       }
@@ -50,7 +50,7 @@ export default function TopCompany() {
                 style={{color: '#000000', fontSize: '14px', padding: '0 0'}}
                 onClick={() => {onClick(item.providerId)}}
               >
-                {item.name}
+                {item.companyName}
               </Button>
             </Space>
           </List.Item>

@@ -22,8 +22,8 @@ export default function TopProduct() {
       topN: topN
     }
     GetHotProductsApi(req).then((res) => {
-      if(res.code === '0'){
-        setData(res.data);
+      if(res.code === 0){
+        setData(res.data.items);
       }else{
         message.error(res.msg);
       }

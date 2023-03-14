@@ -36,8 +36,8 @@ const tailLayout = {
 export default function OrgInfo() {
   const [form] = Form.useForm();
   const [data, setData] = useState();
-  const me = localStorage.getItem("username");
-  console.log(me);
+  const myUsername = localStorage.getItem("username");
+  console.log(myUsername);
 
   const UserCondition = () => (
     <Form
@@ -45,7 +45,7 @@ export default function OrgInfo() {
       form={form}
       name="control-hooks"
       onFinish={onFinish}
-      initialValues={{ username: me }}
+      initialValues={{ username: myUsername }}
     >
       <Form.Item name="username" label="用户名" rules={[{ required: true }]}>
         <Input />
@@ -58,7 +58,7 @@ export default function OrgInfo() {
     </Form>
   );
 
-  const Profile = () =>
+  const OrgProfile = () =>
     data && (
       <Descriptions title="用户信息" bordered>
         <Descriptions.Item label="账户类型">机构</Descriptions.Item>
@@ -94,7 +94,7 @@ export default function OrgInfo() {
   const Content = () => (
     <>
       <UserCondition />
-      <Profile />
+      <OrgProfile />
     </>
   );
 
@@ -122,7 +122,7 @@ export default function OrgInfo() {
   const breadcrumb = {
     home: "首页",
     list: "账户管理",
-    app: "机构信息查询",
+    app: "用户信息查询",
   };
   return (
     <AdminPage
