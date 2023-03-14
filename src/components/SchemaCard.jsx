@@ -9,10 +9,13 @@ import {
 
 import { useNavigate } from 'react-router-dom';
 import moment from 'moment'
+import PubSub from 'pubsub-js'
 
 export default function SchemaCard(props) {
 
   const navigate = useNavigate()
+
+  const breadcrumbArr = []
 
   const schemaOnClick = (schemaId) => {
     navigate('/schema/detail', {
@@ -27,6 +30,8 @@ export default function SchemaCard(props) {
   }
 
   const productOnClick = (productId) => {
+    breadcrumbArr.push()
+    PubSub.publish('breadcrumb', breadcrumbArr);
     navigate('/home', {
       state: {productId: productId}
     })

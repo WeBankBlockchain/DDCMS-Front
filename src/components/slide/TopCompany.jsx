@@ -5,7 +5,7 @@ import { GetHotCompaniesApi } from '../../request/api';
 import { useNavigate } from 'react-router-dom';
 
 
-const topN = 8;
+const topCount = 8;
 
 export default function TopCompany() {
 
@@ -20,11 +20,12 @@ export default function TopCompany() {
 
   useEffect(() => {
     const req = {
-      topN: topN
+      topCount: topCount
     }
     GetHotCompaniesApi(req).then((res) => {
       if(res.code === 0){
-        setData(res.data.items);
+        setData(res.data);
+        console.log(res.data)
       }else{
         message.error(res.msg);
       }
@@ -42,13 +43,13 @@ export default function TopCompany() {
         size="small"
         dataSource={data}
         renderItem={(item) => (
-          <List.Item key={item.name}>
+          <List.Item key={item.companyName}>
             <Space style={{fontSize: '15px'}}>
               <Avatar src="https://joesch.moe/api/v1/random" />
               <Button 
                 type='link'
                 style={{color: '#000000', fontSize: '14px', padding: '0 0'}}
-                onClick={() => {onClick(item.providerId)}}
+                onClick={() => {onClick(item.accountId)}}
               >
                 {item.companyName}
               </Button>

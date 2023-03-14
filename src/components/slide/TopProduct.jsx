@@ -4,7 +4,7 @@ import { Divider, Space, message, Button} from 'antd';
 import { GetHotProductsApi } from '../../request/api';
 import { useNavigate } from 'react-router-dom';
 
-const topN = 20
+const topCount = 20
 
 export default function TopProduct() {
 
@@ -19,11 +19,11 @@ export default function TopProduct() {
 
   useEffect(() => {
     const req = {
-      topN: topN
+      topCount: topCount
     }
     GetHotProductsApi(req).then((res) => {
       if(res.code === 0){
-        setData(res.data.items);
+        setData(res.data);
       }else{
         message.error(res.msg);
       }

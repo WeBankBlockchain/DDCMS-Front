@@ -7,7 +7,7 @@ const { Search } = Input;
 
 export default function SearchBanner() {
 
-  const [data, setData] = useState(['最新', '数据目录列表'])
+  const [data, setData] = useState(['最新', '数据目录'])
 
   const onSearch = (value) => {
     PubSub.publish('keyWord', value);

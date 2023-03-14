@@ -50,10 +50,10 @@ export default function Home() {
     PageQuerySchemaApi(req).then((res) => {
       if(res.code === 0){
         setInitLoading(false);
-        setData(res.data.items);
-        setList(res.data.items);
+        setData(res.data.itemList);
+        setList(res.data.itemList);
         setPageNo(pageNo => pageNo + 1);
-        setTotalPage(res.data.totalPages);
+        setTotalPage(res.data.pageCount);
       }else{
         message.error(res.msg);
       }
@@ -70,13 +70,13 @@ export default function Home() {
     }
     PageQuerySchemaApi(req).then((res) => {
       if(res.code === 0){
-        const newData = data.concat(res.data.items);
+        const newData = data.concat(res.data.itemList);
         setData(newData);
         setList(newData);
         setLoading(false);
         window.dispatchEvent(new Event('resize'));
         setPageNo(pageNo => pageNo + 1);
-        setTotalPage(res.data.totalPages);
+        setTotalPage(res.data.pageCount);
       }else{
         message.error(res.msg);
       }

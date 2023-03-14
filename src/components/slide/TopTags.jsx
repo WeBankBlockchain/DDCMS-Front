@@ -12,11 +12,11 @@ export default function TopTags() {
 
   useEffect(() => {
     const req = {
-      topN: topCount
+      topCount: topCount
     }
     GetHotTagsApi(req).then((res) => {
       if(res.code === 0){
-        setData(res.data.items);
+        setData(res.data);
       }else{
         message.error(res.msg);
       }
