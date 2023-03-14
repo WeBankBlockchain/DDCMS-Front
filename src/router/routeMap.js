@@ -9,6 +9,7 @@ import Admin from '../pages/Admin';
 import ProductList from '../pages/ProductList';
 import SchemaDetail from '../pages/SchemaDetail';
 import ProductDetail from '../pages/ProductDetail';
+import NewDataSchema from '../pages/NewDataSchema';
 import OrgList from '../pages/OrgList';
 
 export const routeMap = [
@@ -27,6 +28,10 @@ export const routeMap = [
 			{
 				path: 'productlist',
 				element: <ProductList />
+			},
+			{
+				path: 'schema/create',
+				element: <NewDataSchema />
 			},
 			{
 				path: 'schema/detail',
