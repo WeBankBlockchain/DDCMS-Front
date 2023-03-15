@@ -145,6 +145,8 @@ export default function OrgList() {
 
   const onUserTypeChange = (value) => {
     let ut = value.target.value;
+    const { keyWord: removedKeyword, ...rest } = tableParams;
+    setTableParams(rest);
     if (ut === "0") {
       setUserType("0");
     } else {
@@ -183,7 +185,7 @@ export default function OrgList() {
         columns={columns}
         dataSource={data}
         loading={loading}
-        pagination={tableParams.pagination}
+        pagination={pagination}
         onChange={handleChange}
       />
     </>
@@ -310,11 +312,11 @@ export default function OrgList() {
         <Descriptions.Item label="证件类型">
           {data.personCertType}
         </Descriptions.Item>
-        <Descriptions.Item label="证件号码">
+        <Descriptions.Item label="证件号码" span={2}>
           {" "}
           {data.personCertNo}{" "}
         </Descriptions.Item>
-        <Descriptions.Item label="did" span={2}>
+        <Descriptions.Item label="did" span={3}>
           {data.did}
         </Descriptions.Item>
         <Descriptions.Item label="私钥地址" span={3}>
