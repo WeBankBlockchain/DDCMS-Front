@@ -1,6 +1,6 @@
 import { Content, Footer, Header } from 'antd/es/layout/layout';
 import React,{useState, useRef} from 'react';
-import { Form, Input, Button, Layout, message, Select, DatePicker, Checkbox} from "antd";
+import { Form, Input, Button, Layout, message, Select, DatePicker, Meta, Card, Row, Col, Divider} from "antd";
 import { TagsInput } from "react-tag-input-component";
 import { useLocation } from 'react-router-dom';
 import {NewDataSchemaApi} from '../request/api';
@@ -57,7 +57,12 @@ export default function NewDataSchema() {
         console.log("Failed:", errorInfo);
         message.error("表单提交错误:");
       };
-    //
+
+    const layout = {
+        labelCol: { span: 24 }, // Use the full width of the form item for the label
+        wrapperCol: { span: 24 }, // Use the full width of the form item for the input
+      };
+
     return (
         <Layout>
             <Content
@@ -69,11 +74,14 @@ export default function NewDataSchema() {
                 margin: "0 auto",
                 }}
             >
+
                 <div className="brain-form-page-bg">
                     <div className="brain-form-page-title" >
                         <h1 > 创建数据目录 </h1>
                     </div>
-                    <div className="brain-form-page-main">
+                    <div className="brain-form-page-main" {...layout} style={{
+                        width: '100%'
+                    }}>
                         <Form
                         name="create-schema"
                         className="create-schema"
@@ -83,80 +91,114 @@ export default function NewDataSchema() {
                         style={{
                             maxWidth: '600px',
                         }}
+                        {...layout}
                         >
+                            <Card title='基本信息' headStyle={{ textAlign: 'left', fontSize:'25px' }}>
                             <Form.Item
-                                name="dataSchemaName"
-                                rules={[
-                                { required: true, message: "请输入数目目录名称" },
-                                { pattern: "^[^ ]+$", message: "名称不能有空格" },
-                                ]}
-                            >
-                                <Input placeholder="请输入数据目录名称" />
-                            </Form.Item>
-                            <Form.Item
-                                name="dataSchemaDesc"
-                                rules={[
-                                { required: true, message: "请输入目录描述信息" },
-                                { pattern: "^[^ ]+$", message: "密码不能有空格" },
-                                ]}
-                            >
-                                <Input
-                                
-                                placeholder="请输入目录描述信息"
-                                />
-                            </Form.Item>
-                            <Form.Item 
-                            name='dataSchemaVisible'                                 
-                            >
-                                <Select placeholder='数据可见性'>
-                                    <Option value="1">数据公开可见</Option>
-                                    <Option value="0">仅对我可见</Option>
-                                </Select>
-                            </Form.Item>
-                            <Form.Item name='dataSchemaVersion' 
-                                defaultValue={0}
-                                rules={[
-                                    { required: true, message: "请输入目录版本号" },
+                                    label="名称"
+                                    name="dataSchemaName"
+                                    rules={[
+                                    { required: true, message: "请输入数目目录名称" },
+                                    { pattern: "^[^ ]+$", message: "名称不能有空格" },
                                     ]}
-                                >
-                                <Input placeholder="请输入版本号" />
-                            </Form.Item>
-                            <Form.Item name="dataSchemaTags">
-                                <TagsInput
-                                    value={tags}
-                                    onChange={setTags}
-                                    separators = {[" "]}
-                                    placeHolder="输入标签，空格作为分割"
-                                />
-                            </Form.Item>
-                            <Form.Item name='dataSchemaUsage'>
-                                <Input placeholder="请输入数据用途" bordered={true} />
-                            </Form.Item>
-                            <Form.Item name='dataSchemaPrice'>
-                                <Input placeholder="请输入价格" bordered={true} />
-                            </Form.Item>
-                            <Form.Item name='dataSchemaUrl'>
-                                <Input placeholder="请输入数据访问Url" bordered={true} />
-                            </Form.Item>
+                                    >
+                                        <Input placeholder="请输入数据目录名称" />
+                                    </Form.Item>
+                                    <Form.Item
+                                        name="dataSchemaDesc"
+                                        label="描述"
+                                        rules={[
+                                        { required: true, message: "请输入目录描述信息" },
+                                        { pattern: "^[^ ]+$", message: "密码不能有空格" },
+                                        ]}
+                                        >
+                                            <Input.TextArea
+                                        
+                                            placeholder="请输入目录描述信息，不超过500字"
+                                            />
+                                    </Form.Item>
+                                    <Row gutter={18}>
+                                        <Col span={12}>
+                                            <Form.Item 
+                                            label='数据是否可见'
+                                            name='dataSchemaVisible' 
+                                            required                                
+                                        >
+                                            <Select placeholder='数据可见性' >
+                                                <Option value="1">数据公开可见</Option>
+                                                <Option value="0">仅对我可见</Option>
+                                            </Select>
+                                            </Form.Item>
+                                        </Col>
+                                        <Col span={12}>
+                                            <Form.Item name='dataSchemaVersion' 
+                                        label='版本号'
+                                        defaultValue={0}
+                                        required
+                                        rules={[
+                                            { required: true, message: "请输入目录版本号" },
+                                            ]}
+                                        >
+                                                <Input placeholder="请输入版本号" />
+                                            </Form.Item>
+                                        </Col>
+                                    </Row>  
 
-                            <Form.Item name='dataSchemaProtocol'>
-                                <Select placeholder='数据传输协议'>
-                                    <Option value="http">HTTP</Option>
-                                    <Option value="https">HTTPS</Option>
-                                    <Option value="sftp">SFTP</Option>
-                                </Select>
-                            </Form.Item>
-                            <Form.Item name='dataSchemaFormat'>
-                                <Input placeholder="请输入数据内容格式" bordered={true} />
-                            </Form.Item>
-                            <Form.Item name='dataSchemaAccessCondition'>
-                                <Input placeholder="请输入查询条件" bordered={true} />
-                            </Form.Item>
-                        
-                            <Form.Item name='dataSchemaTimeRange' >
-                                <DatePicker.RangePicker 
-                                placeholder={['生效日期', '结束日期']}/>
-                            </Form.Item>
+
+                                    <Form.Item name="dataSchemaTags" label='标签' >
+                                        <TagsInput
+                                            value={tags}
+                                            onChange={setTags}
+                                            separators = {[" "]}
+                                            placeHolder="输入标签，空格作为分割"
+                                        />
+                                    </Form.Item>
+                                    <Form.Item name='dataSchemaUsage' label='数据用途' required>
+                                        <Input.TextArea placeholder="请输入数据用途,不得超过500字" bordered={true} />
+                                    </Form.Item>
+                
+
+                            
+                                    <Form.Item label='价格(rmb)' name='dataSchemaPrice' required>
+                                        <Input placeholder="请输入价格,例如300.00" bordered={true} />
+                                    </Form.Item>
+                            </Card>
+                            <Divider></Divider>
+                            <Card title='数据传输信息'  headStyle={{ textAlign: 'left', fontSize:'25px'}}>
+                                <Row gutter={18}>
+                                        <Col span={12}>
+                                            <Form.Item label='数据传输协议' name='dataSchemaProtocol' required>
+                                            <Select placeholder='数据传输协议'>
+                                                <Option value="http">HTTP</Option>
+                                                <Option value="https">HTTPS</Option>
+                                                <Option value="sftp">SFTP</Option>
+                                            </Select>
+                                        </Form.Item>
+                                        </Col>
+                                        <Col span={12}>
+  
+                                            <Form.Item label='数据格式' name='dataSchemaFormat' required>
+                                                <Select placeholder='请输入数据内容格式'>
+                                                    <Option value="json">JSON</Option>
+                                                    <Option value="xml">XML</Option>
+                                                </Select>
+                                            </Form.Item>
+                                        </Col>
+                                    </Row>  
+                                    <Form.Item label='数据url' name='dataSchemaUrl' required>
+                                        <Input placeholder="请输入数据访问Url" bordered={true} />
+                                    </Form.Item>
+                                    <Form.Item label='查询条件' name='dataSchemaAccessCondition' required>
+                                        <Input.TextArea placeholder="请输入查询条件，格式为json" bordered={true} />
+                                    </Form.Item>
+                            
+                                    <Form.Item label='有效日期' name='dataSchemaTimeRange' required>
+                                        <DatePicker.RangePicker 
+                                    placeholder={['生效日期', '结束日期']}/>
+                                    </Form.Item>
+                            </Card>
+
+
 
                             <Form.Item>
                                 <Button
@@ -175,24 +217,9 @@ export default function NewDataSchema() {
         </Layout>            
     )
   }
-  
-  function renderDropdown(placeholder, options) {
-    return (
-      <>
-        <div style={{ paddingLeft: '8px', color: 'rgba(0, 0, 0, 0.25)' }}>{placeholder}</div>
-        {options}
-      </>
-    );
-  }
+
   
   function getCurrAccountInfo() {
     //TODO
     return {currUserDid: "111", currUserPkId: 1, currUserName: '阿里'}
-  }
-
-  function verifyTag(tagName) {
-    if (!tagName){
-        return {success: false, msg: '不可以为空'};
-    }
-    return {success: true, msg: ''};
   }

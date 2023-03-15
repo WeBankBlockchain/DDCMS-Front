@@ -48,7 +48,7 @@ export default function SchemaCard(props) {
             style={{fontSize: 18, fontWeight: 500, color: '#000'}}
             onClick={()=>{schemaOnClick(props.item.schemaId)}}
           >
-            {props.item.schemaName}
+            {props.item.dataSchemaName}
           </Button>
         </div>
         <div className='schema-star'>
@@ -59,7 +59,7 @@ export default function SchemaCard(props) {
       </div>
       <div className='schema-body'>
         <div className='schema-desc'>
-          {props.item.description}
+          {props.item.dataSchemaDesc}
         </div>
       </div>
       <div className='schema-footer'>
