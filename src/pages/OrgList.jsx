@@ -9,8 +9,8 @@ import {
   Popover,
   message,
   Badge,
-  Form,
   Radio,
+  Input,
 } from "antd";
 import moment from "moment";
 
@@ -41,25 +41,22 @@ export default function OrgList() {
   const [sortedInfo, setSortedInfo] = useState({});
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState();
-  const [form] = Form.useForm();
+  const { Search } = Input;
   const [userType, setUserType] = useState("0");
+  const [pagination, setPagination] = useState({
+    current: 1,
+    pageSize: 10,
+  });
 
   const [tableParams, setTableParams] = useState({
     pageNo: 1,
     pageSize: 10,
-    pagination: {
-      current: 1,
-      pageSize: 10,
-    },
   });
-
- 
 
   const queryApi = (action) => {
     action(tableParams)
       .then((res) => {
         if (res.code === 0) {
-          console.log(res.data.result);
           const r = res.data.itemList;
           setData(
             r.map((item, index) => ({
@@ -68,12 +65,9 @@ export default function OrgList() {
             }))
           );
           setLoading(false);
-          setTableParams({
-            ...tableParams,
-            pagination: {
-              ...tableParams.pagination,
-              total: res.data.totalCount,
-            },
+          setPagination({
+            ...pagination,
+            total: res.data.totalCount,
           });
         } else {
           console.log(res);
@@ -93,6 +87,19 @@ export default function OrgList() {
     }
     if (userType === "0") {
       queryApi(SearchPerson);
+    }
+  };
+
+  const onSearch = (keyword) => {
+    console.log(keyword);
+    if (keyword === "") {
+      const { keyWord: removedKeyword, ...rest } = tableParams;
+      setTableParams(rest);
+    } else {
+      setTableParams({
+        ...tableParams,
+        keyWord: keyword,
+      });
     }
   };
 
@@ -148,34 +155,29 @@ export default function OrgList() {
 
   const usersList = () => (
     <>
-      <Form
-        form={form}
-        name="register"
+      <div
         style={{
-          maxWidth: 600,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          margin: "0 0 24px 0",
         }}
-        scrollToFirstError
-        initialValues={{ userType: "0" }}
       >
-        <Form.Item
-          name="userType"
-          rules={[{ required: true, message: "请选择用户类型" }]}
+        <Radio.Group
+          buttonStyle="solid"
+          value={userType}
+          onChange={onUserTypeChange}
         >
-          <Radio.Group
-            buttonStyle="solid"
-            style={{
-              marginTop: 16,
-            }}
-          >
-            <Radio.Button value="0" onChange={onUserTypeChange}>
-              个人用户
-            </Radio.Button>
-            <Radio.Button value="1" onChange={onUserTypeChange}>
-              机构用户
-            </Radio.Button>
-          </Radio.Group>
-        </Form.Item>
-      </Form>
+          <Radio.Button value="0">个人用户</Radio.Button>
+          <Radio.Button value="1">机构用户</Radio.Button>
+        </Radio.Group>
+        <Search
+          placeholder="请输入姓名/公司名称"
+          style={{ width: 350 }}
+          onSearch={onSearch}
+          enterButton
+        />
+      </div>
 
       <Table
         columns={columns}
@@ -214,7 +216,7 @@ export default function OrgList() {
         }
       },
       sorter: (a, b) => a.status - b.status,
-      sortOrder: sortedInfo.status === "status" ? sortedInfo.status : null,
+      sortOrder: sortedInfo.columnKey === "status" ? sortedInfo.order : null,
       ellipsis: true,
     },
     {
