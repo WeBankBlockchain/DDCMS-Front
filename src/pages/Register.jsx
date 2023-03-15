@@ -109,6 +109,14 @@ export default function Register() {
     setFileName(res);
   };
 
+  const validateConfirmPassword = (_, value) => {
+    const password = form.getFieldValue("password");
+    if (value !== password) {
+      return Promise.reject("Passwords do not match");
+    }
+    return Promise.resolve();
+  };
+  
   return (
     <Layout className="layout">
       <HomeHeader></HomeHeader>
@@ -191,14 +199,9 @@ export default function Register() {
                     required: true,
                     message: "请确认密码!",
                   },
-                  ({ getFieldValue }) => ({
-                    validator(_, value) {
-                      if (!value || getFieldValue("password") === value) {
-                        return Promise.resolve();
-                      }
-                      return Promise.reject(new Error("两次输入的密码不相同!"));
-                    },
-                  }),
+                  {
+                    validator: validateConfirmPassword
+                  },
                 ]}
               >
                 <Input.Password placeholder={"请确认密码"} />
