@@ -24,7 +24,7 @@ export default function NewProduct() {
     const onSubmit = (values) => {
         console.log(values);
         const request = {
-            did: currUserDid,
+            did: providerGid,
             productName: values.productName,
             productDesc: values.productDesc
         }

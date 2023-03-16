@@ -13,6 +13,12 @@ export const SearchCompany = (params) =>
 export const SearchPerson = (params) =>
   service.post("account/searchPerson", params);
 
+  export const QueryCompanyByUsername = (params) =>
+  service.post("account/queryCompanyByUsername", params);
+
+export const QueryPersonByUsername = (params) =>
+  service.post("account/queryPersonByUsername", params);
+
 export const ApproveAccount = (params) =>
   service.post("account/approveAccount", params);
 
@@ -42,6 +48,10 @@ export const createProductApi = (params) =>
 
 export const updateProductApi = (params) =>
   service.post("product/updateProduct", params);
+
+export const approveProductApi = (params) =>
+  service.post("product/approveProduct", params);
+
 
 export const GetHotTagsApi = (params) => service.post("tag/getHotTags", params);
 

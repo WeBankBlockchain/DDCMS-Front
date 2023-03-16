@@ -33,11 +33,8 @@ const sliderItems = [
     items: [
       {
         key: 21,
-        label: "option21",
-      },
-      {
-        key: 22,
-        label: "option22",
+        label: "产品审核",
+        path: "../adminProduct",
       },
     ],
   },
@@ -54,8 +51,8 @@ const sliderItems = [
       },
       {
         key: 32,
-        label: "用户信息查询",
-        path: "../orgInfo",
+        label: "账户信息查询",
+        path: "../userInfo",
       },
       {
         key: 33,

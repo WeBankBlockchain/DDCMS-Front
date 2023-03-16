@@ -1,7 +1,7 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import AdminTemplate from "../components/AdminTemplate";
-import { ApproveAccount, SearchCompany, SearchPerson } from "../request/api";
+import { pageQueryProductApi,approveProductApi } from "../request/api";
 import {
   Table,
   Space,
@@ -14,30 +14,8 @@ import {
 } from "antd";
 import moment from "moment";
 
-// const mockData = [
-//   {
-//     key: "1",
-//     companyName: "腾讯",
-//     createTime: 32,
-//   },
-//   {
-//     key: "2",
-//     companyName: "百度",
-//     createTime: 42,
-//   },
-//   {
-//     key: "3",
-//     companyName: "阿里巴巴",
-//     createTime: 33,
-//   },
-//   {
-//     key: "4",
-//     companyName: "字节跳动",
-//     createTime: 19,
-//   },
-// ];
 
-export default function OrgList() {
+export default function AdminProduct() {
   const [sortedInfo, setSortedInfo] = useState({});
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState();
@@ -83,10 +61,7 @@ export default function OrgList() {
   const fetchData = () => {
     setLoading(true);
     if (userType === "1") {
-      queryApi(SearchCompany);
-    }
-    if (userType === "0") {
-      queryApi(SearchPerson);
+      queryApi(pageQueryProductApi);
     }
   };
 
@@ -104,25 +79,33 @@ export default function OrgList() {
   };
 
   useEffect(() => {
+    setUserType("1");
     fetchData();
   }, [JSON.stringify(tableParams), userType]);
 
   const handleChange = (pagination, _, sorter) => {
     console.log("Various parameters", pagination, sorter);
     setSortedInfo(sorter);
-    setPagination(pagination);
     setTableParams({
+      pagination,
+      ...sorter,
       pageNo: pagination.current,
       pageSize: pagination.pageSize,
     });
+    // `dataSource` is useless since `pageSize` changed
+    if (pagination.pageSize !== tableParams.pagination?.pageSize) {
+      setData([]);
+    }
   };
 
-  const approve = (did) => {
+  const approve = (record) => {
     const approveReq = {
-      approved: true,
-      did: did,
+        agree: true,
+        productGId: record.productGid,
+        did: record.did
     };
-    ApproveAccount(approveReq)
+    console.log("approveReq parameters", approveReq);
+    approveProductApi(approveReq)
       .then((res) => {
         if (res.code === 0) {
           message.success("审批成功!");
@@ -138,19 +121,7 @@ export default function OrgList() {
       });
   };
 
-  const onUserTypeChange = (value) => {
-    let ut = value.target.value;
-    const { keyWord: removedKeyword, pageNo: p, ...rest } = tableParams;
-    setPagination({ current: 1, pageSize: 10 });
-    setTableParams({ ...rest, pageNo: 1 });
-    if (ut === "0") {
-      setUserType("0");
-    } else {
-      setUserType("1");
-    }
-  };
-
-  const usersList = () => (
+  const productList = () => (
     <>
       <div
         style={{
@@ -160,14 +131,6 @@ export default function OrgList() {
           margin: "0 0 24px 0",
         }}
       >
-        <Radio.Group
-          buttonStyle="solid"
-          value={userType}
-          onChange={onUserTypeChange}
-        >
-          <Radio.Button value="0">个人用户</Radio.Button>
-          <Radio.Button value="1">机构用户</Radio.Button>
-        </Radio.Group>
         <Search
           placeholder="请输入姓名/公司名称"
           style={{ width: 350 }}
@@ -203,11 +166,9 @@ export default function OrgList() {
       key: "status",
       render: (status) => {
         if (status === 0) {
-          return <Badge status="default" text="未注册" />;
+          return <Badge status="default" text="审核中" />;
         } else if (status === 1) {
-          return <Badge status="processing" text="审核中" />;
-        } else if (status === 2) {
-          return <Badge status="success" text="已审核" />;
+          return <Badge status="processing" text="已审核" />;
         } else if (status === 3) {
           return <Badge status="error" text="已拒绝" />;
         }
@@ -223,32 +184,19 @@ export default function OrgList() {
         <Space size="middle">
           <Popover
             content={
-              record.hasOwnProperty("companyName")
-                ? OrgProfile(record)
-                : PersonProfile(record)
+                 OrgProfile(record)
             }
           >
             <a>查看详情</a>
           </Popover>
-          {record.status === 1 && (
-            <a onClick={() => approve(record.did)}>审核</a>
+          {record.status === 0 && (
+            <a onClick={() => approve(record)}>审核</a>
           )}
         </Space>
       ),
     },
   ];
 
-  if (userType === "0") {
-    columns.unshift({
-      title: "个人名称",
-      dataIndex: "personName",
-      key: "personName",
-      sorter: (a, b) => a.personName.length - b.personName.length,
-      sortOrder:
-        sortedInfo.columnKey === "personName" ? sortedInfo.order : null,
-      ellipsis: true,
-    });
-  }
   if (userType === "1") {
     columns.unshift({
       title: "机构名称",
@@ -263,23 +211,19 @@ export default function OrgList() {
 
   const OrgProfile = (data) =>
     data && (
-      <Descriptions title="机构用户信息" bordered>
+      <Descriptions title="产品名称" bordered>
         <Descriptions.Item label="账户类型">机构</Descriptions.Item>
-        <Descriptions.Item label="机构名称">
+        <Descriptions.Item label="产品名称">
+          {data.productName}
+        </Descriptions.Item>
+        <Descriptions.Item label="公司名称">
           {data.companyName}
         </Descriptions.Item>
-        <Descriptions.Item label="证件类型">
-          {data.companyCertType}
-        </Descriptions.Item>
-        <Descriptions.Item label="证件号码"> </Descriptions.Item>
         <Descriptions.Item label="did" span={2}>
           {data.did}
         </Descriptions.Item>
-        <Descriptions.Item label="证件影像文件" span={3}>
-          {data.companyCertFileUri}
-        </Descriptions.Item>
-        <Descriptions.Item label="私钥地址" span={3}>
-          {data.keyAddress}
+        <Descriptions.Item label="产品描述" span={3}>
+          {data.productDesc}
         </Descriptions.Item>
         <Descriptions.Item label="开户日期" span={2}>
           {moment(data.createTime).format("YYYY-MM-DD HH:mm:ss")}
@@ -290,56 +234,14 @@ export default function OrgList() {
           {data.status === 2 && <Badge status="success" text="已审核" />}
           {data.status === 3 && <Badge status="error" text="已拒绝" />}
         </Descriptions.Item>
-        <Descriptions.Item label="联系方式">
-          {data.companyContact}
-        </Descriptions.Item>
       </Descriptions>
     );
 
-  const PersonProfile = (data) =>
-    data && (
-      <Descriptions title="个人用户信息" bordered>
-        <Descriptions.Item label="账户类型">个人</Descriptions.Item>
-        <Descriptions.Item label="登录名">{data.userName}</Descriptions.Item>
-        <Descriptions.Item label="个人姓名">
-          {data.personName}
-        </Descriptions.Item>
-        <Descriptions.Item label="证件类型">
-          {data.personCertType}
-        </Descriptions.Item>
-        <Descriptions.Item label="证件号码" span={2}>
-          {" "}
-          {data.personCertNo}{" "}
-        </Descriptions.Item>
-        <Descriptions.Item label="did" span={3}>
-          {data.did}
-        </Descriptions.Item>
-        <Descriptions.Item label="私钥地址" span={3}>
-          {data.privateKey}
-        </Descriptions.Item>
-        <Descriptions.Item label="开户日期" span={2}>
-          {moment(data.createTime).format("YYYY-MM-DD HH:mm:ss")}
-        </Descriptions.Item>
-        <Descriptions.Item label="审核状态">
-          {data.status === 0 && <Badge status="default" text="未注册" />}
-          {data.status === 1 && <Badge status="processing" text="审核中" />}
-          {data.status === 2 && <Badge status="success" text="已审核" />}
-          {data.status === 3 && <Badge status="error" text="已拒绝" />}
-        </Descriptions.Item>
-        <Descriptions.Item label="联系方式">
-          {data.personContact}
-        </Descriptions.Item>
-        <Descriptions.Item label="电子邮箱">
-          {data.personEmail}
-        </Descriptions.Item>
-      </Descriptions>
-    );
-
-  const AdminPage = AdminTemplate(usersList);
+  const AdminPage = AdminTemplate(productList);
   const breadcrumb = {
     home: "首页",
-    list: "账户管理",
-    app: "账户注册审核",
+    list: "产品管理",
+    app: "产品审核",
   };
 
   return (

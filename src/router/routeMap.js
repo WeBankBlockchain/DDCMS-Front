@@ -4,6 +4,7 @@ import Error from '../pages/Error';
 import OrgInfo from '../pages/OrgInfo';
 import Login from '../pages/Login';
 import Register from '../pages/Register';
+import UserInfo from '../pages/UserInfo';
 import Test from '../pages/Test';
 import Admin from '../pages/Admin';
 import ProductList from '../pages/ProductList';
@@ -13,6 +14,8 @@ import NewDataSchema from '../pages/NewDataSchema';
 import ModifyDataSchema from '../pages/ModifyDataSchema';
 import OrgList from '../pages/OrgList';
 import NewProduct from '../pages/NewProduct';
+import AdminProduct from '../pages/AdminProduct';
+
 
 export const routeMap = [
 	{
@@ -72,6 +75,14 @@ export const routeMap = [
 	{
 		path: 'orgList',
 		element: <OrgList />
+	},
+	{
+		path: 'adminProduct',
+		element: <AdminProduct />
+	},
+	{
+		path: 'userInfo',
+		element: <UserInfo />
 	},
 	{
 		path: 'test',
