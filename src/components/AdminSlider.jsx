@@ -33,7 +33,7 @@ const sliderItems = [
     items: [
       {
         key: 21,
-        label: "产品管理",
+        label: "产品审核",
         path: "../loginProductList",
       },
     ],
