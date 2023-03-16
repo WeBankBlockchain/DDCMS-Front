@@ -197,17 +197,6 @@ export default function LoginProductList() {
     },
   ];
 
-//   if (userType === "0") {
-//     columns.unshift({
-//       title: "个人名称",
-//       dataIndex: "personName",
-//       key: "personName",
-//       sorter: (a, b) => a.personName.length - b.personName.length,
-//       sortOrder:
-//         sortedInfo.columnKey === "personName" ? sortedInfo.order : null,
-//       ellipsis: true,
-//     });
-//   }
   if (userType === "1") {
     columns.unshift({
       title: "机构名称",
