@@ -63,7 +63,7 @@ export default function SchemaDetail() {
 
   return (
     
-    <Layout>
+    <Layout style={{textAlign:'center'}}>
       <Card title="基本信息">
         <Descriptions bordered>
         <DescriptionsItem label='目录Id' span={3}>
