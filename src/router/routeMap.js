@@ -10,6 +10,7 @@ import ProductList from '../pages/ProductList';
 import SchemaDetail from '../pages/SchemaDetail';
 import ProductDetail from '../pages/ProductDetail';
 import NewDataSchema from '../pages/NewDataSchema';
+import ModifyDataSchema from '../pages/ModifyDataSchema';
 import OrgList from '../pages/OrgList';
 import NewProduct from '../pages/NewProduct';
 
@@ -41,6 +42,10 @@ export const routeMap = [
 			{
 				path: 'product/detail',
 				element: <ProductDetail />
+			},
+			{
+				path: 'schema/modify',
+				element: <ModifyDataSchema />
 			},
 			{
 				path: 'product/create',
