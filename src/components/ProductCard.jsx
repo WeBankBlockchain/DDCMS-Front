@@ -18,7 +18,7 @@ export default function ProductCard(props) {
         navigate('/product/detail', {
           state: {productId: productId}
         })
-      }
+    }
 
     return (
     <div className='product-card'>

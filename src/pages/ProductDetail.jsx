@@ -1,5 +1,5 @@
 import React, { useEffect,useState } from 'react';
-import { queryProductByIdApi,createProductApi } from '../request/api';
+import { queryProductByIdApi,updateProductApi } from '../request/api';
 import { message } from 'antd';
 import { useLocation } from 'react-router-dom'
 import moment from 'moment'
@@ -50,7 +50,7 @@ export default function ProductDetail({}) {
 
     const onFinish = (values) => {
         console.log("Received values of form: ", values);
-        createProductApi(form).then((res) => {
+        updateProductApi(form).then((res) => {
             if(res.code === '0'){
                 setEditing(false);
                 setInitLoading(true);
