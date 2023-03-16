@@ -8,6 +8,16 @@ import {message, Layout, Divider, Card, Descriptions, Tag} from 'antd'
 import DescriptionsItem from 'antd/es/descriptions/Item';
 import moment from 'moment';
 
+const dataFormatNames = {
+  0: 'JSON',
+  1: 'XML'
+}
+
+const dataProtocolNames = {
+  0: 'HTTP',
+  1: 'HTTPS',
+  2: 'SFTP'
+}
 export default function SchemaDetail() {
 
   const location = useLocation();
@@ -109,10 +119,10 @@ export default function SchemaDetail() {
         <Card title="访问信息" >
         <Descriptions bordered>
           <DescriptionsItem label='数据格式'  span={2} >
-              {dataSchemaAccessInfo.dataFormat}
+              {dataFormatNames[dataSchemaAccessInfo.dataFormat]}
           </DescriptionsItem>
           <DescriptionsItem label='数据传输协议'  span={2}>
-              {dataSchemaAccessInfo.dataProtocol}
+              {dataProtocolNames[dataSchemaAccessInfo.dataProtocol]}
           </DescriptionsItem>
           <DescriptionsItem label='数据访问链接'  span={3}>
               {dataSchemaAccessInfo.uri}

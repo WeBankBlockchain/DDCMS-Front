@@ -169,9 +169,9 @@ export default function NewDataSchema() {
                                         <Col span={12}>
                                             <Form.Item label='数据传输协议' name='dataSchemaProtocol' required>
                                             <Select placeholder='数据传输协议'>
-                                                <Option value="http">HTTP</Option>
-                                                <Option value="https">HTTPS</Option>
-                                                <Option value="sftp">SFTP</Option>
+                                                <Option value="0">HTTP</Option>
+                                                <Option value="1">HTTPS</Option>
+                                                <Option value="2">SFTP</Option>
                                             </Select>
                                         </Form.Item>
                                         </Col>
@@ -179,8 +179,8 @@ export default function NewDataSchema() {
   
                                             <Form.Item label='数据格式' name='dataSchemaFormat' required>
                                                 <Select placeholder='请输入数据内容格式'>
-                                                    <Option value="json">JSON</Option>
-                                                    <Option value="xml">XML</Option>
+                                                    <Option value="0">JSON</Option>
+                                                    <Option value="1">XML</Option>
                                                 </Select>
                                             </Form.Item>
                                         </Col>
@@ -189,7 +189,7 @@ export default function NewDataSchema() {
                                         <Input placeholder="请输入数据访问Url" bordered={true} />
                                     </Form.Item>
                                     <Form.Item label='查询条件' name='dataSchemaAccessCondition' required>
-                                        <Input.TextArea placeholder="请输入查询条件，格式为json" bordered={true} />
+                                        <Input.TextArea placeholder="请输入查询条件,格式为json" bordered={true} />
                                     </Form.Item>
                             
                                     <Form.Item label='有效日期' name='dataSchemaTimeRange' required>
