@@ -98,11 +98,13 @@ export default function LoginProductList() {
     }
   };
 
-  const approve = (did) => {
+  const approve = (record) => {
     const approveReq = {
         agree: true,
-        productGId: did,
+        productGId: record.productGid,
+        did: record.did
     };
+    console.log("approveReq parameters", approveReq);
     approveProductApi(approveReq)
       .then((res) => {
         if (res.code === 0) {
@@ -164,11 +166,9 @@ export default function LoginProductList() {
       key: "status",
       render: (status) => {
         if (status === 0) {
-          return <Badge status="default" text="未注册" />;
+          return <Badge status="default" text="审核中" />;
         } else if (status === 1) {
-          return <Badge status="processing" text="审核中" />;
-        } else if (status === 2) {
-          return <Badge status="success" text="已审核" />;
+          return <Badge status="processing" text="已审核" />;
         } else if (status === 3) {
           return <Badge status="error" text="已拒绝" />;
         }
@@ -189,8 +189,8 @@ export default function LoginProductList() {
           >
             <a>查看详情</a>
           </Popover>
-          {record.status === 1 && (
-            <a onClick={() => approve(record.did)}>审核</a>
+          {record.status === 0 && (
+            <a onClick={() => approve(record)}>审核</a>
           )}
         </Space>
       ),
