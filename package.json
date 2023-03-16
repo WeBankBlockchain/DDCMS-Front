@@ -12,6 +12,7 @@
     "pubsub-js": "^1.9.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-json-view": "^1.21.3",
     "react-router-dom": "^6.8.1",
     "react-scripts": "5.0.1",
     "react-tag-input-component": "^2.0.2",

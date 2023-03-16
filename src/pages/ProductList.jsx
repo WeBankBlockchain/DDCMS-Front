@@ -27,7 +27,7 @@ export default function ProjectList() {
   if(location.state !== null && location.state.providerId !== providerId){
     setProviderId(location.state.providerId)
     setInitRefresh(!initRefresh)
-}
+   }
 
 
   PubSub.subscribe('keyWord', (_, data) => {
@@ -45,12 +45,12 @@ export default function ProjectList() {
       pageSize: pageSize
     }
     pageQueryProductApi(req).then((res) => {
-      if(res.code === '0'){
+      if(res.code === 0){
         setInitLoading(false);
-        setData(res.data.items);
-        setList(res.data.items);
+        setData(res.data.itemList);
+        setList(res.data.itemList);
         setPageNo(pageNo => pageNo + 1);
-        setTotalPage(res.data.totalPages);
+        setTotalPage(res.data.pageCount);
       }else{
         message.error(res.msg);
       }
@@ -66,14 +66,14 @@ export default function ProjectList() {
       pageSize: pageSize
     }
     pageQueryProductApi(req).then((res) => {
-      if(res.code === '0'){
-        const newData = data.concat(res.data.items);
+      if(res.code === 0){
+        const newData = data.concat(res.data.itemList);
         setData(newData);
         setList(newData);
         setLoading(false);
         window.dispatchEvent(new Event('resize'));
         setPageNo(pageNo => pageNo + 1);
-        setTotalPage(res.data.totalPages);
+        setTotalPage(res.data.pageCount);
       }else{
         message.error(res.msg);
       }
@@ -103,8 +103,8 @@ export default function ProjectList() {
       loadMore={loadMore}
       dataSource={list}
       renderItem={(item) => (
-        <List.Item key={item.schemaId}>
-          <ProductCard key={item.schemaId} item={item}/>
+        <List.Item key={item.productId}>
+          <ProductCard key={item.productId} item={item}/>
         </List.Item>
       )}
     />

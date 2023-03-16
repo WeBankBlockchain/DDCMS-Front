@@ -1,5 +1,5 @@
 import React, { useEffect,useState } from 'react';
-import { queryProductByIdApi,createProductApi } from '../request/api';
+import { queryProductByIdApi,updateProductApi } from '../request/api';
 import { message } from 'antd';
 import { useLocation } from 'react-router-dom'
 import moment from 'moment'
@@ -34,10 +34,10 @@ export default function ProductDetail({}) {
 
     useEffect(() => {
         const req = {
-          productId: productId
+            productGid: productId
         }
         queryProductByIdApi(req).then((res) => {
-          if(res.code === '0'){
+          if(res.code === 0){
             setInitLoading(false);
             setProduct(res.data);
           }else{
@@ -50,7 +50,7 @@ export default function ProductDetail({}) {
 
     const onFinish = (values) => {
         console.log("Received values of form: ", values);
-        createProductApi(form).then((res) => {
+        updateProductApi(form).then((res) => {
             if(res.code === '0'){
                 setEditing(false);
                 setInitLoading(true);
@@ -123,7 +123,7 @@ export default function ProductDetail({}) {
                 label="提供方名称"
                 
               >
-                 <label>{product.providerName} </label>
+                 <label>{product.companyName} </label>
               </Form.Item>
               <Form.Item
                 label="创建时间"
@@ -141,7 +141,7 @@ export default function ProductDetail({}) {
                     },
                 ]}
               >
-                 <TextArea rows={4} placeholder={product.information} maxLength={6} />
+                 <TextArea rows={4} placeholder={product.productDesc} maxLength={6} />
                 {/* <Input placeholder={product.information} /> */}
               </Form.Item>
 
@@ -182,7 +182,7 @@ export default function ProductDetail({}) {
               <Form.Item
                 label="提供方名称"
               >
-                 <label>{product.providerName} </label>
+                 <label>{product.companyName} </label>
               </Form.Item>
               <Form.Item
                 label="创建时间"
@@ -195,7 +195,7 @@ export default function ProductDetail({}) {
               <Form.Item
                 label="详细描述"
               >
-                <TextArea rows={4} placeholder={product.information} maxLength={6} disabled = "true"/>
+                <TextArea rows={4} placeholder={product.productDesc} maxLength={6} />
               </Form.Item>
 
             
