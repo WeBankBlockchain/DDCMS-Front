@@ -19,7 +19,10 @@ export default function AdminHeader() {
 
   return (
     <header>
-      <div className="header-content" style={{width: '100%', padding: '0 30px'}}>
+      <div
+        className="header-content"
+        style={{ width: "100%", padding: "0 30px" }}
+      >
         <div
           className="logo"
           style={{
@@ -46,8 +49,11 @@ export default function AdminHeader() {
               float: "right",
             }}
           >
-            <Avatar icon={<UserOutlined />} />
-            <Avatar size={48}>{localStorage.getItem("username")}</Avatar>
+            <Link to="/userInfo">
+              <Avatar icon={<UserOutlined />} />
+              <Avatar size={48}>{localStorage.getItem("userName")}</Avatar>
+            </Link>
+
             <Button type="primary" onClick={logout} style={{ color: "white" }}>
               退出
             </Button>
