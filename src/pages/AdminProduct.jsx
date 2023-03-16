@@ -15,7 +15,7 @@ import {
 import moment from "moment";
 
 
-export default function LoginProductList() {
+export default function AdminProduct() {
   const [sortedInfo, setSortedInfo] = useState({});
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState();

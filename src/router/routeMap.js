@@ -13,7 +13,7 @@ import ProductDetail from '../pages/ProductDetail';
 import NewDataSchema from '../pages/NewDataSchema';
 import OrgList from '../pages/OrgList';
 import NewProduct from '../pages/NewProduct';
-import LoginProductList from '../pages/LoginProductList';
+import AdminProduct from '../pages/AdminProduct';
 
 
 export const routeMap = [
@@ -72,8 +72,8 @@ export const routeMap = [
 		element: <OrgList />
 	},
 	{
-		path: 'loginProductList',
-		element: <LoginProductList />
+		path: 'adminProduct',
+		element: <AdminProduct />
 	},
 	{
 		path: 'userInfo',
