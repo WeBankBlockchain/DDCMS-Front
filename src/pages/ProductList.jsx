@@ -66,7 +66,7 @@ export default function ProjectList() {
       pageSize: pageSize
     }
     pageQueryProductApi(req).then((res) => {
-      if(res.code === '0'){
+      if(res.code === 0){
         const newData = data.concat(res.data.itemList);
         setData(newData);
         setList(newData);
