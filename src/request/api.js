@@ -43,6 +43,10 @@ export const createProductApi = (params) =>
 export const updateProductApi = (params) =>
   service.post("product/updateProduct", params);
 
+export const approveProductApi = (params) =>
+  service.post("product/approveProduct", params);
+
+
 export const GetHotTagsApi = (params) => service.post("tag/getHotTags", params);
 
 export const QueryDataSchemaApi = (params) => service.post("schema/querySchemaById", params);

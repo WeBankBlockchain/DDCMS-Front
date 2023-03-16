@@ -12,6 +12,8 @@ import ProductDetail from '../pages/ProductDetail';
 import NewDataSchema from '../pages/NewDataSchema';
 import OrgList from '../pages/OrgList';
 import NewProduct from '../pages/NewProduct';
+import LoginProductList from '../pages/LoginProductList';
+
 
 export const routeMap = [
 	{
@@ -67,6 +69,10 @@ export const routeMap = [
 	{
 		path: 'orgList',
 		element: <OrgList />
+	},
+	{
+		path: 'loginProductList',
+		element: <LoginProductList />
 	},
 	{
 		path: 'test',

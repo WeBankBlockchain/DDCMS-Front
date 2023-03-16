@@ -33,11 +33,8 @@ const sliderItems = [
     items: [
       {
         key: 21,
-        label: "option21",
-      },
-      {
-        key: 22,
-        label: "option22",
+        label: "产品管理",
+        path: "../loginProductList",
       },
     ],
   },
