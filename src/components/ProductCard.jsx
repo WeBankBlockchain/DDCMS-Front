@@ -27,7 +27,7 @@ export default function ProductCard(props) {
         <Button 
             type="link" 
             style={{fontSize: 18, fontWeight: 500, color: '#000'}}
-            onClick={()=>{productOnClick(props.item.productId)}}
+            onClick={()=>{productOnClick(props.item.productGid)}}
           >
             {props.item.productName}
           </Button>
@@ -40,13 +40,13 @@ export default function ProductCard(props) {
       </div>
       <div className='product-body'>
         <div className='product-desc'>
-          {props.item.information}
+          {props.item.productDesc}
         </div>
       </div>
       <div className='product-footer'>
         <div className='owner-info'>
           <div className='company-info'>
-            企业名称：{props.item.providerName}
+            企业名称：{props.item.companyName}
           </div>
           <div className='product-info'>产品名称：{props.item.productName}</div>
         </div>
