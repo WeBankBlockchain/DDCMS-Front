@@ -21,7 +21,7 @@ export default function Login() {
         if (res.code === 0) {
           console.log("succ");
           message.success("登录成功!");
-          localStorage.setItem("userName", values.userName);
+          localStorage.setItem("userName", loginRequest.userName);
           localStorage.setItem("did", res.data.did);
           localStorage.setItem("token", res.data.token);
           localStorage.setItem("accountType", res.data.accountType);

@@ -54,8 +54,8 @@ const sliderItems = [
       },
       {
         key: 32,
-        label: "用户信息查询",
-        path: "../orgInfo",
+        label: "账户信息查询",
+        path: "../userInfo",
       },
       {
         key: 33,

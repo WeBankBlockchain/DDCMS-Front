@@ -110,16 +110,11 @@ export default function OrgList() {
   const handleChange = (pagination, _, sorter) => {
     console.log("Various parameters", pagination, sorter);
     setSortedInfo(sorter);
+    setPagination(pagination);
     setTableParams({
-      pagination,
-      ...sorter,
       pageNo: pagination.current,
       pageSize: pagination.pageSize,
     });
-    // `dataSource` is useless since `pageSize` changed
-    if (pagination.pageSize !== tableParams.pagination?.pageSize) {
-      setData([]);
-    }
   };
 
   const approve = (did) => {
@@ -145,14 +140,14 @@ export default function OrgList() {
 
   const onUserTypeChange = (value) => {
     let ut = value.target.value;
-    const { keyWord: removedKeyword, ...rest } = tableParams;
-    setTableParams(rest);
+    const { keyWord: removedKeyword, pageNo: p, ...rest } = tableParams;
+    setPagination({ current: 1, pageSize: 10 });
+    setTableParams({ ...rest, pageNo: 1 });
     if (ut === "0") {
       setUserType("0");
     } else {
       setUserType("1");
     }
-    console.log(ut);
   };
 
   const usersList = () => (
