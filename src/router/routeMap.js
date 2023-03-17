@@ -15,7 +15,7 @@ import ModifyDataSchema from '../pages/ModifyDataSchema';
 import OrgList from '../pages/OrgList';
 import NewProduct from '../pages/NewProduct';
 import AdminProduct from '../pages/AdminProduct';
-
+import AdminDataSchema from '../pages/AdminDataSchema';
 
 export const routeMap = [
 	{
@@ -79,6 +79,10 @@ export const routeMap = [
 	{
 		path: 'adminProduct',
 		element: <AdminProduct />
+	},
+	{
+		path: 'adminDataSchema',
+		element: <AdminDataSchema />
 	},
 	{
 		path: 'userInfo',

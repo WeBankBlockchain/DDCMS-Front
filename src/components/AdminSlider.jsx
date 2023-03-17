@@ -18,11 +18,7 @@ const sliderItems = [
     items: [
       {
         key: 11,
-        label: "option11",
-      },
-      {
-        key: 12,
-        label: "option12",
+        label: "查看数据目录",
       },
     ],
   },

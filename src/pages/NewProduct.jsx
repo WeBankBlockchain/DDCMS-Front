@@ -18,7 +18,7 @@ export default function NewProduct() {
     const providerGid = location.state?.providerGid;
 
     const navigate = useNavigate()
-
+    
     //回调
     const onSubmit = (values) => {
         console.log(values);

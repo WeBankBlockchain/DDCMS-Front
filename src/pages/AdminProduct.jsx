@@ -208,7 +208,7 @@ export default function AdminProduct() {
       ellipsis: true,
     });
   }
-
+  
   const OrgProfile = (data) =>
     data && (
       <Descriptions title="产品名称" bordered>
