@@ -16,7 +16,6 @@ export default function NewProduct() {
 
     //获取当前环境各类id(todo)
     const providerGid = location.state?.providerGid;
-    const {currUserDid, currUserPkId, currUserName} = getCurrAccountInfo();
 
     const navigate = useNavigate()
 
@@ -118,17 +117,5 @@ export default function NewProduct() {
     )
   }
   
-  function renderDropdown(placeholder, options) {
-    return (
-      <>
-        <div style={{ paddingLeft: '8px', color: 'rgba(0, 0, 0, 0.25)' }}>{placeholder}</div>
-        {options}
-      </>
-    );
-  }
-  
-  function getCurrAccountInfo() {
-    //TODO
-    return {currUserDid: "111", currUserPkId: 1, currUserName: '阿里'}
-  }
+
 

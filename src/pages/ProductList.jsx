@@ -11,102 +11,74 @@ const pageSize = 10;
 export default function ProjectList() {
 
   const [initLoading, setInitLoading] = useState(true);
-  const [loading, setLoading] = useState(false);
   const [data, setData] = useState([]);
   const [list, setList] = useState([]);
-
-  const [keyWord, setKeyWord] = useState("");
   const [pageNo, setPageNo] = useState(1);
   const [totalPage, setTotalPage] = useState(0);
 
   const [initRefresh, setInitRefresh] = useState(false);
-  const [providerId, setProviderId] = useState("")
+  const location = useLocation();
 
-  //获取路由带过来的providerId
-  const location = useLocation()
-  if(location.state !== null && location.state.providerId !== providerId){
-    setProviderId(location.state.providerId)
-    setInitRefresh(!initRefresh)
-   }
-
-
-  PubSub.subscribe('keyWord', (_, data) => {
-    setKeyWord(data)
-    setInitRefresh(!initRefresh)
-    setPageNo(1)
-  })
+  const providerId = location.state?.providerId;
 
   useEffect(() => {
-
-    const req = {
-      keyWord: keyWord,
-      providerId: providerId,
-      pageNo: pageNo,
-      pageSize: pageSize
-    }
-    pageQueryProductApi(req).then((res) => {
-      if(res.code === 0){
-        setInitLoading(false);
-        setData(res.data.itemList);
-        setList(res.data.itemList);
-        setPageNo(pageNo => pageNo + 1);
-        setTotalPage(res.data.pageCount);
-      }else{
-        message.error(res.msg);
-      }
-    })
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    loadPageData({ providerId, pageNo });
   }, [initRefresh]);
 
-  const onLoadMore = () => {
-    setLoading(true);
-    const req = {
-      keyWord: keyWord,
-      pageNo: pageNo,
-      pageSize: pageSize
-    }
-    pageQueryProductApi(req).then((res) => {
+  const loadPageData = ({ providerId, pageNo }) => {
+    setInitLoading(true);
+    pageQueryProductApi({ providerId, pageNo, pageSize }).then((res) => {
       if(res.code === 0){
-        const newData = data.concat(res.data.itemList);
-        setData(newData);
-        setList(newData);
-        setLoading(false);
-        window.dispatchEvent(new Event('resize'));
+        setData(data.concat(res.data.itemList));
+        setList(data.concat(res.data.itemList));
         setPageNo(pageNo => pageNo + 1);
         setTotalPage(res.data.pageCount);
       }else{
         message.error(res.msg);
       }
+      setInitLoading(false);
     })
   }
 
-  const loadMore =
-    !initLoading && !loading ? (
-      <div
-        style={{
-          textAlign: 'center',
-          margin: '12px 12px',
-          height: 32,
-          lineHeight: '32px',
-        }}
-      >
-        <Button className={pageNo <= totalPage ? 'visible-more' : 'unvisible-more'} onClick={onLoadMore}>加载更多</Button>
-        <div className={pageNo > totalPage ? 'visible-more' : 'unvisible-more'}>————您已经触碰我的底线了————</div>
+  const onLoadMore = () => {
+    setInitLoading(true);
+    loadPageData({ providerId, pageNo }).then(() => {
+      setInitLoading(false);
+      window.dispatchEvent(new Event('resize'));
+    });
+  }
+
+  const isMoreVisible = pageNo <= totalPage;
+
+  const renderLoadMore = () => {
+    if(!isMoreVisible){
+        return (
+            <div style={{ textAlign: 'center', margin: '12px 12px', height: 32, lineHeight: '32px' }}>
+              <div className="visible-more">————您已经触碰我的底线了————</div>
+            </div>  
+          );
+    }
+    return (
+      <div style={{ textAlign: 'center', margin: '12px 12px', height: 32, lineHeight: '32px' }}>
+        <Button className="visible-more" onClick={onLoadMore}>加载更多</Button>
       </div>
-    ) : null;
+    );
+  }
+
+  const renderItem = (item) => (
+    <List.Item key={item?.productId}>
+      <ProductCard item={item}/>
+    </List.Item>
+  );
 
   return (
     <List
       className="schema-loadmore-list"
       loading={initLoading}
       itemLayout="horizontal"
-      loadMore={loadMore}
+      loadMore={renderLoadMore()}
       dataSource={list}
-      renderItem={(item) => (
-        <List.Item key={item.productId}>
-          <ProductCard key={item.productId} item={item}/>
-        </List.Item>
-      )}
+      renderItem={renderItem}
     />
   )
 }
