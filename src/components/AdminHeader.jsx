@@ -6,17 +6,7 @@ import { Link } from "react-router-dom";
 import LoginUser from './LoginUser';
 
 export default function AdminHeader() {
-  const navigate = useNavigate();
 
-  const logout = () => {
-    localStorage.removeItem("username");
-    localStorage.removeItem("did");
-    localStorage.removeItem("token");
-    message.success("退出成功!");
-    setTimeout(() => {
-      navigate("/");
-    }, 1000);
-  };
 
   return (
     <header>
