@@ -12,10 +12,12 @@ import SchemaDetail from '../pages/SchemaDetail';
 import ProductDetail from '../pages/ProductDetail';
 import NewDataSchema from '../pages/NewDataSchema';
 import ModifyDataSchema from '../pages/ModifyDataSchema';
-import OrgList from '../pages/OrgList';
+import OrgList from '../pages/AdminAccountList';
 import NewProduct from '../pages/NewProduct';
-import AdminProduct from '../pages/AdminProduct';
-import AdminDataSchema from '../pages/AdminDataSchema';
+import AdminProduct from '../pages/AdminAllProductList';
+import AdminAllDataSchema from '../pages/AdminAllDataSchema';
+import AdminAccountList from '../pages/AdminAccountList';
+import AdminAllProductList from '../pages/AdminAllProductList';
 
 export const routeMap = [
 	{
@@ -39,6 +41,49 @@ export const routeMap = [
 	{
 		path: 'admin',
 		element: <Admin/>,
+		children: [
+			// {
+			// 	indexed: true,
+			// 	element: <AdminAllProductList/>
+			// },
+			// {
+			// 	path: 'company',
+			// 	element: <AdminAccountList/>
+			// },
+			// {
+			// 	path: 'allproduct',
+			// 	element: <AdminAllProductList />,
+			// },
+			// {
+			// 	path: 'allschema',
+			// 	element: <AdminAllDataSchema />,
+			// },
+
+			// {
+			// 	path: 'allproduct',
+			// 	element: <AdminMyProductList />,
+			// }
+				// children: [
+				// 	{
+				// 		path: 'detail',
+				// 		element: <AdminProductDetail/>
+				// 	},
+				// 	{
+				// 		path: 'kyc',
+				// 		element: <AdminProductKyc/>
+				// 	},
+				// 	{
+				// 		path: 'create',
+				// 		element: <AdminProductCreate/>
+				// 	},
+				// 	{
+				// 		path: 'modify',
+				// 		element: <AdminProductModify/>
+				// 	},
+				// ]
+			
+
+		]
 		// children: [
 		// 	{
 		// 		path:'user',
@@ -110,6 +155,6 @@ export const routeMap = [
 	},
 	{
 		path: '*',
-		element: <Error />
+		element: <Error message='非法URL'/>
 	}
 ];

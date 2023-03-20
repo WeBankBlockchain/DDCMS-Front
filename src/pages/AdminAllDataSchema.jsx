@@ -8,7 +8,7 @@ import {message, Table, Link} from "antd";
 import { useNavigate } from "react-router-dom";
 
 
-export default function AdminDataSchema() {
+export default function AdminAllDataSchema() {
     const navigate = useNavigate();
 
     const schemaColumns = [
@@ -47,38 +47,38 @@ export default function AdminDataSchema() {
       ];
     
     const [dataSchemaList, setDataSchemaList] = useState([]);
-    const [totalPage, setTotalPage] = useState(1); 
+    const [tableParams, setTableParams] = useState({
+        pageNo: 1,
+        pageSize: 2
+    })
     const [pagination,setPagination] = useState({
         current: 1,
-        pageSize: 2
+        pageSize: 10
     });
 
     useEffect(()=>{
-        const request = {
-            pageNo: 1,
-            pageSize: 10
-        };
-        PageQuerySchemaApi(request).then(res=>{
+    
+        PageQuerySchemaApi(tableParams).then(res=>{
             if (res.code === 0){
                 setDataSchemaList(res.data.itemList);
-                setTotalPage(res.data.pageCount);
             } else{
                 message.error(res.msg);
             }
         });
     }
 
-    , [pagination]);
+    , [tableParams]);
 
-    const productList = (<div>aaa</div>)
-    const AdminPage = AdminTemplate(productList);
-    const breadcrumb = {
-      home: "首页",
-      list: "产品管理",
-      app: "产品审核",
-    };
+
     const handleTableChange = (pagination) => {
         setPagination(pagination);
+        setTableParams(t=>{
+            return {
+                ...t,
+                pageNo:pagination.pageNo,
+                pageSize: pagination.pageSize
+            }
+        })
       };
 
       

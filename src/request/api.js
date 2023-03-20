@@ -60,3 +60,5 @@ export const QueryDataSchemaApi = (params) => service.post("schema/querySchemaBy
 export const QueryDataSchemaAccessInfoApi = (params) => service.post("schema/querySchemaAccessById", params);
 
 export const NewDataSchemaApi = (params) => service.post("schema/createSchema", params);
+
+export const GetMenuByRoleApi = (params) => service.post("menu/getMenuByRole", params);

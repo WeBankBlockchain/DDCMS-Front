@@ -8,10 +8,11 @@ export default function CommonFooter() {
     <Footer
       style={{
         backgroundColor: '#FFF',
+        fontSize: '20px',
         textAlign: "center",
       }}
     >
-      Ant Design ©2023 Created by Ant UED
+      DataBrain ©2023 Created by WeBank
     </Footer>
   );
 }

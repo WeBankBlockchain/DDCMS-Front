@@ -1,22 +1,42 @@
 import React from "react";
-import AdminTemplate from "../components/AdminTemplate";
+import { Breadcrumb, Layout, theme } from "antd";
+import AdminHeader from "../components/AdminHeader";
+import CommonFooter from "../components/CommonFooter";
+import AdminSlider from "../components/AdminSlider";
+import { Outlet } from "react-router-dom";
+const { Content } = Layout;
 
 export default function Admin() {
-  const AdminPage = AdminTemplate("admin");
-  const breadcrumb = {
-    home: "Home",
-    list: "List",
-    app: "App",
-  };
+  const {
+    token: { colorBgContainer },
+  } = theme.useToken();
 
   return (
-    <AdminPage
-      breadcrumb={breadcrumb}
-      defaultSelectedKeys={["1"]}
-      defaultOpenKeys={["sub1"]}
-    >
-      {" "}
-      admin{" "}
-    </AdminPage>
-  );
+    <Layout>
+      <AdminHeader></AdminHeader>
+      <Content>
+        <Layout
+          style={{
+          padding: "24px 0",
+          background: colorBgContainer,
+          }}
+        >
+
+          <AdminSlider
+          ></AdminSlider>
+
+          <Content
+          style={{
+            padding: "0 24px",
+            minHeight: 1680,
+          }}
+        >
+            <Outlet></Outlet>
+          </Content>
+        </Layout>
+      </Content>
+      <CommonFooter></CommonFooter>
+  </Layout>
+  )
+
 }
