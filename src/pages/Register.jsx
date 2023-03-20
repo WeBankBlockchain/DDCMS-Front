@@ -76,7 +76,7 @@ export default function Register() {
         }
       })
       .catch((error) => {
-        message.error(error.response.data.message);
+        // message.error(error.response.data.message);
       });
     message.success("提交成功");
   };

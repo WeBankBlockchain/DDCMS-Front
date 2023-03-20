@@ -2,6 +2,7 @@ import axios from 'axios';
 import { message } from "antd";
 
 export const baseURL = 'http://116.205.167.248:10880/api/';
+// export const baseURL = 'http://localhost:10880/api/'
 
 const axiosOption = {
 	baseURL: baseURL,
@@ -17,7 +18,7 @@ instance.interceptors.request.use(
     const token = localStorage.getItem("token");
     // 如果存在令牌，则在请求头中添加 Authorization 字段
     if (token) {
-      config.headers["Authorization"] = `Bearer ${token}`;
+      config.headers["Authorization"] = `${token}`;
     }
     return config;
   },

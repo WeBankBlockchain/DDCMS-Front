@@ -1,5 +1,5 @@
 import App from '../App';
-import Home from '../pages/Home';
+import AppSchemaList from '../pages/AppSchemaList';
 import Error from '../pages/Error';
 import OrgInfo from '../pages/OrgInfo';
 import Login from '../pages/Login';
@@ -24,45 +24,77 @@ export const routeMap = [
 		children: [
 			{
 				index: true,
-				element: <Home />
+				element: <AppSchemaList />
 			},
 			{
 				path: 'home',
-				element: <Home />
+				element: <AppSchemaList />
 			},
 			{
-				path: 'productlist',
-				element: <ProductList />
+				path: 'product',
+				element: <ProductList />,
 			},
-			{
-				path: 'schema/create',
-				element: <NewDataSchema />
-			},
-			{
-				path: 'schema/detail',
-				element: <SchemaDetail />
-			},
-			{
-				path: 'product/detail',
-				element: <ProductDetail />
-			},
-			{
-				path: 'schema/modify',
-				element: <ModifyDataSchema />
-			},
-			{
-				path: 'product/create',
-				element: <NewProduct />
-			}
 		]
 	},
 	{
 		path: 'admin',
-		element: <Admin />
-	},
-	{
-		path: 'orgInfo',
-		element: <OrgInfo />
+		element: <Admin/>,
+		// children: [
+		// 	{
+		// 		path:'user',
+		// 		element: <AdminUserList/>,
+		// 		children: [
+		// 			{
+		// 				path: 'detail',
+		// 				element: <AdminUserDetail/>
+		// 			},
+		// 			{
+		// 				path: 'kyc',
+		// 				element: <AdminUserKyc/>
+		// 			},
+		// 		]
+		// 	},
+		// 	{
+		// 		path:'product',
+		// 		element: <AdminProductList/>,
+		// 		children: [
+		// 			{
+		// 				path: 'detail',
+		// 				element: <AdminProductDetail/>
+		// 			},
+		// 			{
+		// 				path: 'kyc',
+		// 				element: <AdminProductKyc/>
+		// 			},
+		// 			{
+		// 				path: 'create',
+		// 				element: <AdminProductCreate/>
+		// 			},
+		// 			{
+		// 				path: 'modify',
+		// 				element: <AdminProductModify/>
+		// 			},
+		// 		]
+		// 	},
+		// 	{
+		// 		path:'schema',
+		// 		element: <AdminSchemaList/>,
+		// 		children: [
+		// 			{
+		// 				path: 'detail',
+		// 				element: <AdminSchemaDetail/>
+		// 			},					
+		// 			{
+		// 				path: 'create',
+		// 				element: <AdminSchemaCreate/>
+		// 			},
+		// 			{
+		// 				path: 'modify',
+		// 				element: <AdminSchemaModify/>
+		// 			},
+		// 		]
+		// 	}
+		// ]
 	},
 	{
 		path: 'login',
@@ -71,22 +103,6 @@ export const routeMap = [
 	{
 		path: 'register',
 		element: <Register />
-	},
-	{
-		path: 'orgList',
-		element: <OrgList />
-	},
-	{
-		path: 'adminProduct',
-		element: <AdminProduct />
-	},
-	{
-		path: 'adminDataSchema',
-		element: <AdminDataSchema />
-	},
-	{
-		path: 'userInfo',
-		element: <UserInfo />
 	},
 	{
 		path: 'test',
