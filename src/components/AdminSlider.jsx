@@ -17,19 +17,19 @@ const MenuItemGroup = Menu.ItemGroup;
 
 export default function AdminSlider(props) {
 
-  // const [menus, setMenus] = useState([]);
+  const [menus, setMenus] = useState([]);
 
 
-  // useEffect(
-  //   GetMenuByRoleApi({}).then(res=>{
-  //     if (res.code === 0){
-  //       setMenus(res.data);
-  //     } else{
-  //       message.error(res.message);
-  //     }
-  //   })  
-  //   ,[]
-  // )
+  useEffect(
+    GetMenuByRoleApi({}).then(res=>{
+      if (res.code === 0){
+        setMenus(res.data);
+      } else{
+        message.error(res.message);
+      }
+    })  
+    ,[]
+  )
 
   return (
     <Sider
