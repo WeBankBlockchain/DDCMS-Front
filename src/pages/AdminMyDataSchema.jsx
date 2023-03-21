@@ -2,17 +2,17 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import AdminTemplate from "../components/AdminTemplate";
-import { PageQuerySchemaApi } from "../request/api";
-import {message, Table, Link, Input} from "antd";
+import { PageQueryMySchemaApi } from "../request/api";
+import {message, Table, Link, Input, Button} from "antd";
 
 import { useNavigate } from "react-router-dom";
 const {Search} = Input;
 
-const PAGE_SIZE =2 ;
+const PAGE_SIZE =10 ;
 
-export default function AdminAllDataSchema() {
+export default function AdminMyDataSchema() {
     const navigate = useNavigate();
-
+    
     const schemaColumns = [
         {
           title: '目录名称',
@@ -37,12 +37,22 @@ export default function AdminAllDataSchema() {
           key: 'action',
           width: 200,
           render: (text, record) => (
-            <a onClick={() => navigate(`/admin/schema/detail`,{
+            <span>
+                <a onClick={() => navigate(`/admin/schema/detail`,{
                 state: {
                     schemaId: record.schemaId
                 }
-            })}>查看</a>
-        
+            })}>  查看  </a>
+
+                <a onClick={() => navigate(`/admin/schema/modify`,{
+                state: {
+                    schemaId: record.schemaId
+                }
+            })}>  修改  </a>
+
+                <a>  删除  </a>
+            </span>
+
             ),
         },
       ];
@@ -59,7 +69,7 @@ export default function AdminAllDataSchema() {
 
     useEffect(()=>{
         console.log('start query')
-        PageQuerySchemaApi(tableParams).then(res=>{
+        PageQueryMySchemaApi(tableParams).then(res=>{
             if (res.code === 0){
                 setDataSchemaList(res.data.itemList);
                 setPagination((p)=>(
@@ -118,15 +128,24 @@ export default function AdminAllDataSchema() {
                 placeholder='根据名称搜索'
                 onSearch={handleOnSearch}
                 ></Search>
-                
+                <Button
+                    style={{
+                        marginLeft: '20px'
+                    }}
+                    type='primary'
+                    onClick={()=>{
+                        navigate('/admin/schema/create')
+                    }}
+                >创建数据目录</Button>
             </div>
+
 
             <Table 
                 columns={schemaColumns} 
                 dataSource={dataSchemaList} 
                 pagination={pagination}
                 onChange={handleTableChange}
-                />
+            />
         </div>
     );
 }

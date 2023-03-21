@@ -9,17 +9,6 @@ import moment from 'moment';
 const { Option } = Select;
 
 export default function NewDataSchema() {
-    //
-  
-    //获取路由带过来的providerId
-    const location = useLocation();
-
-    //获取当前环境各类id(todo)
-    const productPkId = 1;
-    const productGid = location.state?.productGid;
-    const productName = '某产品';
-    const {currUserDid, currUserPkId, currUserName} = getCurrAccountInfo();
-
 
     //各类状态
     const [tags, setTags] = useState([]);
@@ -29,21 +18,16 @@ export default function NewDataSchema() {
         console.log(values);
         var request = {
             dataSchemaName: values.dataSchemaName,
-            providerId: currUserPkId,
-            providerGId: currUserDid,
-            providerName: '张三',
-            productId: productPkId,
-            productGid: productGid,
-            productName: productName,
-            tagNames: tags,
+            productId: 1,//todo
+            tagNameList: tags,
             version: values.dataSchemaVersion,
             visible: values.dataSchemaVisible,
             dataSchemaDesc: values.dataSchemaDesc,
             dataSchemaUsage: values.dataSchemaUsage,
             price: values.price,
-            createTime: moment().valueOf(),
             dataFormat: values.dataSchemaFormat,
             dataProtocol: values.dataSchemaProtocol,
+            contentSchema: values.dataSchemaContentSchema,
             accessCondition: values.dataSchemaAccessCondition,
             uri: values.dataSchemaUrl,
             effectTime: values.dataSchemaTimeRange[0].valueOf(),
@@ -94,8 +78,8 @@ export default function NewDataSchema() {
                         {...layout}
                         >
                             <Card title='基本信息' headStyle={{ textAlign: 'left', fontSize:'25px' }}>
-                            <Form.Item
-                                    label="名称"
+                                    <Form.Item
+                                    label="目录名称"
                                     name="dataSchemaName"
                                     rules={[
                                     { required: true, message: "请输入数目目录名称" },
@@ -103,6 +87,16 @@ export default function NewDataSchema() {
                                     ]}
                                     >
                                         <Input placeholder="请输入数据目录名称" />
+                                    </Form.Item>
+                                    <Form.Item
+                                    label="所属产品"
+                                    name="dataSchemaProductName"
+                                    rules={[
+                                    { required: true, message: "请输入所属产品名称" },
+                                    { pattern: "^[^ ]+$", message: "名称不能有空格" },
+                                    ]}
+                                    >
+                                        <Input placeholder="请输入所属产品名称" />
                                     </Form.Item>
                                     <Form.Item
                                         name="dataSchemaDesc"
@@ -113,7 +107,6 @@ export default function NewDataSchema() {
                                         ]}
                                         >
                                             <Input.TextArea
-                                        
                                             placeholder="请输入目录描述信息，不超过500字"
                                             />
                                     </Form.Item>
@@ -188,6 +181,9 @@ export default function NewDataSchema() {
                                     <Form.Item label='数据url' name='dataSchemaUrl' required>
                                         <Input placeholder="请输入数据访问Url" bordered={true} />
                                     </Form.Item>
+                                    <Form.Item label='响应结构' name='dataSchemaContentSchema' required>
+                                        <Input.TextArea placeholder="请输入响应结构,格式为json" bordered={true} />
+                                    </Form.Item>
                                     <Form.Item label='查询条件' name='dataSchemaAccessCondition' required>
                                         <Input.TextArea placeholder="请输入查询条件,格式为json" bordered={true} />
                                     </Form.Item>
@@ -219,7 +215,3 @@ export default function NewDataSchema() {
   }
 
   
-  function getCurrAccountInfo() {
-    //TODO
-    return {currUserDid: "111", currUserPkId: 1, currUserName: '阿里'}
-  }

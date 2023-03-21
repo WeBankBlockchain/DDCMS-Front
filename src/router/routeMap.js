@@ -18,6 +18,7 @@ import AdminProduct from '../pages/AdminAllProductList';
 import AdminAllDataSchema from '../pages/AdminAllDataSchema';
 import AdminAccountList from '../pages/AdminAccountList';
 import AdminAllProductList from '../pages/AdminAllProductList';
+import AdminMyDataSchema from '../pages/AdminMyDataSchema';
 
 export const routeMap = [
 	{
@@ -50,15 +51,29 @@ export const routeMap = [
 				path: 'schema/all',
 				element: <AdminAllDataSchema />,
 			},
-			// {
 			{
-				indexed: true,
-				element: <Error />,
+				path: 'schema/my',
+				element: <AdminMyDataSchema />,
 			},
 			{
 				path: 'schema/detail',
 				element: <SchemaDetail />,
 			},
+			{
+				path: 'schema/create',
+				element: <NewDataSchema />,
+			},
+			{
+				path: 'schema/modify',
+				element: <ModifyDataSchema />,
+			},
+			// {
+			{
+				indexed: true,
+				element: <Error />,
+			},
+
+
 			// {
 			// 	indexed: true,
 			// 	element: <AdminAllProductList/>
