@@ -43,7 +43,7 @@ export const routeMap = [
 		element: <Admin/>,
 		children: [
 			{
-				path: 'schema',
+				path: 'allschema',
 				element: <AdminAllDataSchema />,
 			},
 			// {
@@ -146,6 +146,10 @@ export const routeMap = [
 		// 		]
 		// 	}
 		// ]
+	},
+	{
+		path: 'schema/detail',
+		element: <SchemaDetail />
 	},
 	{
 		path: 'login',
