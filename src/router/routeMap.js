@@ -1,23 +1,15 @@
 import App from '../App';
 import AppSchemaList from '../pages/AppSchemaList';
 import Error from '../pages/Error';
-import OrgInfo from '../pages/OrgInfo';
 import Login from '../pages/Login';
 import Register from '../pages/Register';
-import UserInfo from '../pages/UserInfo';
+import UserInfo from '../pages/admin/UserInfo';
 import Test from '../pages/Test';
 import Admin from '../pages/Admin';
 import ProductList from '../pages/ProductList';
 import SchemaDetail from '../pages/SchemaDetail';
-import ProductDetail from '../pages/ProductDetail';
-import NewDataSchema from '../pages/NewDataSchema';
-import ModifyDataSchema from '../pages/ModifyDataSchema';
-import OrgList from '../pages/AdminAccountList';
-import NewProduct from '../pages/NewProduct';
-import AdminProduct from '../pages/AdminAllProductList';
 import AdminAllDataSchema from '../pages/AdminAllDataSchema';
-import AdminAccountList from '../pages/AdminAccountList';
-import AdminAllProductList from '../pages/AdminAllProductList';
+import AccountList from '../pages/admin/AccountList';
 
 export const routeMap = [
 	{
@@ -58,6 +50,10 @@ export const routeMap = [
 			{
 				path: 'schema/detail',
 				element: <SchemaDetail />,
+			},
+			{
+				path: 'user/info',
+				element: <UserInfo />,
 			},
 			// {
 			// 	indexed: true,
@@ -166,6 +162,10 @@ export const routeMap = [
 	{
 		path: 'register',
 		element: <Register />
+	},
+	{
+		path: 'userInfo',
+		element: <AccountList />
 	},
 	{
 		path: 'test',
