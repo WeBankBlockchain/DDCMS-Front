@@ -67,7 +67,7 @@ export default function SchemaDetail() {
       <Card title="基本信息">
         <Descriptions bordered>
         <DescriptionsItem label='目录Id' span={3}>
-            {dataSchema.dataSchemaGid}
+            {dataSchema.schemaId}
           </DescriptionsItem>
           <DescriptionsItem label='公司名称' >
             {dataSchema.providerName}

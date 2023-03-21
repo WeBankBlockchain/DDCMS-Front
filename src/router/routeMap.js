@@ -33,6 +33,10 @@ export const routeMap = [
 				element: <AppSchemaList />
 			},
 			{
+				path: 'schema/detail',
+				element: <SchemaDetail />,
+			},
+			{
 				path: 'product',
 				element: <ProductList />,
 			},
