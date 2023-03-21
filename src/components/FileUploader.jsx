@@ -7,6 +7,7 @@ const url = baseURL + "file/upload";
 export default function FileUploader(props) {
 
   const uploadFile = (file) => {
+    console.log("upload url: " + url)
     // create a FormData object
     const formData = new FormData();
     // append the file to the formData

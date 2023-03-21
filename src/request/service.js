@@ -1,7 +1,6 @@
 import axios from 'axios';
 import { message } from "antd";
 
-// export const baseURL = 'http://116.205.167.248:10880/api/';
 export const baseURL = process.env.REACT_APP_SERVER_API;
 
 const axiosOption = {
