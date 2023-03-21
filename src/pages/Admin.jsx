@@ -27,7 +27,7 @@ export default function Admin() {
 
           <Content
           style={{
-            padding: "0 24px",
+            // padding: "0 10% 0 10%",
             minHeight: 1680,
           }}
         >

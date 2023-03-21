@@ -42,7 +42,9 @@ export default function AdminSlider(props) {
       <Menu
         mode="inline"
         style={{
+          width: "100%",
           height: "100%",
+          textAlign: "left"
         }}
         key='menu'
       >
