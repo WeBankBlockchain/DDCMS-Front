@@ -42,6 +42,15 @@ export const routeMap = [
 		path: 'admin',
 		element: <Admin/>,
 		children: [
+			{
+				path: 'schema',
+				element: <AdminAllDataSchema />,
+			},
+			// {
+			{
+				indexed: true,
+				element: <AdminAllDataSchema />,
+			},
 			// {
 			// 	indexed: true,
 			// 	element: <AdminAllProductList/>
@@ -54,10 +63,7 @@ export const routeMap = [
 			// 	path: 'allproduct',
 			// 	element: <AdminAllProductList />,
 			// },
-			// {
-			// 	path: 'allschema',
-			// 	element: <AdminAllDataSchema />,
-			// },
+
 
 			// {
 			// 	path: 'allproduct',

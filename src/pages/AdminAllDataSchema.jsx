@@ -7,6 +7,7 @@ import {message, Table, Link} from "antd";
 
 import { useNavigate } from "react-router-dom";
 
+const PAGE_SIZE =2 ;
 
 export default function AdminAllDataSchema() {
     const navigate = useNavigate();
@@ -49,11 +50,11 @@ export default function AdminAllDataSchema() {
     const [dataSchemaList, setDataSchemaList] = useState([]);
     const [tableParams, setTableParams] = useState({
         pageNo: 1,
-        pageSize: 2
+        pageSize: PAGE_SIZE
     })
     const [pagination,setPagination] = useState({
         current: 1,
-        pageSize: 10
+        pageSize: PAGE_SIZE
     });
 
     useEffect(()=>{
@@ -61,6 +62,12 @@ export default function AdminAllDataSchema() {
         PageQuerySchemaApi(tableParams).then(res=>{
             if (res.code === 0){
                 setDataSchemaList(res.data.itemList);
+                setPagination((p)=>(
+                    {
+                        current: p.current,
+                        pageSize: PAGE_SIZE, 
+                        total: res.data.totalCount
+                    }))
             } else{
                 message.error(res.msg);
             }
@@ -71,13 +78,16 @@ export default function AdminAllDataSchema() {
 
 
     const handleTableChange = (pagination) => {
+        console.log(pagination)
         setPagination(pagination);
         setTableParams(t=>{
-            return {
+            const newParams = {
                 ...t,
-                pageNo:pagination.pageNo,
+                pageNo:pagination.current,
                 pageSize: pagination.pageSize
             }
+            console.log(newParams)
+            return newParams
         })
       };
 
@@ -89,7 +99,7 @@ export default function AdminAllDataSchema() {
             dataSource={dataSchemaList} 
             pagination={pagination}
             onChange={handleTableChange}
-            />;
+            />
         </div>
     );
 }
