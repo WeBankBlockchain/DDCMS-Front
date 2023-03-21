@@ -16,6 +16,8 @@ import moment from "moment";
 import util from '../utils/util';
 import Error from "./Error";
 
+const {Search} = Input;
+
 export default function AdminAllProductList() {
   const visible = util.isVisibleByRoles(['company','admin']);
   if (!visible){

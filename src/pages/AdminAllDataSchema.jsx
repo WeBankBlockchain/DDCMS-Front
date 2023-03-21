@@ -3,9 +3,10 @@ import React from "react";
 import { useEffect, useState } from "react";
 import AdminTemplate from "../components/AdminTemplate";
 import { PageQuerySchemaApi } from "../request/api";
-import {message, Table, Link} from "antd";
+import {message, Table, Link, Input} from "antd";
 
 import { useNavigate } from "react-router-dom";
+const {Search} = Input;
 
 const PAGE_SIZE =2 ;
 
@@ -94,6 +95,7 @@ export default function AdminAllDataSchema() {
       
     return (
         <div>
+            <Search></Search>
             <Table 
             columns={schemaColumns} 
             dataSource={dataSchemaList} 
