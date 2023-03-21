@@ -35,15 +35,14 @@ export default function AdminAllDataSchema() {
         {
           title: '操作',
           key: 'action',
+          width: 200,
           render: (text, record) => (
-            <a onClick={() => navigate(`/schema/detail`,{
+            <a onClick={() => navigate(`/admin/schema/detail`,{
                 state: {
-                    schemaGid: record.schemaGid,
                     schemaId: record.schemaId
                 }
-            })}>View Details</a> // use the useHistory hook to navigate to the detail page for each product
-          
-
+            })}>查看</a>
+        
             ),
         },
       ];
@@ -59,7 +58,7 @@ export default function AdminAllDataSchema() {
     });
 
     useEffect(()=>{
-    
+        console.log('start query')
         PageQuerySchemaApi(tableParams).then(res=>{
             if (res.code === 0){
                 setDataSchemaList(res.data.itemList);
@@ -92,16 +91,41 @@ export default function AdminAllDataSchema() {
         })
       };
 
+    const handleOnSearch = (e)=>{
+        setPagination({
+            current: 1,
+            pageSize: PAGE_SIZE
+        })
+        setTableParams({
+            keyWord: e,
+            pageNo: 1,
+            pageSize: PAGE_SIZE
+        })
+    }
       
     return (
-        <div>
-            <Search></Search>
-            <Table 
-            columns={schemaColumns} 
-            dataSource={dataSchemaList} 
-            pagination={pagination}
-            onChange={handleTableChange}
-            />
+        <div style={{
+            marginLeft: '50px',
+            width: "80%"
+        }}>
+            <Search 
+            style={{
+                marginBottom: '50px',
+                width: '50%'
+            }}
+            onSearch={handleOnSearch}
+            ></Search>
+            <div style={{
+                
+            }}>
+                <Table 
+                columns={schemaColumns} 
+                dataSource={dataSchemaList} 
+                pagination={pagination}
+                onChange={handleTableChange}
+                />
+            </div>
+
         </div>
     );
 }
