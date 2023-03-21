@@ -9,14 +9,14 @@ import Admin from '../pages/Admin';
 import ProductList from '../pages/ProductList';
 import SchemaDetail from '../pages/SchemaDetail';
 import AdminAllDataSchema from '../pages/AdminAllDataSchema';
-<<<<<<< HEAD
-import AdminAccountList from '../pages/AdminAccountList';
+
 import AdminAllProductList from '../pages/AdminAllProductList';
 import AdminMyDataSchema from '../pages/AdminMyDataSchema';
-=======
-import AccountList from '../pages/admin/AccountList';
->>>>>>> d74286dbd3640ae13972eb108f232ac451ee1166
 
+import AccountList from '../pages/admin/AccountList';
+import NewDataSchema from '../pages/NewDataSchema';
+import ModifyDataSchema from '../pages/ModifyDataSchema';
+import AdminMyFavorateDataSchema from '../pages/AdminMyFavorateDataSchema';
 export const routeMap = [
 	{
 		path: '/',
@@ -64,6 +64,10 @@ export const routeMap = [
 			{
 				path: 'schema/modify',
 				element: <ModifyDataSchema />,
+			},
+			{
+				path: 'schema/fav',
+				element: <AdminMyFavorateDataSchema/>
 			},
 			// {
 			{

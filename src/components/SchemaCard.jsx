@@ -63,7 +63,13 @@ export default function SchemaCard(props) {
         </div>
         <div className='schema-star'>
           <Space>
-            <HeartOutlined  onClick={onFavorate(props.item.schemaId)} style={{fontSize: '20px'}}/>
+              <HeartOutlined  
+                onClick={()=>{
+                  onFavorate(props.item.schemaId)
+                }}
+              style={{fontSize: '20px'}}/>
+
+            
           </Space>
         </div>
       </div>
