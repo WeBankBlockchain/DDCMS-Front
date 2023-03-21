@@ -26,7 +26,7 @@ export default function LoginUser() {
           float: "right",
         }}
       >
-        <Link to="/userInfo">
+        <Link to="/admin/user/info">
           <Avatar icon={<UserOutlined />} />
           <Avatar size={48}>{localStorage.getItem("userName")}</Avatar>
         </Link>
