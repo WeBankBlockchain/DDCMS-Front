@@ -67,3 +67,5 @@ export const PageQueryMyFavSchemaApi = (params) =>
 export const GetMenuByRoleApi = (params) =>
   service.post("menu/getMenuByRole", params);
 
+export const GetProductsByProviderIdApi = (params) => service.post("product/getProductsByProviderId", params)
+

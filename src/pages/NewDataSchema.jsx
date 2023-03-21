@@ -1,9 +1,9 @@
 import { Content, Footer, Header } from 'antd/es/layout/layout';
-import React,{useState, useRef} from 'react';
+import React,{useState, useRef, useEffect} from 'react';
 import { Form, Input, Button, Layout, message, Select, DatePicker, Meta, Card, Row, Col, Divider} from "antd";
 import { TagsInput } from "react-tag-input-component";
 import { useLocation } from 'react-router-dom';
-import {NewDataSchemaApi} from '../request/api';
+import {NewDataSchemaApi, GetProductsByProviderIdApi} from '../request/api';
 import moment from 'moment';
 
 const { Option } = Select;
@@ -12,7 +12,7 @@ export default function NewDataSchema() {
 
     //各类状态
     const [tags, setTags] = useState([]);
-
+    const [myProducts, setMyProducts] = useState([]);
     //回调
     const onSubmit = (values) => {
         console.log(values);
@@ -36,6 +36,19 @@ export default function NewDataSchema() {
         console.log(request);
         // NewDataSchemaApi()
     }
+
+
+    useEffect(
+        ()=>{
+            GetProductsByProviderIdApi({}).then(res=>{
+                if (res.code === 0){
+                    setMyProducts(res.data);
+                } else{
+                    message.error(res.msg);
+                }
+            })        
+        },
+        []);
 
     const onFinishFailed = (errorInfo) => {
         console.log("Failed:", errorInfo);
@@ -96,7 +109,12 @@ export default function NewDataSchema() {
                                     { pattern: "^[^ ]+$", message: "名称不能有空格" },
                                     ]}
                                     >
-                                        <Input placeholder="请输入所属产品名称" />
+                                        <Select placeholder='请选择产品' >
+                                            {myProducts.map(p=>{
+                                                <Option value={p.pkId} style={{textAlign:'center'}}>{p.productName}</Option>
+                                            })}
+                                            
+                                        </Select>
                                     </Form.Item>
                                     <Form.Item
                                         name="dataSchemaDesc"
