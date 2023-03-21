@@ -91,9 +91,10 @@ export default function AdminAccountList() {
     });
   };
 
-  const approve = (agree) => {
+  const approve = (did, agree) => {
     const approveReq = {
       approved: agree,
+      did: did,
     };
     ApproveAccountApi(approveReq)
       .then((res) => {
@@ -200,10 +201,10 @@ export default function AdminAccountList() {
             <a>查看详情</a>
           </Popover>
           {record.status === 1 && (
-            <a onClick={() => approve(true)}>通过</a>
+            <a onClick={() => approve(record.did, true)}>通过</a>
           )}
           {record.status === 1 && (
-            <a onClick={() => approve(false)}>拒绝</a>
+            <a onClick={() => approve(record.did, false)}>拒绝</a>
           )}
         </Space>
       ),

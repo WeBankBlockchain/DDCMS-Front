@@ -52,6 +52,10 @@ export const routeMap = [
 				element: <SchemaDetail />,
 			},
 			{
+				path: 'account/list',
+				element: <AccountList />,
+			},
+			{
 				path: 'user/info',
 				element: <UserInfo />,
 			},
