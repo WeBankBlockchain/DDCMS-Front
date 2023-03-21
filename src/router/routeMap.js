@@ -47,13 +47,17 @@ export const routeMap = [
 		element: <Admin/>,
 		children: [
 			{
-				path: 'allschema',
+				path: 'schema/all',
 				element: <AdminAllDataSchema />,
 			},
 			// {
 			{
 				indexed: true,
-				element: <AdminAllDataSchema />,
+				element: <Error />,
+			},
+			{
+				path: 'schema/detail',
+				element: <SchemaDetail />,
 			},
 			// {
 			// 	indexed: true,
