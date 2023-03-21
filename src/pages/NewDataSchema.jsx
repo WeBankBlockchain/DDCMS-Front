@@ -18,7 +18,7 @@ export default function NewDataSchema() {
         console.log(values);
         var request = {
             dataSchemaName: values.dataSchemaName,
-            productId: 1,//todo
+            productId: values.dataSchemaProductId,//todo
             tagNameList: tags,
             version: values.dataSchemaVersion,
             visible: values.dataSchemaVisible,
@@ -103,7 +103,7 @@ export default function NewDataSchema() {
                                     </Form.Item>
                                     <Form.Item
                                     label="所属产品"
-                                    name="dataSchemaProductName"
+                                    name="dataSchemaProductId"
                                     rules={[
                                     { required: true, message: "请输入所属产品名称" },
                                     { pattern: "^[^ ]+$", message: "名称不能有空格" },
