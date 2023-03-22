@@ -32,7 +32,8 @@ export default function AdminAccountList() {
     pageNo: 1,
     pageSize: 10,
   });
-  const [fileUrl, setFileUrl] = useState(null);
+  const [currentUrl, setCurrentUrl] = useState(null);
+  const [currentFile, setCurrentFile] = useState(null);
 
   const queryApi = (action) => {
     action(tableParams)
@@ -81,7 +82,7 @@ export default function AdminAccountList() {
   useEffect(() => {
     fetchData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [tableParams, accountStatus]);
+  }, [tableParams, accountStatus, currentUrl, currentFile]);
 
   const handleChange = (pagination, _, sorter) => {
     setSortedInfo(sorter);
@@ -128,11 +129,15 @@ export default function AdminAccountList() {
   };
 
   const handleDownload = async (filename) => {
-    const params = { filename: filename };
-    const response = await DownloadFileApi(params);
-    const blob = await response;
-    const url = URL.createObjectURL(blob);
-    setFileUrl(url);
+    if (filename !== currentFile) {
+      const params = { filename: filename };
+      console.log(filename);
+      const response = await DownloadFileApi(params);
+      const blob = await response;
+      const url = URL.createObjectURL(blob);
+      setCurrentFile(filename);
+      setCurrentUrl(url);
+    }
   };
 
   const UsersList = () => (
@@ -184,18 +189,14 @@ export default function AdminAccountList() {
       ellipsis: true,
     },
     {
-      title: "注册状态",
-      dataIndex: "status",
-      key: "status",
-      render: (status) => {
-        if (status === 0) {
-          return <Badge status="default" text="未注册" />;
-        } else if (status === 1) {
-          return <Badge status="processing" text="审核中" />;
-        } else if (status === 2) {
-          return <Badge status="success" text="已审核" />;
-        } else if (status === 3) {
-          return <Badge status="error" text="已拒绝" />;
+      title: "账户类型",
+      dataIndex: "accountType",
+      key: "accountType",
+      render: (accountType) => {
+        if (accountType === "1") {
+          return "普通机构";
+        } else if (accountType === "2") {
+          return "见证方";
         }
       },
       sorter: (a, b) => a.status - b.status,
@@ -208,9 +209,13 @@ export default function AdminAccountList() {
       render: (_, record) => (
         <Space size="middle">
           <Popover content={OrgProfile(record)}>
-            <a onClick={() => handleDownload(record.companyCertFileUri)}>
-              查看详情
-            </a>
+            <span
+              onMouseEnter={() => handleDownload(record.companyCertFileUri)}
+            >
+              <a onClick={() => handleDownload(record.companyCertFileUri)}>
+                查看详情
+              </a>
+            </span>
           </Popover>
           {record.status === 1 && (
             <a onClick={() => approve(record.did, true)}>通过</a>
@@ -232,44 +237,54 @@ export default function AdminAccountList() {
     ellipsis: true,
   });
 
-  const OrgProfile = (data) =>
-    data && (
-      <>
-        <Descriptions title="机构用户信息" bordered>
-          <Descriptions.Item label="账户类型">机构</Descriptions.Item>
-          <Descriptions.Item label="机构名称">
-            {data.companyName}
-          </Descriptions.Item>
-          <Descriptions.Item label="证件类型">
-            {data.companyCertType}
-          </Descriptions.Item>
-          <Descriptions.Item label="证件号码">
-            {data.companyCertNo}
-          </Descriptions.Item>
-          <Descriptions.Item label="did" span={2}>
-            {data.did}
-          </Descriptions.Item>
-          <Descriptions.Item label="私钥地址" span={3}>
-            {data.privateKey}
-          </Descriptions.Item>
-          <Descriptions.Item label="开户日期" span={2}>
-            {moment(data.createTime).format("YYYY-MM-DD HH:mm:ss")}
-          </Descriptions.Item>
-          <Descriptions.Item label="审核状态">
-            {data.status === 0 && <Badge status="default" text="未注册" />}
-            {data.status === 1 && <Badge status="processing" text="审核中" />}
-            {data.status === 2 && <Badge status="success" text="已审核" />}
-            {data.status === 3 && <Badge status="error" text="已拒绝" />}
-          </Descriptions.Item>
-          <Descriptions.Item label="联系方式">
-            {data.companyContact}
-          </Descriptions.Item>
-          <Descriptions.Item label="证件图像" span={2}>
-            {fileUrl && <Image width={200} src={fileUrl} />}
-          </Descriptions.Item>
-        </Descriptions>
-      </>
+  const OrgProfile = (data) => {
+    return (
+      data && (
+        <>
+          <Descriptions title="机构用户信息" bordered>
+            <Descriptions.Item label="账户类型">机构</Descriptions.Item>
+            <Descriptions.Item label="机构名称">
+              {data.companyName}
+            </Descriptions.Item>
+            <Descriptions.Item label="证件类型">
+              {data.companyCertType}
+            </Descriptions.Item>
+            <Descriptions.Item label="证件号码">
+              {data.companyCertNo}
+            </Descriptions.Item>
+            <Descriptions.Item label="did" span={2}>
+              {data.did}
+            </Descriptions.Item>
+            <Descriptions.Item label="私钥地址" span={3}>
+              {data.privateKey}
+            </Descriptions.Item>
+            <Descriptions.Item label="开户日期" span={2}>
+              {moment(data.createTime).format("YYYY-MM-DD HH:mm:ss")}
+            </Descriptions.Item>
+            <Descriptions.Item label="审核状态">
+              {data.status === 0 && <Badge status="default" text="未注册" />}
+              {data.status === 1 && <Badge status="processing" text="审核中" />}
+              {data.status === 2 && <Badge status="success" text="已审核" />}
+              {data.status === 3 && <Badge status="error" text="已拒绝" />}
+            </Descriptions.Item>
+            <Descriptions.Item label="联系方式">
+              {data.companyContact}
+            </Descriptions.Item>
+            <Descriptions.Item label="证件图像" span={2}>
+              {currentUrl && currentFile === data.companyCertFileUri && (
+                <Image width={200} src={currentUrl} />
+              )}
+              {(!currentUrl || currentFile !== data.companyCertFileUri) && (
+                <a onClick={() => handleDownload(data.companyCertFileUri)}>
+                  下载图片
+                </a>
+              )}
+            </Descriptions.Item>
+          </Descriptions>
+        </>
+      )
     );
+  };
 
   return <UsersList />;
 }

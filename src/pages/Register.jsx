@@ -35,7 +35,7 @@ export default function Register() {
       companyCertFileUri: fileName,
     });
     registRequest = {
-      accountType: "1",
+      accountType: values.userType,
       userName: values.userName,
       password: values.password,
       detailJson: detailJsonStr,
