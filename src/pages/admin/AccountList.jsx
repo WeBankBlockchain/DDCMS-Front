@@ -32,7 +32,6 @@ export default function AdminAccountList() {
     pageNo: 1,
     pageSize: 10,
   });
-  const [visible, setVisible] = useState(false);
   const [fileUrl, setFileUrl] = useState(null);
 
   const queryApi = (action) => {
@@ -68,7 +67,6 @@ export default function AdminAccountList() {
   };
 
   const onSearch = (keyword) => {
-    console.log(keyword);
     if (keyword === "") {
       const { keyWord: removedKeyword, ...rest } = tableParams;
       setTableParams(rest);
@@ -86,7 +84,6 @@ export default function AdminAccountList() {
   }, [tableParams, accountStatus]);
 
   const handleChange = (pagination, _, sorter) => {
-    console.log("Various parameters", pagination, sorter);
     setSortedInfo(sorter);
     setPagination(pagination);
     setTableParams({
@@ -131,18 +128,11 @@ export default function AdminAccountList() {
   };
 
   const handleDownload = async (filename) => {
-    console.log(filename);
     const params = { filename: filename };
     const response = await DownloadFileApi(params);
     const blob = await response;
     const url = URL.createObjectURL(blob);
     setFileUrl(url);
-    setVisible(true);
-  };
-
-  const handleCancel = () => {
-    setFileUrl(null);
-    setVisible(false);
   };
 
   const UsersList = () => (
@@ -259,9 +249,6 @@ export default function AdminAccountList() {
           <Descriptions.Item label="did" span={2}>
             {data.did}
           </Descriptions.Item>
-          <Descriptions.Item label="证件影像文件" span={3}>
-            {data.companyCertFileUri}
-          </Descriptions.Item>
           <Descriptions.Item label="私钥地址" span={3}>
             {data.privateKey}
           </Descriptions.Item>
@@ -277,7 +264,7 @@ export default function AdminAccountList() {
           <Descriptions.Item label="联系方式">
             {data.companyContact}
           </Descriptions.Item>
-          <Descriptions.Item label="图像预览">
+          <Descriptions.Item label="证件图像" span={2}>
             {fileUrl && <Image width={200} src={fileUrl} />}
           </Descriptions.Item>
         </Descriptions>

@@ -6,7 +6,6 @@ const url = baseURL + "file/upload";
 
 export default function FileUploader(props) {
   const uploadFile = (file) => {
-    console.log("upload url: " + url);
     // create a FormData object
     const formData = new FormData();
     // append the file to the formData
@@ -21,7 +20,6 @@ export default function FileUploader(props) {
     data: { uploadFile },
     onChange(info) {
       if (info.file.status !== "uploading") {
-        console.log(info.file, info.fileList);
       }
       if (info.file.status === "done") {
         const name = info.file.response.data;
