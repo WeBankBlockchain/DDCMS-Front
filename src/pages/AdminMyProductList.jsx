@@ -29,6 +29,9 @@ export default function AdminMyProductList() {
   
   const navigate = useNavigate();
 
+  const handleDelete = ()=>{
+    alert('尚未实现!');
+  };
   const columns = [
       {
         title: '产品id',
@@ -81,7 +84,7 @@ export default function AdminMyProductList() {
                 }
             })}>查看</a>
             <a>修改</a>
-            <a>删除</a>
+            <a onClick={handleDelete}>删除</a>
             </span>
 
           ),
