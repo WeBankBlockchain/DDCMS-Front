@@ -1,6 +1,6 @@
 import React from 'react'
 import './SchemaCard.css'
-import { Space, Button} from 'antd';
+import { Space, Button, message} from 'antd';
 import {
   EyeOutlined,
   EyeInvisibleOutlined,
@@ -10,7 +10,7 @@ import {
 import { useNavigate } from 'react-router-dom';
 import moment from 'moment'
 import PubSub from 'pubsub-js'
-
+import { AddSchemaFavoriteApi } from '../request/api';
 export default function SchemaCard(props) {
 
   const navigate = useNavigate()
@@ -37,6 +37,16 @@ export default function SchemaCard(props) {
     })
   }
 
+  const onFavorate = (schemaId)=>{
+    AddSchemaFavoriteApi({
+      schemaId: schemaId
+    }).then(res=>{
+      if (res.code !== 0){
+        message.error(res.msg);
+      }
+    });
+  }
+
   return (
     <div className='schema-card'>
       <div className='schema-header'>
@@ -53,7 +63,13 @@ export default function SchemaCard(props) {
         </div>
         <div className='schema-star'>
           <Space>
-            <HeartOutlined style={{fontSize: '20px'}}/>
+              <HeartOutlined  
+                onClick={()=>{
+                  onFavorate(props.item.schemaId)
+                }}
+              style={{fontSize: '20px'}}/>
+
+            
           </Space>
         </div>
       </div>

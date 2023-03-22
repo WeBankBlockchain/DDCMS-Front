@@ -9,8 +9,14 @@ import Admin from '../pages/Admin';
 import ProductList from '../pages/ProductList';
 import SchemaDetail from '../pages/SchemaDetail';
 import AdminAllDataSchema from '../pages/AdminAllDataSchema';
-import AccountList from '../pages/admin/AccountList';
 
+import AdminAllProductList from '../pages/AdminAllProductList';
+import AdminMyDataSchema from '../pages/AdminMyDataSchema';
+
+import AccountList from '../pages/admin/AccountList';
+import NewDataSchema from '../pages/NewDataSchema';
+import ModifyDataSchema from '../pages/ModifyDataSchema';
+import AdminMyFavorateDataSchema from '../pages/AdminMyFavorateDataSchema';
 export const routeMap = [
 	{
 		path: '/',
@@ -42,15 +48,33 @@ export const routeMap = [
 				path: 'schema/all',
 				element: <AdminAllDataSchema />,
 			},
-			// {
 			{
-				indexed: true,
-				element: <Error />,
+				path: 'schema/my',
+				element: <AdminMyDataSchema />,
 			},
 			{
 				path: 'schema/detail',
 				element: <SchemaDetail />,
 			},
+			{
+
+				path: 'schema/create',
+				element: <NewDataSchema />,
+			},
+			{
+				path: 'schema/modify',
+				element: <ModifyDataSchema />,
+			},
+			{
+				path: 'schema/fav',
+				element: <AdminMyFavorateDataSchema/>
+			},
+			// {
+			{
+				indexed: true,
+				element: <Error />,
+			},
+
 			{
 				path: 'account/list',
 				element: <AccountList />,
@@ -59,6 +83,7 @@ export const routeMap = [
 				path: 'user/info',
 				element: <UserInfo />,
 			},
+
 			// {
 			// 	indexed: true,
 			// 	element: <AdminAllProductList/>

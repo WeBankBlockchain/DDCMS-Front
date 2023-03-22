@@ -57,5 +57,18 @@ export const QueryDataSchemaAccessInfoApi = (params) =>
 export const NewDataSchemaApi = (params) =>
   service.post("schema/createSchema", params);
 
+
+export const PageQueryMySchemaApi = (params) =>
+  service.post("schema/pageQueryMySchema", params);
+
+export const AddSchemaFavoriteApi = (params) =>
+  service.post("schema/addSchemaFavorite", params);
+
+export const PageQueryMyFavSchemaApi = (params) =>
+  service.post("schema/pageQueryMyFavSchema", params);
+
 export const GetMenuByRoleApi = (params) =>
   service.post("menu/getMenuByRole", params);
+
+export const GetProductsByProviderIdApi = (params) => service.post("product/getProductsByProviderId", params)
+
