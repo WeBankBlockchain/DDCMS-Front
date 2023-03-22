@@ -17,6 +17,8 @@ import AccountList from '../pages/admin/AccountList';
 import NewDataSchema from '../pages/NewDataSchema';
 import ModifyDataSchema from '../pages/ModifyDataSchema';
 import AdminMyFavorateDataSchema from '../pages/AdminMyFavorateDataSchema';
+import AdminMyProductList from '../pages/AdminMyProductList';
+
 export const routeMap = [
 	{
 		path: '/',
@@ -73,7 +75,10 @@ export const routeMap = [
 				path: 'product/all',
 				element: <AdminAllProductList />,
 			},
-			// {
+			{
+				path: 'product/my',
+				element: <AdminMyProductList />,
+			},
 			{
 				indexed: true,
 				element: <Error />,
@@ -87,102 +92,7 @@ export const routeMap = [
 				path: 'user/info',
 				element: <UserInfo />,
 			},
-
-			// {
-			// 	indexed: true,
-			// 	element: <AdminAllProductList/>
-			// },
-			// {
-			// 	path: 'company',
-			// 	element: <AdminAccountList/>
-			// },
-			// {
-			// 	path: 'allproduct',
-			// 	element: <AdminAllProductList />,
-			// },
-
-
-			// {
-			// 	path: 'allproduct',
-			// 	element: <AdminMyProductList />,
-			// }
-				// children: [
-				// 	{
-				// 		path: 'detail',
-				// 		element: <AdminProductDetail/>
-				// 	},
-				// 	{
-				// 		path: 'kyc',
-				// 		element: <AdminProductKyc/>
-				// 	},
-				// 	{
-				// 		path: 'create',
-				// 		element: <AdminProductCreate/>
-				// 	},
-				// 	{
-				// 		path: 'modify',
-				// 		element: <AdminProductModify/>
-				// 	},
-				// ]
-			
-
 		]
-		// children: [
-		// 	{
-		// 		path:'user',
-		// 		element: <AdminUserList/>,
-		// 		children: [
-		// 			{
-		// 				path: 'detail',
-		// 				element: <AdminUserDetail/>
-		// 			},
-		// 			{
-		// 				path: 'kyc',
-		// 				element: <AdminUserKyc/>
-		// 			},
-		// 		]
-		// 	},
-		// 	{
-		// 		path:'product',
-		// 		element: <AdminProductList/>,
-		// 		children: [
-		// 			{
-		// 				path: 'detail',
-		// 				element: <AdminProductDetail/>
-		// 			},
-		// 			{
-		// 				path: 'kyc',
-		// 				element: <AdminProductKyc/>
-		// 			},
-		// 			{
-		// 				path: 'create',
-		// 				element: <AdminProductCreate/>
-		// 			},
-		// 			{
-		// 				path: 'modify',
-		// 				element: <AdminProductModify/>
-		// 			},
-		// 		]
-		// 	},
-		// 	{
-		// 		path:'schema',
-		// 		element: <AdminSchemaList/>,
-		// 		children: [
-		// 			{
-		// 				path: 'detail',
-		// 				element: <AdminSchemaDetail/>
-		// 			},					
-		// 			{
-		// 				path: 'create',
-		// 				element: <AdminSchemaCreate/>
-		// 			},
-		// 			{
-		// 				path: 'modify',
-		// 				element: <AdminSchemaModify/>
-		// 			},
-		// 		]
-		// 	}
-		// ]
 	},
 	{
 		path: 'schema/detail',
