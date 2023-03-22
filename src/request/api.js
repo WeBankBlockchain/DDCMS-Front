@@ -38,7 +38,7 @@ export const PageQueryMyProductApi = (params) =>
   service.post("product/pageQueryMyProduct", params);
 
 
-export const queryProductByIdApi = (params) =>
+export const QueryProductByIdApi = (params) =>
   service.post("product/queryProductById", params);
 
 export const CreateProductApi = (params) =>

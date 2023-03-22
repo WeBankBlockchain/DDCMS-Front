@@ -69,12 +69,21 @@ export default function AdminMyProductList() {
         key: 'action',
         width: 200,
         render: (text, record) => (
-          <a onClick={() => navigate(`/admin/schema/detail`,{
-              state: {
-                  schemaId: record.schemaId
-              }
-          })}>查看</a>
-      
+            <span style={{
+                dislay:'flex',
+                justifyContent: 'space-evenly'
+            }
+    
+            }>
+            <a onClick={() => navigate(`/admin/produict/detail`,{
+                state: {
+                    productId: record.productId
+                }
+            })}>查看</a>
+            <a>修改</a>
+            <a>删除</a>
+            </span>
+
           ),
       },
     ];

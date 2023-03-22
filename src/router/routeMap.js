@@ -6,7 +6,7 @@ import Register from '../pages/Register';
 import UserInfo from '../pages/admin/UserInfo';
 import Test from '../pages/Test';
 import Admin from '../pages/Admin';
-import ProductList from '../pages/ProductList';
+import ProductList from '../pages/AppProductList';
 import SchemaDetail from '../pages/SchemaDetail';
 import AdminAllDataSchema from '../pages/AdminAllDataSchema';
 
@@ -19,6 +19,7 @@ import ModifyDataSchema from '../pages/ModifyDataSchema';
 import AdminMyFavorateDataSchema from '../pages/AdminMyFavorateDataSchema';
 import AdminMyProductList from '../pages/AdminMyProductList';
 import NewProduct from '../pages/NewProduct';
+import AdminProductDetail from '../pages/AdminProductDetail';
 
 export const routeMap = [
 	{
@@ -83,6 +84,10 @@ export const routeMap = [
 			{
 				path: 'product/create',
 				element: <NewProduct />,
+			},
+			{
+				path: 'product/detail',
+				element: <AdminProductDetail />,
 			},
 			{
 				indexed: true,
