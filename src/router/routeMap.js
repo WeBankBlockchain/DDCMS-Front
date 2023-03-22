@@ -18,6 +18,7 @@ import NewDataSchema from '../pages/NewDataSchema';
 import ModifyDataSchema from '../pages/ModifyDataSchema';
 import AdminMyFavorateDataSchema from '../pages/AdminMyFavorateDataSchema';
 import AdminMyProductList from '../pages/AdminMyProductList';
+import NewProduct from '../pages/NewProduct';
 
 export const routeMap = [
 	{
@@ -78,6 +79,10 @@ export const routeMap = [
 			{
 				path: 'product/my',
 				element: <AdminMyProductList />,
+			},
+			{
+				path: 'product/create',
+				element: <NewProduct />,
 			},
 			{
 				indexed: true,
