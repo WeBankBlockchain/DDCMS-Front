@@ -1,6 +1,6 @@
 import React from "react";
 import { useEffect, useState } from "react";
-import { PageQueryProductApi,ApproveProductApi } from "../request/api";
+import { PageQueryMyProductApi } from "../request/api";
 import { useNavigate } from "react-router-dom";
 import {
   Table,
@@ -11,6 +11,7 @@ import {
   Badge,
   Radio,
   Input,
+  Button,
 } from "antd";
 import moment from "moment";
 import util from '../utils/util';
@@ -89,7 +90,7 @@ export default function AdminMyProductList() {
   });
 
   useEffect(()=>{
-    PageQueryProductApi(tableParams).then(res=>{
+    PageQueryMyProductApi(tableParams).then(res=>{
           if (res.code === 0){
               setProductList(res.data.itemList);
               setPagination((p)=>(
@@ -123,13 +124,12 @@ export default function AdminMyProductList() {
     const query = {
       pageNo:1,
       pageSize: PAGE_SIZE,
-      keyword: e
+      keyWord: e
     }
     setTableParams(query)
   }
   const handleOnRadioChange = (e) =>{
     var chosenValue = e.target.value;
-    chosenValue = chosenValue !='-1'? chosenValue: undefined;
     const query = {
       pageNo:1,
       pageSize: PAGE_SIZE,
@@ -142,25 +142,36 @@ export default function AdminMyProductList() {
       }}>
           <div style={{
               display: 'flex',
-              justifyContent: 'space-between'
+              justifyContent: 'space-between',
+              marginBottom: "20px"
           }}>
               <Radio.Group defaultValue="-1" buttonStyle="solid" onChange={handleOnRadioChange}>
                   <Radio.Button value="-1">全部</Radio.Button>
-                  <Radio.Button value="1">未审核</Radio.Button>
+                  <Radio.Button value="1">审核中</Radio.Button>
                   <Radio.Button value="2">已审核</Radio.Button>
                   <Radio.Button value="3">已拒绝</Radio.Button>
               </Radio.Group>
-              <Search 
-              style={{
-                  width: '20%'
-              }}
-              placeholder='根据名称搜索'
-              onSearch={handleOnSearch}
-              ></Search>
+              <div>
+                <Search 
+                style={{
+                    width: '500px',
+                }}
+                placeholder='根据名称搜索'
+                onSearch={handleOnSearch}
+                ></Search>
+                <Button type='primary' style={{                    
+                    marginLeft: '20px'}}
+                    onClick = {()=>{
+                        navigate('/admin/product/create')
+                    }}
+                    >创建产品</Button>
+              </div>
+
               
           </div>
 
           <Table 
+
               columns={columns} 
               dataSource={productList} 
               pagination={pagination}
