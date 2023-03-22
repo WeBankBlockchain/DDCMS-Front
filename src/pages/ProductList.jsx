@@ -1,7 +1,7 @@
 import { List, Button, message } from 'antd';
 import { useEffect, useState } from 'react';
 import ProductCard from '../components/ProductCard';
-import { pageQueryProductApi } from '../request/api';
+import { PageQueryProductApi } from '../request/api';
 import { useLocation } from 'react-router-dom'
 import PubSub from 'pubsub-js';
 import './Common.css';
@@ -27,7 +27,7 @@ export default function ProjectList() {
 
   const loadPageData = ({ providerId, pageNo }) => {
     setInitLoading(true);
-    pageQueryProductApi({ providerId, pageNo, pageSize }).then((res) => {
+    PageQueryProductApi({ providerId, pageNo, pageSize }).then((res) => {
       if(res.code === 0){
         setData(data.concat(res.data.itemList));
         setList(data.concat(res.data.itemList));

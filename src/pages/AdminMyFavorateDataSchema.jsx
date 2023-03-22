@@ -44,13 +44,7 @@ export default function AdminMyFavorateDataSchema() {
                 }
             })}>  查看  </a>
 
-                <a onClick={() => navigate(`/admin/schema/modify`,{
-                state: {
-                    schemaId: record.schemaId
-                }
-            })}>  修改  </a>
-
-                <a>  删除  </a>
+                <a>  删除收藏  </a>
             </span>
 
             ),
@@ -128,15 +122,6 @@ export default function AdminMyFavorateDataSchema() {
                 placeholder='根据名称搜索'
                 onSearch={handleOnSearch}
                 ></Search>
-                <Button
-                    style={{
-                        marginLeft: '20px'
-                    }}
-                    type='primary'
-                    onClick={()=>{
-                        navigate('/admin/schema/create')
-                    }}
-                >创建数据目录</Button>
             </div>
 
 

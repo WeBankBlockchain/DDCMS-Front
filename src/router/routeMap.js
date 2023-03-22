@@ -69,6 +69,10 @@ export const routeMap = [
 				path: 'schema/fav',
 				element: <AdminMyFavorateDataSchema/>
 			},
+			{
+				path: 'product/all',
+				element: <AdminAllProductList />,
+			},
 			// {
 			{
 				indexed: true,

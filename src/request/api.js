@@ -28,7 +28,7 @@ export const GetHotCompaniesApi = (params) =>
 export const GetHotProductsApi = (params) =>
   service.post("product/getHotProducts", params);
 
-export const pageQueryProductApi = (params) =>
+export const PageQueryProductApi = (params) =>
   service.post("product/pageQueryProduct", params);
 
 export const queryProductByIdApi = (params) =>
@@ -40,7 +40,7 @@ export const createProductApi = (params) =>
 export const updateProductApi = (params) =>
   service.post("product/updateProduct", params);
 
-export const approveProductApi = (params) =>
+export const ApproveProductApi = (params) =>
   service.post("product/approveProduct", params);
 
 export const GetHotTagsApi = (params) => service.post("tag/getHotTags", params);

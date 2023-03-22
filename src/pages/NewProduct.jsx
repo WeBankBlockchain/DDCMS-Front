@@ -9,13 +9,6 @@ import { useNavigate } from 'react-router-dom';
 const { Option } = Select;
 
 export default function NewProduct() {
-    //
-  
-    //获取路由带过来的providerId
-    const location = useLocation();
-
-    //获取当前环境各类id(todo)
-    const providerGid = location.state?.providerGid;
 
     const navigate = useNavigate()
     

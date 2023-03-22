@@ -122,7 +122,7 @@ export default function AdminAllDataSchema() {
         }}>
             <div style={{
                 display: 'flex',
-                justifyContent: 'space-between'
+                justifyContent: 'flex-end'
             }}>
                 {/* <Radio.Group defaultValue="0" buttonStyle="solid" onChange={handleOnRadioChange}>
                     <Radio.Button value="-1">全部</Radio.Button>
@@ -132,7 +132,7 @@ export default function AdminAllDataSchema() {
                 </Radio.Group> */}
                 <Search 
                 style={{
-                    width: '20%',
+                    width: '20%'
                 }}
                 placeholder='根据名称搜索'
                 onSearch={handleOnSearch}

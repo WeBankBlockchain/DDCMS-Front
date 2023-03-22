@@ -1,7 +1,7 @@
 import React from "react";
 import { useEffect, useState } from "react";
-import AdminTemplate from "../components/AdminTemplate";
-import { pageQueryProductApi,approveProductApi } from "../request/api";
+import { PageQueryProductApi,ApproveProductApi } from "../request/api";
+import { useNavigate } from "react-router-dom";
 import {
   Table,
   Space,
@@ -16,240 +16,160 @@ import moment from "moment";
 import util from '../utils/util';
 import Error from "./Error";
 
-
+const {Search} = Input;
+const PAGE_SIZE = 10;
+const statusNames = {
+  1: '审核中',
+  2: '已审核',
+  3: '已拒绝'
+}
 
 export default function AdminAllProductList() {
-  const visible = util.isVisibleByRoles(['company','admin']);
-  if (!visible){
-    return (<Error message='你的权限无法访问此页面'/>)
+  
+  const navigate = useNavigate();
+
+  const columns = [
+      {
+        title: '产品id',
+        dataIndex: 'productId',
+        key: 'productId',
+        width: 200
+      },
+      {
+        title: '产品名称',
+        dataIndex: 'productName',
+        key: 'productName',
+        width: 200
+      },
+      {
+        title: '所属公司',
+        dataIndex: 'companyName',
+        key: 'companyName',
+        width: 200
+      },
+      {
+        title: '注册时间',
+        dataIndex: 'createTime',
+        key: 'createTime',
+        width: 200,
+        render: (t) => (
+          moment(t).format('YYYY-MM-DD HH:mm:ss')
+        )
+      },
+      {
+        title: '审核状态',
+        dataIndex: 'status',
+        key:'status',
+        width: 200,
+        render: (t) => (renderStatus(t))
+      },
+      {
+        title: '操作',
+        key: 'action',
+        width: 200,
+        render: (text, record) => (
+          <a onClick={() => navigate(`/admin/schema/detail`,{
+              state: {
+                  schemaId: record.schemaId
+              }
+          })}>查看</a>
+      
+          ),
+      },
+    ];
+  
+  const [productList, setProductList] = useState([]);
+  const [tableParams, setTableParams] = useState({
+      pageNo: 1,
+      pageSize: PAGE_SIZE
+  })
+  const [pagination,setPagination] = useState({
+      current: 1,
+      pageSize: PAGE_SIZE
+  });
+
+  useEffect(()=>{
+    PageQueryProductApi(tableParams).then(res=>{
+          if (res.code === 0){
+              setProductList(res.data.itemList);
+              setPagination((p)=>(
+                  {
+                      current: tableParams.pageNo,
+                      pageSize: PAGE_SIZE, 
+                      total: res.data.totalCount
+                  }))
+          } else{
+              message.error(res.msg);
+          }
+      });
   }
-  return (<div>aaa</div>)
 
-  // const [sortedInfo, setSortedInfo] = useState({});
-  // const [loading, setLoading] = useState(false);
-  // const [data, setData] = useState();
-  // const { Search } = Input;
-  // const [pagination, setPagination] = useState({
-  //   current: 1,
-  //   pageSize: 10,
-  // });
-
-  // const [tableParams, setTableParams] = useState({
-  //   pageNo: 1,
-  //   pageSize: 10,
-  // });
-
-  // const queryApi = (action) => {
-  //   action(tableParams)
-  //   .then((res) => {
-  //       if (res.code === 0) {
-  //         const r = res.data.itemList;
-  //         setData(
-  //           r.map((item, index) => ({
-  //             ...item,
-  //             key: index,
-  //           }))
-  //         );
-  //         setLoading(false);
-  //         setPagination({
-  //           ...pagination,
-  //           total: res.data.pageCount,
-  //         });
-  //       } else {
-  //         message.error(res.msg);
-  //       }
-  //     })
-  // };
-
-  // const fetchData = () => {
-  //   setLoading(true);
-  //   queryApi(pageQueryProductApi);
-  // };
-
-  // const onSearch = (keyword) => {
-  //   console.log(keyword);
-  //   if (keyword === "") {
-  //     const { keyWord: removedKeyword, ...rest } = tableParams;
-  //     setTableParams(rest);
-  //   } else {
-  //     setTableParams({
-  //       ...tableParams,
-  //       keyWord: keyword,
-  //     });
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   fetchData();
-  // }, [JSON.stringify(tableParams)]);
-
-  // const handleChange = (pagination, _, sorter) => {
-  //   console.log("Various parameters", pagination, sorter);
-  //   setSortedInfo(sorter);
-  //   setTableParams({
-  //     pagination,
-  //     ...sorter,
-  //     pageNo: pagination.current,
-  //     pageSize: pagination.pageSize,
-  //   });
-  //   // `dataSource` is useless since `pageSize` changed
-  //   if (pagination.pageSize !== tableParams.pagination?.pageSize) {
-  //     setData([]);
-  //   }
-  // };
-
-  // const approve = (record) => {
-  //   const approveReq = {
-  //       agree: true,
-  //       productGId: record.productGid,
-  //       did: record.did
-  //   };
-  //   console.log("approveReq parameters", approveReq);
-  //   approveProductApi(approveReq)
-  //     .then((res) => {
-  //       if (res.code === 0) {
-  //         message.success("审批成功!");
-  //         setTimeout(fetchData(), 1000);
-  //       } else {
-  //         console.log(res);
-  //         message.error("审批失败!");
-  //         message.error(res.msg);
-  //       }
-  //     })
-  //     .catch((error) => {
-  //       message.error(error.response.data.message);
-  //     });
-  // };
+  , [tableParams]);
 
 
-  // const productList = (
-  //   <>
-  //     <div
-  //       style={{
-  //         display: "flex",
-  //         alignItems: "center",
-  //         justifyContent: "space-between",
-  //         margin: "0 0 24px 0",
-  //       }}
-  //     >
-  //       <Search
-  //         placeholder="请输入姓名/公司名称"
-  //         style={{ width: 350 }}
-  //         onSearch={onSearch}
-  //         enterButton
-  //       />
-  //     </div>
+  const handlePageChange = (pagination) => {
+      setTableParams(t=>{
+          const newParams = {
+              ...t,
+              pageNo:pagination.current,
+              pageSize: pagination.pageSize
+          }
+          console.log(newParams)
+          return newParams
+      })
+    };
 
-  //     <Table
-  //       columns={columns}
-  //       dataSource={data}
-  //       loading={loading}
-  //       pagination={pagination}
-  //       onChange={handleChange}
-  //     />
-  //   </>
-  // );
+  const handleOnSearch = (e)=>{
+    const query = {
+      pageNo:1,
+      pageSize: PAGE_SIZE,
+      keyword: e
+    }
+    setTableParams(query)
+  }
+  const handleOnRadioChange = (e) =>{
+    var chosenValue = e.target.value;
+    chosenValue = chosenValue !='-1'? chosenValue: undefined;
+    const query = {
+      pageNo:1,
+      pageSize: PAGE_SIZE,
+      status: chosenValue
+    }
+    setTableParams(query)
+  }
+  return (
+      <div style={{
+      }}>
+          <div style={{
+              display: 'flex',
+              justifyContent: 'space-between'
+          }}>
+              <Radio.Group defaultValue="-1" buttonStyle="solid" onChange={handleOnRadioChange}>
+                  <Radio.Button value="-1">全部</Radio.Button>
+                  <Radio.Button value="1">未审核</Radio.Button>
+                  <Radio.Button value="2">已审核</Radio.Button>
+                  <Radio.Button value="3">已拒绝</Radio.Button>
+              </Radio.Group>
+              <Search 
+              style={{
+                  width: '20%'
+              }}
+              placeholder='根据名称搜索'
+              onSearch={handleOnSearch}
+              ></Search>
+              
+          </div>
 
-  // const columns = [
-  //   {
-  //     title: "注册时间",
-  //     dataIndex: "createTime",
-  //     key: "createTime",
-  //     render: (text) => moment(text).format("YYYY-MM-DD HH:mm:ss"),
-  //     sorter: (a, b) => a.createTime - b.createTime,
-  //     sortOrder:
-  //       sortedInfo.columnKey === "createTime" ? sortedInfo.order : null,
-  //     ellipsis: true,
-  //   },
-  //   {
-  //     title: "注册状态",
-  //     dataIndex: "status",
-  //     key: "status",
-  //     render: (status) => {
-  //       if (status === 0) {
-  //         return <Badge status="default" text="审核中" />;
-  //       } else if (status === 1) {
-  //         return <Badge status="processing" text="已审核" />;
-  //       } else if (status === 3) {
-  //         return <Badge status="error" text="已拒绝" />;
-  //       }
-  //     },
-  //     sorter: (a, b) => a.status - b.status,
-  //     sortOrder: sortedInfo.columnKey === "status" ? sortedInfo.order : null,
-  //     ellipsis: true,
-  //   },
-  //   {
-  //     title: "操作",
-  //     key: "action",
-  //     render: (_, record) => (
-  //       <Space size="middle">
-  //         <Popover
-  //           content={
-  //                OrgProfile(record)
-  //           }
-  //         >
-  //           <a>查看详情</a>
-  //         </Popover>
-  //         {record.status === 0 && (
-  //           <a onClick={() => approve(record)}>审核</a>
-  //         )}
-  //       </Space>
-  //     ),
-  //   },
-  // ];
+          <Table 
+              columns={columns} 
+              dataSource={productList} 
+              pagination={pagination}
+              onChange={handlePageChange}
+              />
+      </div>
+  );
+}
 
-
-  //   columns.unshift({
-  //     title: "机构名称",
-  //     dataIndex: "companyName",
-  //     key: "companyName",
-  //     sorter: (a, b) => a.companyName.length - b.companyName.length,
-  //     sortOrder:
-  //       sortedInfo.columnKey === "companyName" ? sortedInfo.order : null,
-  //     ellipsis: true,
-  //   });
-  
-  
-  // const OrgProfile = (data) =>
-  //   data && (
-  //     <Descriptions title="产品名称" bordered>
-  //       <Descriptions.Item label="账户类型">机构</Descriptions.Item>
-  //       <Descriptions.Item label="产品名称">
-  //         {data.productName}
-  //       </Descriptions.Item>
-  //       <Descriptions.Item label="公司名称">
-  //         {data.companyName}
-  //       </Descriptions.Item>
-  //       <Descriptions.Item label="did" span={2}>
-  //         {data.did}
-  //       </Descriptions.Item>
-  //       <Descriptions.Item label="产品描述" span={3}>
-  //         {data.productDesc}
-  //       </Descriptions.Item>
-  //       <Descriptions.Item label="开户日期" span={2}>
-  //         {moment(data.createTime).format("YYYY-MM-DD HH:mm:ss")}
-  //       </Descriptions.Item>
-  //       <Descriptions.Item label="审核状态">
-  //         {data.status === 0 && <Badge status="default" text="未注册" />}
-  //         {data.status === 1 && <Badge status="processing" text="审核中" />}
-  //         {data.status === 2 && <Badge status="success" text="已审核" />}
-  //         {data.status === 3 && <Badge status="error" text="已拒绝" />}
-  //       </Descriptions.Item>
-  //     </Descriptions>
-  //   );
-
-  // const AdminPage = AdminTemplate(productList);
-  // const breadcrumb = {
-  //   home: "首页",
-  //   list: "产品管理",
-  //   app: "产品审核",
-  // };
-
-  // return (
-  //   <AdminPage
-  //     breadcrumb={breadcrumb}
-  //     defaultSelectedKeys={["31"]}
-  //     defaultOpenKeys={["sub3"]}
-  //   ></AdminPage>
-  // );
+function renderStatus(statusCode) {
+  return <span>{statusNames[statusCode]}</span>
 }
