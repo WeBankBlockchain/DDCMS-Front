@@ -3,7 +3,7 @@ import React from "react";
 import { useEffect, useState } from "react";
 import AdminTemplate from "../components/AdminTemplate";
 import { PageQuerySchemaApi } from "../request/api";
-import {message, Table, Link, Input} from "antd";
+import {message, Table, Link, Input, Radio} from "antd";
 
 import { useNavigate } from "react-router-dom";
 const {Search} = Input;
@@ -58,9 +58,9 @@ export default function AdminAllDataSchema() {
     });
 
     useEffect(()=>{
-        console.log('start query')
         PageQuerySchemaApi(tableParams).then(res=>{
             if (res.code === 0){
+
                 setDataSchemaList(res.data.itemList);
                 setPagination((p)=>(
                     {
@@ -102,15 +102,34 @@ export default function AdminAllDataSchema() {
             pageSize: PAGE_SIZE
         })
     }
-      
+    // const handleOnRadioChange = (e) =>{
+    //     var chosenValue = e.target.value;
+    //     chosenValue = chosenValue !='-1'? chosenValue: undefined;
+    //     setPagination({
+    //         current:1,
+    //         pageSize: PAGE_SIZE
+    //     })
+    //     setTableParams(t=>{
+    //         return {
+    //             ...t,
+    //             status: undefined,
+    //             pageNo: 1
+    //         }
+    //     })
+    // }
     return (
         <div style={{
         }}>
             <div style={{
                 display: 'flex',
-                justifyContent: 'flex-end'
+                justifyContent: 'space-between'
             }}>
-                
+                {/* <Radio.Group defaultValue="0" buttonStyle="solid" onChange={handleOnRadioChange}>
+                    <Radio.Button value="-1">全部</Radio.Button>
+                    <Radio.Button value="1">未审核</Radio.Button>
+                    <Radio.Button value="2">已审核</Radio.Button>
+                    <Radio.Button value="3">已拒绝</Radio.Button>
+                </Radio.Group> */}
                 <Search 
                 style={{
                     width: '20%',
