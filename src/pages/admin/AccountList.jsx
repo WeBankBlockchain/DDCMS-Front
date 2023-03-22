@@ -1,6 +1,6 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React from "react";
 import { useEffect, useState } from "react";
-import AdminTemplate from "../../components/AdminTemplate";
 import { ApproveAccountApi, SearchCompanyApi } from "../../request/api";
 import {
   Table,
@@ -11,8 +11,10 @@ import {
   Badge,
   Radio,
   Input,
+  Image,
 } from "antd";
 import moment from "moment";
+import { DownloadFileApi } from "../../request/api";
 
 export default function AdminAccountList() {
   const [sortedInfo, setSortedInfo] = useState({});
@@ -30,6 +32,8 @@ export default function AdminAccountList() {
     pageNo: 1,
     pageSize: 10,
   });
+  const [visible, setVisible] = useState(false);
+  const [fileUrl, setFileUrl] = useState(null);
 
   const queryApi = (action) => {
     action(tableParams)
@@ -78,7 +82,8 @@ export default function AdminAccountList() {
 
   useEffect(() => {
     fetchData();
-  }, [JSON.stringify(tableParams), accountStatus]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [tableParams, accountStatus]);
 
   const handleChange = (pagination, _, sorter) => {
     console.log("Various parameters", pagination, sorter);
@@ -125,7 +130,22 @@ export default function AdminAccountList() {
     setAccountStatus(ut);
   };
 
-  const usersList = () => (
+  const handleDownload = async (filename) => {
+    console.log(filename);
+    const params = { filename: filename };
+    const response = await DownloadFileApi(params);
+    const blob = await response;
+    const url = URL.createObjectURL(blob);
+    setFileUrl(url);
+    setVisible(true);
+  };
+
+  const handleCancel = () => {
+    setFileUrl(null);
+    setVisible(false);
+  };
+
+  const UsersList = () => (
     <>
       <div
         style={{
@@ -198,7 +218,9 @@ export default function AdminAccountList() {
       render: (_, record) => (
         <Space size="middle">
           <Popover content={OrgProfile(record)}>
-            <a>查看详情</a>
+            <a onClick={() => handleDownload(record.companyCertFileUri)}>
+              查看详情
+            </a>
           </Popover>
           {record.status === 1 && (
             <a onClick={() => approve(record.did, true)}>通过</a>
@@ -222,51 +244,45 @@ export default function AdminAccountList() {
 
   const OrgProfile = (data) =>
     data && (
-      <Descriptions title="机构用户信息" bordered>
-        <Descriptions.Item label="账户类型">机构</Descriptions.Item>
-        <Descriptions.Item label="机构名称">
-          {data.companyName}
-        </Descriptions.Item>
-        <Descriptions.Item label="证件类型">
-          {data.companyCertType}
-        </Descriptions.Item>
-        <Descriptions.Item label="证件号码"> </Descriptions.Item>
-        <Descriptions.Item label="did" span={2}>
-          {data.did}
-        </Descriptions.Item>
-        <Descriptions.Item label="证件影像文件" span={3}>
-          {data.companyCertFileUri}
-        </Descriptions.Item>
-        <Descriptions.Item label="私钥地址" span={3}>
-          {data.keyAddress}
-        </Descriptions.Item>
-        <Descriptions.Item label="开户日期" span={2}>
-          {moment(data.createTime).format("YYYY-MM-DD HH:mm:ss")}
-        </Descriptions.Item>
-        <Descriptions.Item label="审核状态">
-          {data.status === 0 && <Badge status="default" text="未注册" />}
-          {data.status === 1 && <Badge status="processing" text="审核中" />}
-          {data.status === 2 && <Badge status="success" text="已审核" />}
-          {data.status === 3 && <Badge status="error" text="已拒绝" />}
-        </Descriptions.Item>
-        <Descriptions.Item label="联系方式">
-          {data.companyContact}
-        </Descriptions.Item>
-      </Descriptions>
+      <>
+        <Descriptions title="机构用户信息" bordered>
+          <Descriptions.Item label="账户类型">机构</Descriptions.Item>
+          <Descriptions.Item label="机构名称">
+            {data.companyName}
+          </Descriptions.Item>
+          <Descriptions.Item label="证件类型">
+            {data.companyCertType}
+          </Descriptions.Item>
+          <Descriptions.Item label="证件号码">
+            {data.companyCertNo}
+          </Descriptions.Item>
+          <Descriptions.Item label="did" span={2}>
+            {data.did}
+          </Descriptions.Item>
+          <Descriptions.Item label="证件影像文件" span={3}>
+            {data.companyCertFileUri}
+          </Descriptions.Item>
+          <Descriptions.Item label="私钥地址" span={3}>
+            {data.privateKey}
+          </Descriptions.Item>
+          <Descriptions.Item label="开户日期" span={2}>
+            {moment(data.createTime).format("YYYY-MM-DD HH:mm:ss")}
+          </Descriptions.Item>
+          <Descriptions.Item label="审核状态">
+            {data.status === 0 && <Badge status="default" text="未注册" />}
+            {data.status === 1 && <Badge status="processing" text="审核中" />}
+            {data.status === 2 && <Badge status="success" text="已审核" />}
+            {data.status === 3 && <Badge status="error" text="已拒绝" />}
+          </Descriptions.Item>
+          <Descriptions.Item label="联系方式">
+            {data.companyContact}
+          </Descriptions.Item>
+          <Descriptions.Item label="图像预览">
+            {fileUrl && <Image width={200} src={fileUrl} />}
+          </Descriptions.Item>
+        </Descriptions>
+      </>
     );
 
-  const AdminPage = AdminTemplate(usersList);
-  const breadcrumb = {
-    home: "首页",
-    list: "账户管理",
-    app: "账户注册审核",
-  };
-
-  return (
-    <AdminPage
-      breadcrumb={breadcrumb}
-      defaultSelectedKeys={["31"]}
-      defaultOpenKeys={["sub3"]}
-    ></AdminPage>
-  );
+  return <UsersList />;
 }

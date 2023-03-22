@@ -6,30 +6,6 @@ import { QueryCompanyByUsernameApi } from "../../request/api";
 
 export default function UserInfo() {
   const [data, setData] = useState();
-  const username = localStorage.getItem("userName");
-
-  const req = { userName: username };
-
-  const queryApi = (action) => {
-    action(req)
-      .then((res) => {
-        if (res.code === 0) {
-          console.log(res.data);
-          setData(res.data);
-        } else {
-          console.log(res);
-          message.error("查询失败!");
-          message.error(res.msg);
-        }
-      })
-      .catch((error) => {
-        message.error(error.response.data.message);
-      });
-  };
-
-  const fetchData = () => {
-    queryApi(QueryCompanyByUsernameApi);
-  };
 
   const OrgProfile = () =>
     data && (
@@ -69,6 +45,27 @@ export default function UserInfo() {
     );
 
   useEffect(() => {
+    const username = localStorage.getItem("userName");
+    const req = { userName: username };
+    const fetchData = () => {
+      queryApi(QueryCompanyByUsernameApi);
+    };
+    const queryApi = (action) => {
+      action(req)
+        .then((res) => {
+          if (res.code === 0) {
+            console.log(res.data);
+            setData(res.data);
+          } else {
+            console.log(res);
+            message.error("查询失败!");
+            message.error(res.msg);
+          }
+        })
+        .catch((error) => {
+          message.error(error.response.data.message);
+        });
+    };
     fetchData();
   }, []);
 
