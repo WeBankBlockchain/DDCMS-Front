@@ -16,11 +16,14 @@ export const QueryCompanyByUsernameApi = (params) =>
 export const ApproveAccountApi = (params) =>
   service.post("account/approveAccount", params);
 
+export const DownloadFileApi = (params) =>
+  service.get("file/download", {
+    responseType: "blob",
+    params,
+  });
+
 export const PageQuerySchemaApi = (params) =>
   service.post("schema/pageQuerySchema", params);
-
-export const PageQueryCompanyApi = (params) =>
-  service.post("account/pageQueryCompany", params);
 
 export const GetHotCompaniesApi = (params) =>
   service.post("account/getHotCompanies", params);

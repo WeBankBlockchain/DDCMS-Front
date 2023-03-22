@@ -1,35 +1,13 @@
 import React from "react";
-import { Badge, Descriptions, message } from "antd";
+import { Badge, Descriptions, message, Image } from "antd";
 import { useEffect, useState } from "react";
 import moment from "moment";
 import { QueryCompanyByUsernameApi } from "../../request/api";
+import { DownloadFileApi } from "../../request/api";
 
 export default function UserInfo() {
   const [data, setData] = useState();
-  const username = localStorage.getItem("userName");
-
-  const req = { userName: username };
-
-  const queryApi = (action) => {
-    action(req)
-      .then((res) => {
-        if (res.code === 0) {
-          console.log(res.data);
-          setData(res.data);
-        } else {
-          console.log(res);
-          message.error("查询失败!");
-          message.error(res.msg);
-        }
-      })
-      .catch((error) => {
-        message.error(error.response.data.message);
-      });
-  };
-
-  const fetchData = () => {
-    queryApi(QueryCompanyByUsernameApi);
-  };
+  const [fileUrl, setFileUrl] = useState(null);
 
   const OrgProfile = () =>
     data && (
@@ -47,9 +25,6 @@ export default function UserInfo() {
         <Descriptions.Item label="did" span={2}>
           {data.did}
         </Descriptions.Item>
-        <Descriptions.Item label="证件影像文件" span={3}>
-          {data.companyCertFileUri}
-        </Descriptions.Item>
         <Descriptions.Item label="私钥地址" span={3}>
           {data.privateKey}
         </Descriptions.Item>
@@ -65,10 +40,42 @@ export default function UserInfo() {
         <Descriptions.Item label="联系方式">
           {data.companyContact}
         </Descriptions.Item>
+        <Descriptions.Item label="证件图像" span={2}>
+          {fileUrl && <Image width={200} src={fileUrl} />}
+        </Descriptions.Item>
       </Descriptions>
     );
 
   useEffect(() => {
+    const username = localStorage.getItem("userName");
+    const req = { userName: username };
+    const fetchData = () => {
+      queryApi(QueryCompanyByUsernameApi);
+    };
+    const handleDownload = async (filename) => {
+      const params = { filename: filename };
+      const response = await DownloadFileApi(params);
+      const blob = await response;
+      const url = URL.createObjectURL(blob);
+      setFileUrl(url);
+    };
+    const queryApi = (action) => {
+      action(req)
+        .then((res) => {
+          if (res.code === 0) {
+            console.log(res.data);
+            setData(res.data);
+            handleDownload(res.data.companyCertFileUri);
+          } else {
+            console.log(res);
+            message.error("查询失败!");
+            message.error(res.msg);
+          }
+        })
+        .catch((error) => {
+          message.error(error.response.data.message);
+        });
+    };
     fetchData();
   }, []);
 

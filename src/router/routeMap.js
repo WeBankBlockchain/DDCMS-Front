@@ -197,10 +197,6 @@ export const routeMap = [
 		element: <Register />
 	},
 	{
-		path: 'userInfo',
-		element: <AccountList />
-	},
-	{
 		path: 'test',
 		element: <Test />
 	},
