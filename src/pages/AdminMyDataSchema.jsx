@@ -1,7 +1,6 @@
 
 import React from "react";
 import { useEffect, useState } from "react";
-import AdminTemplate from "../components/AdminTemplate";
 import { PageQueryMySchemaApi } from "../request/api";
 import {message, Table, Link, Input, Button} from "antd";
 
