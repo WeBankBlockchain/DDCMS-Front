@@ -3,7 +3,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import CommonFooter from "../../components/footer/CommonFooter";
 import HomeHeader from "../../components/header/HomeHeader";
-import "../../assets/Common.css";
+import "../../assets/CommonStyle.css";
 import { LoginApi } from "../../request/api";
 
 const { Content } = Layout;
