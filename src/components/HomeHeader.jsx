@@ -2,9 +2,13 @@ import React from "react";
 import { Space, Button } from "antd";
 import "./HomeHeader.css";
 import { Link, useNavigate } from "react-router-dom";
+import NotLoginUser from './NotLoginUser';
+import LoginUser from './LoginUser';
 
 export default function HomeHeader() {
-  const navigate = useNavigate();
+
+  
+  const userOperation = localStorage.getItem('userName') !== null?<LoginUser/>:<NotLoginUser/>
 
   return (
     <header>
@@ -27,28 +31,7 @@ export default function HomeHeader() {
             Data Brain
           </Link>
         </div>
-        <Space
-          wrap
-          style={{
-            float: "right",
-          }}
-        >
-          <Button
-            type="primary"
-            onClick={() => {
-              navigate("/login");
-            }}
-          >
-            登录
-          </Button>
-          <Button
-            onClick={() => {
-              navigate("/register");
-            }}
-          >
-            注册
-          </Button>
-        </Space>
+        {userOperation}
       </div>
     </header>
   );

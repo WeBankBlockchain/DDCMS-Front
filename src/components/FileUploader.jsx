@@ -5,7 +5,6 @@ import { baseURL } from "../request/service.js";
 const url = baseURL + "file/upload";
 
 export default function FileUploader(props) {
-
   const uploadFile = (file) => {
     // create a FormData object
     const formData = new FormData();
@@ -21,7 +20,6 @@ export default function FileUploader(props) {
     data: { uploadFile },
     onChange(info) {
       if (info.file.status !== "uploading") {
-        console.log(info.file, info.fileList);
       }
       if (info.file.status === "done") {
         const name = info.file.response.data;
@@ -34,7 +32,7 @@ export default function FileUploader(props) {
   };
 
   return (
-    <Upload {...params}>
+    <Upload accept="image/*" {...params}>
       <Button icon={<UploadOutlined />}> {props.label}</Button>
     </Upload>
   );

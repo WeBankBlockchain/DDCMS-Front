@@ -1,65 +1,36 @@
+import React, { useEffect,useState } from "react";
 import {
   LaptopOutlined,
   NotificationOutlined,
   UserOutlined,
 } from "@ant-design/icons";
-import { Layout, Menu } from "antd";
-import { Link } from 'react-router-dom';
-
-import React from "react";
+import { Layout, Menu ,message } from "antd";
+import { Link, useNavigate } from 'react-router-dom';
+import { GetMenuByRoleApi } from "../request/api";
 
 const { Sider } = Layout;
+const SubMenu = Menu.SubMenu;
+const MenuItemGroup = Menu.ItemGroup;
 
-const sliderItems = [
-  {
-    key: "sub1",
-    icon: React.createElement(UserOutlined),
-    label: "数据目录管理",
-    items: [
-      {
-        key: 11,
-        label: "查看数据目录",
-      },
-    ],
-  },
-  {
-    key: "sub2",
-    icon: React.createElement(LaptopOutlined),
-    label: "产品管理",
-    items: [
-      {
-        key: 21,
-        label: "产品审核",
-        path: "../adminProduct",
-      },
-    ],
-  },
-  {
-    key: "sub3",
-    icon: React.createElement(NotificationOutlined),
 
-    label: "账户管理",
-    items: [
-      {
-        key: 31,
-        label: "账户注册审核",
-        path: "../orgList",
-      },
-      {
-        key: 32,
-        label: "账户信息查询",
-        path: "../userInfo",
-      },
-      {
-        key: 33,
-        label: "option33",
-      },
-    ],
-  },
-];
+
 
 export default function AdminSlider(props) {
-  const { SubMenu } = Menu;
+
+  const [menus, setMenus] = useState([]);
+  const navigate = useNavigate();
+
+  useEffect(()=>{
+    GetMenuByRoleApi({}).then(res=>{
+      if (res.code === 0){
+        // console.log(res.data);
+        setMenus(res.data);
+      } else{
+        message.error(res.message);
+      }
+    })  
+  },[]
+  )
 
   return (
     <Sider
@@ -70,22 +41,35 @@ export default function AdminSlider(props) {
     >
       <Menu
         mode="inline"
-        defaultSelectedKeys={props.defaultSelectedKeys}
-        defaultOpenKeys={props.defaultOpenKeys}
         style={{
+          width: "100%",
           height: "100%",
+          textAlign: "left"
         }}
+        key='menu'
       >
-        {sliderItems.map((item) => (
-          <SubMenu key={item.key} icon={item.icon} title={item.label}>
-            {item.items.map((child) => (
-              <Menu.Item key={child.key}>
-                <Link to={child.path}>{child.label}</Link>
-              </Menu.Item>
-            ))}
-          </SubMenu>
-        ))}
+        {menuDataToMenu(navigate, menus)}
       </Menu>
     </Sider>
   );
+}
+
+function menuDataToMenu(navigate, menuDatas) {
+  const menus = [];
+  for (const m of menuDatas){
+    if (m.children==null || m.children.length == 0){
+      const menuItem = (<Menu.Item key={m.menuId} onClick={()=>(navigate(m.menuUrl))}>{m.menuName}</Menu.Item>)
+      menus.push(menuItem);
+    } else{
+      const items = menuDataToMenu(navigate, m.children);
+      const subMenu = 
+      (<SubMenu key={m.menuId} title={m.menuName}>
+        {
+        items} 
+      </SubMenu>)
+
+      menus.push(subMenu);
+    }
+  }
+  return menus
 }

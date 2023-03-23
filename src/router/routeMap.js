@@ -1,21 +1,25 @@
 import App from '../App';
-import Home from '../pages/Home';
+import AppSchemaList from '../pages/AppSchemaList';
 import Error from '../pages/Error';
-import OrgInfo from '../pages/OrgInfo';
 import Login from '../pages/Login';
 import Register from '../pages/Register';
-import UserInfo from '../pages/UserInfo';
+import UserInfo from '../pages/admin/UserInfo';
 import Test from '../pages/Test';
 import Admin from '../pages/Admin';
-import ProductList from '../pages/ProductList';
+import ProductList from '../pages/AppProductList';
 import SchemaDetail from '../pages/SchemaDetail';
-import ProductDetail from '../pages/ProductDetail';
+import AdminAllDataSchema from '../pages/AdminAllDataSchema';
+
+import AdminAllProductList from '../pages/AdminAllProductList';
+import AdminMyDataSchema from '../pages/AdminMyDataSchema';
+
+import AccountList from '../pages/admin/AccountList';
 import NewDataSchema from '../pages/NewDataSchema';
 import ModifyDataSchema from '../pages/ModifyDataSchema';
-import OrgList from '../pages/OrgList';
+import AdminMyFavorateDataSchema from '../pages/AdminMyFavorateDataSchema';
+import AdminMyProductList from '../pages/AdminMyProductList';
 import NewProduct from '../pages/NewProduct';
-import AdminProduct from '../pages/AdminProduct';
-import AdminDataSchema from '../pages/AdminDataSchema';
+import AdminProductDetail from '../pages/AdminProductDetail';
 
 export const routeMap = [
 	{
@@ -24,45 +28,85 @@ export const routeMap = [
 		children: [
 			{
 				index: true,
-				element: <Home />
+				element: <AppSchemaList />
 			},
 			{
 				path: 'home',
-				element: <Home />
-			},
-			{
-				path: 'productlist',
-				element: <ProductList />
-			},
-			{
-				path: 'schema/create',
-				element: <NewDataSchema />
+				element: <AppSchemaList />
 			},
 			{
 				path: 'schema/detail',
-				element: <SchemaDetail />
+				element: <SchemaDetail />,
 			},
 			{
-				path: 'product/detail',
-				element: <ProductDetail />
+				path: 'product',
+				element: <ProductList />,
 			},
-			{
-				path: 'schema/modify',
-				element: <ModifyDataSchema />
-			},
-			{
-				path: 'product/create',
-				element: <NewProduct />
-			}
 		]
 	},
 	{
 		path: 'admin',
-		element: <Admin />
+		element: <Admin/>,
+		children: [
+			{
+				path: 'schema/all',
+				element: <AdminAllDataSchema />,
+			},
+			{
+				path: 'schema/my',
+				element: <AdminMyDataSchema />,
+			},
+			{
+				path: 'schema/detail',
+				element: <SchemaDetail />,
+			},
+			{
+
+				path: 'schema/create',
+				element: <NewDataSchema />,
+			},
+			{
+				path: 'schema/modify',
+				element: <ModifyDataSchema />,
+			},
+			{
+				path: 'schema/fav',
+				element: <AdminMyFavorateDataSchema/>
+			},
+			{
+				path: 'product/all',
+				element: <AdminAllProductList />,
+			},
+			{
+				path: 'product/my',
+				element: <AdminMyProductList />,
+			},
+			{
+				path: 'product/create',
+				element: <NewProduct />,
+			},
+			{
+				path: 'product/detail',
+				element: <AdminProductDetail />,
+			},
+			{
+				indexed: true,
+				element: <Error />,
+			},
+
+			{
+				path: 'account/list',
+				element: <AccountList />,
+			},
+			{
+				path: 'user/info',
+				element: <UserInfo />,
+			},
+		]
 	},
 	{
-		path: 'orgInfo',
-		element: <OrgInfo />
+		path: 'schema/detail',
+		element: <SchemaDetail />
 	},
 	{
 		path: 'login',
@@ -73,27 +117,11 @@ export const routeMap = [
 		element: <Register />
 	},
 	{
-		path: 'orgList',
-		element: <OrgList />
-	},
-	{
-		path: 'adminProduct',
-		element: <AdminProduct />
-	},
-	{
-		path: 'adminDataSchema',
-		element: <AdminDataSchema />
-	},
-	{
-		path: 'userInfo',
-		element: <UserInfo />
-	},
-	{
 		path: 'test',
 		element: <Test />
 	},
 	{
 		path: '*',
-		element: <Error />
+		element: <Error message='非法URL'/>
 	}
 ];

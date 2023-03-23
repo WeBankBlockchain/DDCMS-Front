@@ -21,7 +21,7 @@ const dataProtocolNames = {
 export default function SchemaDetail() {
 
   const location = useLocation();
-  const {schemaId, schemaGid} = loadSchemaIdFromLocation(location);
+  const {schemaId} = loadSchemaIdFromLocation(location);
   const [dataSchema, setDataSchema] = useState({});
 
   const [dataSchemaAccessInfo, setDataSchemaAccessInfo] = useState({});
@@ -29,7 +29,7 @@ export default function SchemaDetail() {
   
   useEffect(()=>{
     const request = {
-      schemaGid: schemaGid
+      schemaId: schemaId
     };
     
     QueryDataSchemaApi(request).then(res=>{
@@ -67,7 +67,7 @@ export default function SchemaDetail() {
       <Card title="基本信息">
         <Descriptions bordered>
         <DescriptionsItem label='目录Id' span={3}>
-            {dataSchema.dataSchemaGid}
+            {dataSchema.schemaId}
           </DescriptionsItem>
           <DescriptionsItem label='公司名称' >
             {dataSchema.providerName}
@@ -152,7 +152,7 @@ export default function SchemaDetail() {
         </Descriptions>
       </Card>
       )}
-
+    
     
     </Layout>
     
@@ -163,9 +163,8 @@ export default function SchemaDetail() {
 
 
 function loadSchemaIdFromLocation(location) {
-    // const schemaId = location.state?.dataSchemaId;
+    const schemaId = location.state?.schemaId;
   return {
-    schemaId: 1,
-    schemaGid: 'AAAQGayMdnmwj5IbY/O5ZaN/wdCoB8BcEbeT2CwCpHwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAd=='
+    schemaId: schemaId
   }
 }
