@@ -6,7 +6,7 @@ import Register from '../pages/Register';
 import UserInfo from '../pages/admin/UserInfo';
 import Test from '../pages/Test';
 import Admin from '../pages/Admin';
-import ProductList from '../pages/AppProductList';
+import ProductList from '../pages/app/ProductList';
 import SchemaDetail from '../pages/SchemaDetail';
 import AdminAllDataSchema from '../pages/AdminAllDataSchema';
 

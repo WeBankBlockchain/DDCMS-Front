@@ -25,7 +25,7 @@ export default function SchemaCard(props) {
   }
 
   const providerOnClick = (providerId) => {
-    navigate('/productlist', {
+    navigate('/product', {
       state: {providerId: providerId}
     })
   }

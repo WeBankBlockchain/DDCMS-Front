@@ -13,7 +13,7 @@ export default function TopCompany() {
 
   const navigate = useNavigate()
   const onClick = (providerId) => {
-    navigate('/productlist', {
+    navigate('/product', {
       state: {providerId: providerId}
     })
   }
