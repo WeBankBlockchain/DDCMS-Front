@@ -18,6 +18,7 @@ import AdminProductDetail from '../pages/admin/AdminProductDetail';
 import AdminNewDataSchema from '../pages/admin/AdminNewDataSchema';
 import AdminModifyDataSchema from '../pages/admin/AdminModifyDataSchema';
 import AdminNewProduct from '../pages/admin/AdminNewProduct';
+import ProductDetail from '../pages/app/ProductDetail';
 
 export const routeMap = [
 	{
@@ -39,6 +40,10 @@ export const routeMap = [
 			{
 				path: 'product',
 				element: <ProductList />,
+			},
+			{
+				path: 'product/detail',
+				element: <ProductDetail />,
 			},
 		]
 	},

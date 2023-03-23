@@ -45,7 +45,7 @@ export default function TopCompany() {
         renderItem={(item) => (
           <List.Item key={item.companyName}>
             <Space style={{fontSize: '15px'}}>
-              {/* <Avatar src="https://joesch.moe/api/v1/random" /> */}
+              <Avatar src="https://joesch.moe/api/v1/random" />
               <Button 
                 type='link'
                 style={{color: '#000000', fontSize: '14px', padding: '0 0'}}
