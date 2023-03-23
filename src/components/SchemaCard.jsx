@@ -11,6 +11,7 @@ import { useNavigate } from 'react-router-dom';
 import moment from 'moment'
 import PubSub from 'pubsub-js'
 import { AddSchemaFavoriteApi } from '../request/api';
+import util from '../utils/util';
 export default function SchemaCard(props) {
 
   const navigate = useNavigate()
@@ -37,15 +38,10 @@ export default function SchemaCard(props) {
     })
   }
 
-  const onFavorate = (schemaId)=>{
-    AddSchemaFavoriteApi({
-      schemaId: schemaId
-    }).then(res=>{
-      if (res.code !== 0){
-        message.error(res.msg);
-      }
-    });
-  }
+  const schemaStarComponent = getSchemaStarComponent(props);
+
+
+
 
   return (
     <div className='schema-card'>
@@ -61,17 +57,7 @@ export default function SchemaCard(props) {
             {props.item.dataSchemaName}
           </Button>
         </div>
-        <div className='schema-star'>
-          <Space>
-              <HeartOutlined  
-                onClick={()=>{
-                  onFavorate(props.item.schemaId)
-                }}
-              style={{fontSize: '20px'}}/>
-
-            
-          </Space>
-        </div>
+        {schemaStarComponent}
       </div>
       <div className='schema-body'>
         <div className='schema-desc'>
@@ -107,4 +93,34 @@ export default function SchemaCard(props) {
       </div>
     </div>
   )
+}
+
+function getSchemaStarComponent(props){
+
+  const {exist} = util.currentAccount();
+
+  const onFavorate = (schemaId)=>{
+    AddSchemaFavoriteApi({
+      schemaId: schemaId
+    }).then(res=>{
+      if (res.code !== 0){
+        message.error(res.msg);
+      }
+    });
+  }
+
+  return exist?(
+    <div className='schema-star'>
+    <Space>
+        <HeartOutlined  
+          onClick={()=>{
+            onFavorate(props.item.schemaId)
+          }}
+        style={{fontSize: '20px', color: '#08c'}}/>
+
+      
+    </Space>
+  </div>
+  ): (<div></div>)
+  
 }

@@ -38,13 +38,13 @@ export default function AdminMyDataSchema() {
           width: 200,
           render: (text, record) => (
             <span>
-                <a onClick={() => navigate(`/admin/schema/detail`,{
+                <a onClick={() => navigate(`/admin/product/detail`,{
                 state: {
                     schemaId: record.schemaId
                 }
             })}>  查看  </a>
 
-                <a onClick={() => navigate(`/admin/schema/modify`,{
+                <a onClick={() => navigate(`/admin/product/modify`,{
                 state: {
                     schemaId: record.schemaId
                 }

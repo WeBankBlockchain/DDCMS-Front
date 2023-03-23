@@ -6,7 +6,7 @@ import Register from '../pages/Register';
 import UserInfo from '../pages/admin/UserInfo';
 import Test from '../pages/Test';
 import Admin from '../pages/Admin';
-import ProductList from '../pages/ProductList';
+import ProductList from '../pages/AppProductList';
 import SchemaDetail from '../pages/SchemaDetail';
 import AdminAllDataSchema from '../pages/AdminAllDataSchema';
 
@@ -17,6 +17,10 @@ import AccountList from '../pages/admin/AccountList';
 import NewDataSchema from '../pages/NewDataSchema';
 import ModifyDataSchema from '../pages/ModifyDataSchema';
 import AdminMyFavorateDataSchema from '../pages/AdminMyFavorateDataSchema';
+import AdminMyProductList from '../pages/AdminMyProductList';
+import NewProduct from '../pages/NewProduct';
+import AdminProductDetail from '../pages/AdminProductDetail';
+
 export const routeMap = [
 	{
 		path: '/',
@@ -73,7 +77,18 @@ export const routeMap = [
 				path: 'product/all',
 				element: <AdminAllProductList />,
 			},
-			// {
+			{
+				path: 'product/my',
+				element: <AdminMyProductList />,
+			},
+			{
+				path: 'product/create',
+				element: <NewProduct />,
+			},
+			{
+				path: 'product/detail',
+				element: <AdminProductDetail />,
+			},
 			{
 				indexed: true,
 				element: <Error />,
@@ -87,102 +102,7 @@ export const routeMap = [
 				path: 'user/info',
 				element: <UserInfo />,
 			},
-
-			// {
-			// 	indexed: true,
-			// 	element: <AdminAllProductList/>
-			// },
-			// {
-			// 	path: 'company',
-			// 	element: <AdminAccountList/>
-			// },
-			// {
-			// 	path: 'allproduct',
-			// 	element: <AdminAllProductList />,
-			// },
-
-
-			// {
-			// 	path: 'allproduct',
-			// 	element: <AdminMyProductList />,
-			// }
-				// children: [
-				// 	{
-				// 		path: 'detail',
-				// 		element: <AdminProductDetail/>
-				// 	},
-				// 	{
-				// 		path: 'kyc',
-				// 		element: <AdminProductKyc/>
-				// 	},
-				// 	{
-				// 		path: 'create',
-				// 		element: <AdminProductCreate/>
-				// 	},
-				// 	{
-				// 		path: 'modify',
-				// 		element: <AdminProductModify/>
-				// 	},
-				// ]
-			
-
 		]
-		// children: [
-		// 	{
-		// 		path:'user',
-		// 		element: <AdminUserList/>,
-		// 		children: [
-		// 			{
-		// 				path: 'detail',
-		// 				element: <AdminUserDetail/>
-		// 			},
-		// 			{
-		// 				path: 'kyc',
-		// 				element: <AdminUserKyc/>
-		// 			},
-		// 		]
-		// 	},
-		// 	{
-		// 		path:'product',
-		// 		element: <AdminProductList/>,
-		// 		children: [
-		// 			{
-		// 				path: 'detail',
-		// 				element: <AdminProductDetail/>
-		// 			},
-		// 			{
-		// 				path: 'kyc',
-		// 				element: <AdminProductKyc/>
-		// 			},
-		// 			{
-		// 				path: 'create',
-		// 				element: <AdminProductCreate/>
-		// 			},
-		// 			{
-		// 				path: 'modify',
-		// 				element: <AdminProductModify/>
-		// 			},
-		// 		]
-		// 	},
-		// 	{
-		// 		path:'schema',
-		// 		element: <AdminSchemaList/>,
-		// 		children: [
-		// 			{
-		// 				path: 'detail',
-		// 				element: <AdminSchemaDetail/>
-		// 			},					
-		// 			{
-		// 				path: 'create',
-		// 				element: <AdminSchemaCreate/>
-		// 			},
-		// 			{
-		// 				path: 'modify',
-		// 				element: <AdminSchemaModify/>
-		// 			},
-		// 		]
-		// 	}
-		// ]
 	},
 	{
 		path: 'schema/detail',
