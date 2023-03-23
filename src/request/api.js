@@ -61,7 +61,6 @@ export const QueryDataSchemaAccessInfoApi = (params) =>
 export const NewDataSchemaApi = (params) =>
   service.post("schema/createSchema", params);
 
-
 export const PageQueryMySchemaApi = (params) =>
   service.post("schema/pageQueryMySchema", params);
 

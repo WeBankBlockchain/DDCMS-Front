@@ -4,25 +4,19 @@ import { PageQueryMyProductApi } from "../request/api";
 import { useNavigate } from "react-router-dom";
 import {
   Table,
-  Space,
-  Descriptions,
-  Popover,
   message,
-  Badge,
   Radio,
   Input,
   Button,
 } from "antd";
 import moment from "moment";
-import util from '../utils/util';
-import Error from "./Error";
 
 const {Search} = Input;
 const PAGE_SIZE = 10;
 const statusNames = {
-  1: '审核中',
-  2: '已审核',
-  3: '已拒绝'
+  0: '审核中',
+  1: '审核通过',
+  2: '拒绝'
 }
 
 export default function AdminMyProductList() {
@@ -114,7 +108,6 @@ export default function AdminMyProductList() {
           }
       });
   }
-
   , [tableParams]);
 
 
@@ -175,13 +168,10 @@ export default function AdminMyProductList() {
                         navigate('/admin/product/create')
                     }}
                     >创建产品</Button>
-              </div>
-
-              
+              </div>            
           </div>
 
           <Table 
-
               columns={columns} 
               dataSource={productList} 
               pagination={pagination}
