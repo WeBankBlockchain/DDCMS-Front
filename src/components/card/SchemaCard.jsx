@@ -1,5 +1,5 @@
 import React from 'react'
-import './SchemaCard.css'
+import '../../assets/SchemaCard.css'
 import { Space, Button, message} from 'antd';
 import {
   EyeOutlined,
@@ -10,8 +10,8 @@ import {
 import { useNavigate } from 'react-router-dom';
 import moment from 'moment'
 import PubSub from 'pubsub-js'
-import { AddSchemaFavoriteApi } from '../request/api';
-import util from '../utils/util';
+import { AddSchemaFavoriteApi } from '../../request/api';
+import util from '../../utils/util';
 export default function SchemaCard(props) {
 
   const navigate = useNavigate()

@@ -6,7 +6,7 @@ import {
 } from "@ant-design/icons";
 import { Layout, Menu ,message } from "antd";
 import { Link, useNavigate } from 'react-router-dom';
-import { GetMenuByRoleApi } from "../request/api";
+import { GetMenuByRoleApi } from "../../request/api";
 
 const { Sider } = Layout;
 const SubMenu = Menu.SubMenu;

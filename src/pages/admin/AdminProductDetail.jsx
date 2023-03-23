@@ -1,73 +1,55 @@
-import React, { useEffect,useState } from 'react';
-import { QueryProductByIdApi,updateProductApi } from '../request/api';
+import React, { useEffect, useState } from "react";
+import { QueryProductByIdApi } from "../../request/api";
 
-import { useLocation } from 'react-router-dom'
-import moment from 'moment'
+import { useLocation } from "react-router-dom";
+import moment from "moment";
 
-import {
-    message,
-    Button,
-    Checkbox,
-    Form,
-    Input,
-    Radio,
-    Select,
-    Layout,
-    Card,
-    Descriptions,
-    Divider
-  } from "antd";
-import DescriptionsItem from 'antd/es/descriptions/Item';
+import { message, Layout, Card, Descriptions, Divider } from "antd";
+import DescriptionsItem from "antd/es/descriptions/Item";
 
-const { Content } = Layout;
-const { TextArea } = Input;
-
-
-export default function AdminProductDetail(){
+export default function AdminProductDetail() {
   const location = useLocation();
   const productId = location.state?.productId;
-  const[ product, setProduct] = useState({})
-  
+  const [product, setProduct] = useState({});
+
   useEffect(() => {
     const request = {
-      productId: productId
-    }
-    QueryProductByIdApi(request).then(res=>{
-      if (res.code === 0){
+      productId: productId,
+    };
+    QueryProductByIdApi(request).then((res) => {
+      if (res.code === 0) {
         setProduct(res.data);
-      } else{
+      } else {
         message.error(res.msg);
       }
     });
-  }, [])
+  }, []);
 
   return (
-    <Layout style={{textAlign:'center'}}>
+    <Layout style={{ textAlign: "center" }}>
       <Card title="基本信息">
         <Descriptions bordered>
-        <DescriptionsItem label='产品Id'>
+          <DescriptionsItem label="产品Id">
             {product.productId}
           </DescriptionsItem>
-          <DescriptionsItem label='产品名称' >
+          <DescriptionsItem label="产品名称">
             {product.productName}
           </DescriptionsItem>
-          <DescriptionsItem label='产品详情' >
+          <DescriptionsItem label="产品详情">
             {product.productDesc}
-          </DescriptionsItem> 
-          <DescriptionsItem label='所属公司' >
+          </DescriptionsItem>
+          <DescriptionsItem label="所属公司">
             {product.companyName}
-          </DescriptionsItem> 
-          <DescriptionsItem label='创建日期' >
-            {moment(product.createTime).format('YYYY-MM-DD HH:mm:ss')}
-          </DescriptionsItem> 
+          </DescriptionsItem>
+          <DescriptionsItem label="创建日期">
+            {moment(product.createTime).format("YYYY-MM-DD HH:mm:ss")}
+          </DescriptionsItem>
         </Descriptions>
       </Card>
 
       <Divider></Divider>
-    
-    
     </Layout>
-  )
+  );
 }
 
 // export default function ProductDetail({}) {
@@ -100,7 +82,6 @@ export default function AdminProductDetail(){
 //       // eslint-disable-next-line react-hooks/exhaustive-deps
 //     }, [initRefresh]);
 
-
 //     const onFinish = (values) => {
 //         console.log("Received values of form: ", values);
 //         updateProductApi(form).then((res) => {
@@ -115,7 +96,7 @@ export default function AdminProductDetail(){
 
 //         message.success("提交成功");
 //       };
-    
+
 //       // 表单提交失败的回调函数
 //     const onFinishFailed = (errorInfo) => {
 //         console.log("Failed:", errorInfo);
@@ -174,7 +155,7 @@ export default function AdminProductDetail(){
 
 //               <Form.Item
 //                 label="提供方名称"
-                
+
 //               >
 //                  <label>{product.companyName} </label>
 //               </Form.Item>
@@ -198,8 +179,6 @@ export default function AdminProductDetail(){
 //                 {/* <Input placeholder={product.information} /> */}
 //               </Form.Item>
 
-            
-
 //               <Form.Item>
 //                 <Button
 //                   type="primary"
@@ -211,7 +190,7 @@ export default function AdminProductDetail(){
 //                 </Button>
 //               </Form.Item>
 //             </Form>
-//         ) 
+//         )
 //         : (
 //           <>
 //             <Form
@@ -222,7 +201,7 @@ export default function AdminProductDetail(){
 //                 minHeight: 800,
 //                 alignItems: "center",
 //                 margin: "0 auto",
-//                 marginTop: 30,  
+//                 marginTop: 30,
 //             }}
 //               scrollToFirstError
 //             >
@@ -240,7 +219,7 @@ export default function AdminProductDetail(){
 //               <Form.Item
 //                 label="创建时间"
 //               >
-//                 <label> 
+//                 <label>
 //                 {moment(product.createTime).format('YYYY-MM-DD')}
 //                 </label>
 //                 </Form.Item>
@@ -251,7 +230,6 @@ export default function AdminProductDetail(){
 //                 <TextArea rows={4} placeholder={product.productDesc} maxLength={6} />
 //               </Form.Item>
 
-            
 //               <Button
 //                 type="primary"
 //                 htmlType="submit"
@@ -263,7 +241,7 @@ export default function AdminProductDetail(){
 //           </>
 //         )
 //         }
-//          </div> 
+//          </div>
 //          </div>
 //       </div>
 //       </Content>

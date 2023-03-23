@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom';
 
 const { Option } = Select;
 
-export default function NewProduct() {
+export default function AdminNewProduct() {
 
     const navigate = useNavigate()
     

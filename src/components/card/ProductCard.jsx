@@ -1,5 +1,5 @@
 import React from 'react'
-import './ProductCard.css'
+import '../../assets/ProductCard.css'
 import { Space, Button} from 'antd';
 import {
   EyeOutlined,

@@ -1,25 +1,23 @@
 import App from '../App';
-import AppSchemaList from '../pages/AppSchemaList';
+import AppSchemaList from '../pages/app/AppSchemaList';
 import Error from '../pages/Error';
-import Login from '../pages/Login';
-import Register from '../pages/Register';
-import UserInfo from '../pages/admin/UserInfo';
+import Login from '../pages/app/Login';
+import Register from '../pages/app/Register';
+import AdminUserInfo from '../pages/admin/AdminUserInfo';
 import Test from '../pages/Test';
-import Admin from '../pages/Admin';
+import Admin from '../pages/admin/Admin';
 import ProductList from '../pages/app/ProductList';
-import SchemaDetail from '../pages/SchemaDetail';
-import AdminAllDataSchema from '../pages/AdminAllDataSchema';
-
-import AdminAllProductList from '../pages/AdminAllProductList';
-import AdminMyDataSchema from '../pages/AdminMyDataSchema';
-
-import AccountList from '../pages/admin/AccountList';
-import NewDataSchema from '../pages/NewDataSchema';
-import ModifyDataSchema from '../pages/ModifyDataSchema';
-import AdminMyFavorateDataSchema from '../pages/AdminMyFavorateDataSchema';
-import AdminMyProductList from '../pages/AdminMyProductList';
-import NewProduct from '../pages/NewProduct';
-import AdminProductDetail from '../pages/AdminProductDetail';
+import SchemaDetail from '../pages/app/SchemaDetail';
+import AdminAllDataSchema from '../pages/admin/AdminAllDataSchema';
+import AdminAllProductList from '../pages/admin/AdminAllProductList';
+import AdminMyDataSchema from '../pages/admin/AdminMyDataSchema';
+import AdminAccountList from '../pages/admin/AdminAccountList';
+import AdminMyFavorateDataSchema from '../pages/admin/AdminMyFavorateDataSchema';
+import AdminMyProductList from '../pages/admin/AdminMyProductList';
+import AdminProductDetail from '../pages/admin/AdminProductDetail';
+import AdminNewDataSchema from '../pages/admin/AdminNewDataSchema';
+import AdminModifyDataSchema from '../pages/admin/AdminModifyDataSchema';
+import AdminNewProduct from '../pages/AdminNewProduct';
 
 export const routeMap = [
 	{
@@ -63,11 +61,11 @@ export const routeMap = [
 			{
 
 				path: 'schema/create',
-				element: <NewDataSchema />,
+				element: <AdminNewDataSchema />,
 			},
 			{
 				path: 'schema/modify',
-				element: <ModifyDataSchema />,
+				element: <AdminModifyDataSchema />,
 			},
 			{
 				path: 'schema/fav',
@@ -83,7 +81,7 @@ export const routeMap = [
 			},
 			{
 				path: 'product/create',
-				element: <NewProduct />,
+				element: <AdminNewProduct />,
 			},
 			{
 				path: 'product/detail',
@@ -96,11 +94,11 @@ export const routeMap = [
 
 			{
 				path: 'account/list',
-				element: <AccountList />,
+				element: <AdminAccountList />,
 			},
 			{
 				path: 'user/info',
-				element: <UserInfo />,
+				element: <AdminUserInfo />,
 			},
 		]
 	},

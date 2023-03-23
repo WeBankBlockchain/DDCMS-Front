@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Input, Breadcrumb } from 'antd';
 import PubSub from 'pubsub-js'
-import './SearchBanner.css'
+import '../../assets/SearchBanner.css'
 
 const { Search } = Input;
 
