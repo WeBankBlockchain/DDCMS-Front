@@ -1,60 +1,93 @@
 import { Content, Footer, Header } from 'antd/es/layout/layout';
-import React,{useState, useRef, useEffect} from 'react';
+import React,{useState, useEffect, useRef} from 'react';
 import { Form, Input, Button, Layout, message, Select, DatePicker, Meta, Card, Row, Col, Divider} from "antd";
 import { TagsInput } from "react-tag-input-component";
-import { useLocation, useNavigate } from 'react-router-dom';
-import {NewDataSchemaApi, GetProductsByProviderIdApi} from '../request/api';
+import {QueryDataSchemaApi, QueryDataSchemaAccessInfoApi} from '../../request/api';
+import { useLocation } from 'react-router-dom';
+import {NewDataSchemaApi} from '../../request/api';
 import moment from 'moment';
 
 const { Option } = Select;
 
-export default function NewDataSchema() {
-    const navigate = useNavigate();
+export default function AdminModifyDataSchema() {
+  
+    //获取路由带过来的providerId
+    const location = useLocation();
+
+    //获取当前环境各类id(todo)
+    const productPkId = 1;
+    const productGid = location.state?.productGid;
+    const productName = '某产品';
+    const {currUserDid, currUserPkId, currUserName} = getCurrAccountInfo();
+
+    const {schemaId, schemaGid} = loadSchemaIdFromLocation();
     //各类状态
+    const [dataSchema, setDataSchema] = useState({});
+    const [currDataSchemaAccessInfo, setCurrDataSchemaAccessInfo] = useState({});
+    const [initialFormValues, setInitialFormValues] = useState({});
+    const [trigger, setTrigger] = useState(1);
+    
     const [tags, setTags] = useState([]);
-    const [myProducts, setMyProducts] = useState([]);
+    
     //回调
+    
+    useEffect(()=>{
+        const request = {
+            schemaGid: schemaGid
+        }
+        QueryDataSchemaApi(request).then(res=>{
+            if (res.code === 0){
+                const tmpDataSchema = res.data;
+                setDataSchema(tmpDataSchema);
+                setTags(tmpDataSchema.tagNameList);
+                const accessInfoRequest = {
+                    accessId: res.data.accessId
+                };
+                QueryDataSchemaAccessInfoApi(accessInfoRequest).then(res=>{
+                    if (res.code === 0){
+                        const tmpAccessInfo = res.data;
+                        setCurrDataSchemaAccessInfo(tmpAccessInfo);
+                        const tmpInitValues = getInitialFormValues(tmpDataSchema, tmpAccessInfo);
+                        setInitialFormValues(tmpInitValues);
+
+                    } else{
+                        message.error(res.msg);
+                    }
+                });
+            } else{
+                message.error(res.msg);
+            }
+        });
+
+    }, []);
+
     const onSubmit = (values) => {
         console.log(values);
         var request = {
             dataSchemaName: values.dataSchemaName,
-            productId: values.dataSchemaProductId,//todo
-            tagNameList: tags,
+            providerId: currUserPkId,
+            providerGId: currUserDid,
+            providerName: '张三',
+            productId: productPkId,
+            productGid: productGid,
+            productName: productName,
+            tagNames: tags,
             version: values.dataSchemaVersion,
             visible: values.dataSchemaVisible,
             dataSchemaDesc: values.dataSchemaDesc,
             dataSchemaUsage: values.dataSchemaUsage,
             price: values.price,
+            createTime: moment().valueOf(),
             dataFormat: values.dataSchemaFormat,
             dataProtocol: values.dataSchemaProtocol,
-            contentSchema: values.dataSchemaContentSchema,
             accessCondition: values.dataSchemaAccessCondition,
             uri: values.dataSchemaUrl,
             effectTime: values.dataSchemaTimeRange[0].valueOf(),
             expireTime: values.dataSchemaTimeRange[1].valueOf()
         }
         console.log(request);
-        NewDataSchemaApi(request).then(res=>{
-            if (res.code === 0){
-                message.info('创建成功')
-                navigate(-1)
-            } else{
-                message.error('创建失败')
-            }
-        })
+        // UpdateDataSchemaApi()
     }
-
-    const loadMyProducts = ()=>{
-        GetProductsByProviderIdApi({}).then(res=>{
-            if (res.code === 0){
-                console.log('产品加载成功')
-                setMyProducts(res.data);
-            } else{
-                message.error(res.msg);
-            }
-        })    
-    }
-
 
     const onFinishFailed = (errorInfo) => {
         console.log("Failed:", errorInfo);
@@ -62,12 +95,14 @@ export default function NewDataSchema() {
       };
 
     const layout = {
-        labelCol: { span: 24 }, // Use the full width of the form item for the label
-        wrapperCol: { span: 24 }, // Use the full width of the form item for the input
+        //labelCol: { span: 24 }, // Use the full width of the form item for the label
+        // wrapperCol: { span: 24 }, // Use the full width of the form item for the input
       };
 
     return (
+        initialFormValues.dataSchemaName &&
         <Layout>
+
             <Content
                 style={{
                 width: "100%",
@@ -80,7 +115,7 @@ export default function NewDataSchema() {
 
                 <div className="brain-form-page-bg">
                     <div className="brain-form-page-title" >
-                        <h1 > 创建数据目录 </h1>
+                        <h1 > 修改数据目录</h1>
                     </div>
                     <div className="brain-form-page-main" {...layout} style={{
                         width: '100%'
@@ -88,7 +123,7 @@ export default function NewDataSchema() {
                         <Form
                         name="create-schema"
                         className="create-schema"
-                        // initialValues={{}
+                        initialValues={initialFormValues}
                         onFinish={onSubmit}
                         onFinishFailed={onFinishFailed}
                         style={{
@@ -97,8 +132,8 @@ export default function NewDataSchema() {
                         {...layout}
                         >
                             <Card title='基本信息' headStyle={{ textAlign: 'left', fontSize:'25px' }}>
-                                    <Form.Item
-                                    label="目录名称"
+                            <Form.Item
+                                    label="名称"
                                     name="dataSchemaName"
                                     rules={[
                                     { required: true, message: "请输入数目目录名称" },
@@ -106,20 +141,6 @@ export default function NewDataSchema() {
                                     ]}
                                     >
                                         <Input placeholder="请输入数据目录名称" />
-                                    </Form.Item>
-                                    <Form.Item
-                                    label="所属产品"
-                                    name="dataSchemaProductId"
-                                    rules={[
-                                    { required: true, message: "请输入所属产品名称" },
-                                    ]}
-                                    >
-                                        <Select placeholder='请选择产品' onClick={loadMyProducts} >
-                                            {myProducts.map(p=>{
-                                                return <Option value={p.pkId} style={{textAlign:'center'}}>{p.productName}</Option>
-                                            })}
-                                            
-                                        </Select>
                                     </Form.Item>
                                     <Form.Item
                                         name="dataSchemaDesc"
@@ -130,6 +151,7 @@ export default function NewDataSchema() {
                                         ]}
                                         >
                                             <Input.TextArea
+                                        
                                             placeholder="请输入目录描述信息，不超过500字"
                                             />
                                     </Form.Item>
@@ -175,7 +197,7 @@ export default function NewDataSchema() {
                 
 
                             
-                                    <Form.Item label='价格(rmb)' name='dataSchemaPrice' required>
+                                    <Form.Item label='价格(rmb/条)' name='dataSchemaPrice' required>
                                         <Input placeholder="请输入价格,例如300.00" bordered={true} />
                                     </Form.Item>
                             </Card>
@@ -204,11 +226,8 @@ export default function NewDataSchema() {
                                     <Form.Item label='数据url' name='dataSchemaUrl' required>
                                         <Input placeholder="请输入数据访问Url" bordered={true} />
                                     </Form.Item>
-                                    <Form.Item label='响应结构' name='dataSchemaContentSchema' required>
-                                        <Input.TextArea placeholder="请输入响应结构,格式为json" bordered={true} />
-                                    </Form.Item>
-                                    <Form.Item label='查询条件' name='dataSchemaAccessCondition' required>
-                                        <Input.TextArea placeholder="请输入查询条件,格式为json" bordered={true} />
+                                    <Form.Item label='查询条件' name='dataSchemaAccessCondition' required >
+                                        <Input.TextArea placeholder="请输入查询条件,格式为json" style={{height: 200}}bordered={true} />
                                     </Form.Item>
                             
                                     <Form.Item label='有效日期' name='dataSchemaTimeRange' required>
@@ -218,7 +237,7 @@ export default function NewDataSchema() {
                             </Card>
 
 
-
+                                                
                             <Form.Item>
                                 <Button
                                 type="primary"
@@ -238,3 +257,37 @@ export default function NewDataSchema() {
   }
 
   
+  function getCurrAccountInfo() {
+    //TODO
+    return {currUserDid: "111", currUserPkId: 1, currUserName: '阿里'}
+  }
+
+  function loadSchemaIdFromLocation(location) {
+    // const schemaId = location.state?.dataSchemaId;
+  return {
+    schemaId: 1,
+    schemaGid: 'AAAQGayMdnmwj5IbY/O5ZaN/wdCoB8BcEbeT2CwCpHwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAd=='
+  }
+
+}
+
+
+function getInitialFormValues(dataSchema, dataSchemaAccessInfo) {
+    const accessJsonObject = JSON.parse(dataSchemaAccessInfo.accessCondition);
+    const wellformattedAccessCondition = JSON.stringify(accessJsonObject, null, 2);
+    return {
+        dataSchemaName: dataSchema.dataSchemaName,
+        dataSchemaDesc: dataSchema.dataSchemaDesc,
+        dataSchemaVisible: '' + dataSchema.visible,//otherewise it will display only a "1"
+        dataSchemaVersion: dataSchema.version,
+        dataSchemaTags: dataSchema.tagNameList,
+        dataSchemaUsage: dataSchema.dataSchemaUsage,
+        dataSchemaPrice: dataSchema.price.toFixed(2),
+        
+        dataSchemaProtocol: '' + dataSchemaAccessInfo.dataProtocol,
+        dataSchemaFormat: '' + dataSchemaAccessInfo.dataFormat,
+        dataSchemaUrl: dataSchemaAccessInfo.uri,
+        dataSchemaAccessCondition: wellformattedAccessCondition,
+        dataSchemaTimeRange: [moment(dataSchemaAccessInfo.effectTime), moment(dataSchemaAccessInfo.expireTime)]
+    }
+  }

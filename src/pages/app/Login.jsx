@@ -1,10 +1,10 @@
 import { Form, Input, Button, Layout, message } from "antd";
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import CommonFooter from "../components/CommonFooter";
-import HomeHeader from "../components/HomeHeader";
-import "../assets/common.css";
-import { LoginApi } from "../request/api";
+import CommonFooter from "../../components/footer/CommonFooter";
+import HomeHeader from "../../components/header/HomeHeader";
+import "../../assets/Common.css";
+import { LoginApi } from "../../request/api";
 
 const { Content } = Layout;
 

@@ -5,7 +5,7 @@ import moment from "moment";
 import { QueryCompanyByUsernameApi } from "../../request/api";
 import { DownloadFileApi } from "../../request/api";
 
-export default function UserInfo() {
+export default function AdminUserInfo() {
   const [data, setData] = useState();
   const [fileUrl, setFileUrl] = useState(null);
 

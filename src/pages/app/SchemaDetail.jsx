@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import ReactJson from 'react-json-view';
 import { useLocation } from 'react-router-dom'
 
-import {QueryDataSchemaApi, QueryDataSchemaAccessInfoApi} from '../request/api';
+import {QueryDataSchemaApi, QueryDataSchemaAccessInfoApi} from '../../request/api';
 
 import {message, Layout, Divider, Card, Descriptions, Tag} from 'antd'
 import DescriptionsItem from 'antd/es/descriptions/Item';

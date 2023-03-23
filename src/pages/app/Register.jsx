@@ -10,11 +10,11 @@ import {
 } from "antd";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import CommonFooter from "../components/CommonFooter";
-import HomeHeader from "../components/HomeHeader";
-import "../assets/common.css";
-import { RegisterApi } from "../request/api.js";
-import FileUploader from "../components/FileUploader";
+import CommonFooter from "../../components/footer/CommonFooter";
+import HomeHeader from "../../components/header/HomeHeader";
+import "../../assets/Common.css";
+import { RegisterApi } from "../../request/api.js";
+import FileUploader from "../../components/file/FileUploader";
 
 const { Content } = Layout;
 const { Option } = Select;

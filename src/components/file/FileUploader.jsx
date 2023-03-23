@@ -1,6 +1,6 @@
 import { UploadOutlined } from "@ant-design/icons";
 import { Button, message, Upload } from "antd";
-import { baseURL } from "../request/service.js";
+import { baseURL } from "../../request/service.js";
 
 const url = baseURL + "file/upload";
 

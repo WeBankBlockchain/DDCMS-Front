@@ -1,8 +1,8 @@
 import React from "react";
-import { Breadcrumb, Layout, theme } from "antd";
-import AdminHeader from "../components/AdminHeader";
-import CommonFooter from "../components/CommonFooter";
-import AdminSlider from "../components/AdminSlider";
+import { Layout, theme } from "antd";
+import AdminHeader from "../../components/header/AdminHeader";
+import CommonFooter from "../../components/footer/CommonFooter";
+import AdminSlider from "../../components/slide/AdminSlider";
 import { Outlet } from "react-router-dom";
 const { Content } = Layout;
 

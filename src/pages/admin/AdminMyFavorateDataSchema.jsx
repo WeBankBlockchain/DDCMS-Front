@@ -1,16 +1,14 @@
 
 import React from "react";
 import { useEffect, useState } from "react";
-import AdminTemplate from "../components/AdminTemplate";
-import { PageQueryMySchemaApi } from "../request/api";
-import {message, Table, Link, Input, Button} from "antd";
-
+import { PageQueryMyFavSchemaApi } from "../../request/api";
+import {message, Table, Input} from "antd";
 import { useNavigate } from "react-router-dom";
 const {Search} = Input;
 
 const PAGE_SIZE =10 ;
 
-export default function AdminMyDataSchema() {
+export default function AdminMyFavorateDataSchema() {
     const navigate = useNavigate();
     
     const schemaColumns = [
@@ -38,19 +36,13 @@ export default function AdminMyDataSchema() {
           width: 200,
           render: (text, record) => (
             <span>
-                <a onClick={() => navigate(`/admin/product/detail`,{
+                <a onClick={() => navigate(`/admin/schema/detail`,{
                 state: {
                     schemaId: record.schemaId
                 }
             })}>  查看  </a>
 
-                <a onClick={() => navigate(`/admin/product/modify`,{
-                state: {
-                    schemaId: record.schemaId
-                }
-            })}>  修改  </a>
-
-                <a>  删除  </a>
+                <a>  删除收藏  </a>
             </span>
 
             ),
@@ -69,7 +61,7 @@ export default function AdminMyDataSchema() {
 
     useEffect(()=>{
         console.log('start query')
-        PageQueryMySchemaApi(tableParams).then(res=>{
+        PageQueryMyFavSchemaApi(tableParams).then(res=>{
             if (res.code === 0){
                 setDataSchemaList(res.data.itemList);
                 setPagination((p)=>(
@@ -128,15 +120,6 @@ export default function AdminMyDataSchema() {
                 placeholder='根据名称搜索'
                 onSearch={handleOnSearch}
                 ></Search>
-                <Button
-                    style={{
-                        marginLeft: '20px'
-                    }}
-                    type='primary'
-                    onClick={()=>{
-                        navigate('/admin/schema/create')
-                    }}
-                >创建数据目录</Button>
             </div>
 
 

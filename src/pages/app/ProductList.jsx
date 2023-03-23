@@ -1,10 +1,10 @@
 import { List, Button, message } from 'antd';
 import { useEffect, useState } from 'react';
-import ProductCard from '../../components/ProductCard';
+import ProductCard from '../../components/card/ProductCard';
 import { PageQueryProductApi } from '../../request/api';
 import { useLocation } from "react-router-dom";
 import PubSub from 'pubsub-js';
-import '../Common.css';
+import '../../assets/Common.css';
 
 const pageSize = 10;
 
