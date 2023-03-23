@@ -78,13 +78,11 @@ export default function AdminMyProductList() {
             }
     
             }>
-            <a onClick={() => navigate(`/admin/produict/detail`,{
+            <a onClick={() => navigate(`/admin/product/detail`,{
                 state: {
                     productId: record.productId
                 }
             })}>查看</a>
-            <a>修改</a>
-            <a onClick={handleDelete}>删除</a>
             </span>
 
           ),
@@ -194,5 +192,5 @@ export default function AdminMyProductList() {
 }
 
 function renderStatus(statusCode) {
-  return <span>{statusNames[statusCode]}</span>
+  return <span>{statusCode}</span>
 }
