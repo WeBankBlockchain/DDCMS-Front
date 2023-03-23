@@ -4,7 +4,7 @@ import SchemaCard from "../../components/card/SchemaCard";
 import { PageQuerySchemaApi } from "../../request/api";
 import { useLocation } from "react-router-dom";
 import PubSub from "pubsub-js";
-import "../../assets/Common.css";
+import "../../assets/CommonStyle.css";
 
 const pageSize = 10;
 

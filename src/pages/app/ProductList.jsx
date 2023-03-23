@@ -4,7 +4,7 @@ import ProductCard from '../../components/card/ProductCard';
 import { PageQueryProductApi } from '../../request/api';
 import { useLocation } from "react-router-dom";
 import PubSub from 'pubsub-js';
-import '../../assets/Common.css';
+import '../../assets/CommonStyle.css';
 
 const pageSize = 10;
 

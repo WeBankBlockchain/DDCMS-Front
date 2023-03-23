@@ -12,7 +12,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import CommonFooter from "../../components/footer/CommonFooter";
 import HomeHeader from "../../components/header/HomeHeader";
-import "../../assets/Common.css";
+import "../../assets/CommonStyle.css";
 import { RegisterApi } from "../../request/api.js";
 import FileUploader from "../../components/file/FileUploader";
 
