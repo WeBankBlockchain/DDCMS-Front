@@ -17,7 +17,7 @@ import AdminMyProductList from '../pages/admin/AdminMyProductList';
 import AdminProductDetail from '../pages/admin/AdminProductDetail';
 import AdminNewDataSchema from '../pages/admin/AdminNewDataSchema';
 import AdminModifyDataSchema from '../pages/admin/AdminModifyDataSchema';
-import AdminNewProduct from '../pages/AdminNewProduct';
+import AdminNewProduct from '../pages/admin/AdminNewProduct';
 
 export const routeMap = [
 	{
