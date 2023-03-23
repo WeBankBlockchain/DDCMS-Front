@@ -1,14 +1,14 @@
 import { List, Button, message } from 'antd';
 import { useEffect, useState } from 'react';
-import ProductCard from '../components/ProductCard';
-import { PageQueryProductApi } from '../request/api';
-import { useLocation } from 'react-router-dom'
+import ProductCard from '../../components/ProductCard';
+import { PageQueryProductApi } from '../../request/api';
+import { useLocation } from "react-router-dom";
 import PubSub from 'pubsub-js';
-import './Common.css';
+import '../Common.css';
 
 const pageSize = 10;
 
-export default function ProjectList() {
+export default function ProductList() {
 
   const [initLoading, setInitLoading] = useState(true);
   const [data, setData] = useState([]);

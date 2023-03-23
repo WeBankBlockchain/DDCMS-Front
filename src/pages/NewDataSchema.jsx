@@ -2,14 +2,14 @@ import { Content, Footer, Header } from 'antd/es/layout/layout';
 import React,{useState, useRef, useEffect} from 'react';
 import { Form, Input, Button, Layout, message, Select, DatePicker, Meta, Card, Row, Col, Divider} from "antd";
 import { TagsInput } from "react-tag-input-component";
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import {NewDataSchemaApi, GetProductsByProviderIdApi} from '../request/api';
 import moment from 'moment';
 
 const { Option } = Select;
 
 export default function NewDataSchema() {
-
+    const navigate = useNavigate();
     //各类状态
     const [tags, setTags] = useState([]);
     const [myProducts, setMyProducts] = useState([]);
@@ -34,21 +34,27 @@ export default function NewDataSchema() {
             expireTime: values.dataSchemaTimeRange[1].valueOf()
         }
         console.log(request);
-        // NewDataSchemaApi()
+        NewDataSchemaApi(request).then(res=>{
+            if (res.code === 0){
+                message.info('创建成功')
+                navigate(-1)
+            } else{
+                message.error('创建失败')
+            }
+        })
     }
 
+    const loadMyProducts = ()=>{
+        GetProductsByProviderIdApi({}).then(res=>{
+            if (res.code === 0){
+                console.log('产品加载成功')
+                setMyProducts(res.data);
+            } else{
+                message.error(res.msg);
+            }
+        })    
+    }
 
-    useEffect(
-        ()=>{
-            GetProductsByProviderIdApi({}).then(res=>{
-                if (res.code === 0){
-                    setMyProducts(res.data);
-                } else{
-                    message.error(res.msg);
-                }
-            })        
-        },
-        []);
 
     const onFinishFailed = (errorInfo) => {
         console.log("Failed:", errorInfo);
@@ -106,12 +112,11 @@ export default function NewDataSchema() {
                                     name="dataSchemaProductId"
                                     rules={[
                                     { required: true, message: "请输入所属产品名称" },
-                                    { pattern: "^[^ ]+$", message: "名称不能有空格" },
                                     ]}
                                     >
-                                        <Select placeholder='请选择产品' >
+                                        <Select placeholder='请选择产品' onClick={loadMyProducts} >
                                             {myProducts.map(p=>{
-                                                <Option value={p.pkId} style={{textAlign:'center'}}>{p.productName}</Option>
+                                                return <Option value={p.pkId} style={{textAlign:'center'}}>{p.productName}</Option>
                                             })}
                                             
                                         </Select>
