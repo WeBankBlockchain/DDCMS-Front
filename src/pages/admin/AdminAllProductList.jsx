@@ -76,8 +76,13 @@ export default function AdminAllProductList() {
   useEffect(() => {
     PageQueryProductApi(tableParams).then((res) => {
       if (res.code === 0) {
-        setProductList(res.data.itemList);
-        setPagination((p) => ({
+        setProductList(
+          res.data.itemList.map((item, index) => ({
+            ...item,
+            key: index,
+          }))
+        );
+        setPagination(() => ({
           current: tableParams.pageNo,
           pageSize: PAGE_SIZE,
           total: res.data.totalCount,
@@ -142,6 +147,7 @@ export default function AdminAllProductList() {
           }}
           placeholder="根据名称搜索"
           onSearch={handleOnSearch}
+          enterButton
         ></Search>
       </div>
 

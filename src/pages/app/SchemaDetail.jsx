@@ -94,7 +94,7 @@ export default function SchemaDetail() {
           </DescriptionsItem>
 
           <DescriptionsItem label='定价' >
-          {dataSchema.price?.toFixed(2) } 元/条
+          {dataSchema.price?.toFixed(1) } 元/条
           </DescriptionsItem>
 
           <DescriptionsItem label='标签' span={2}>
@@ -118,7 +118,7 @@ export default function SchemaDetail() {
       {dataSchema.visible && (
         <Card title="访问信息" >
         <Descriptions bordered>
-          <DescriptionsItem label='数据格式'  span={2} >
+          <DescriptionsItem label='数据格式'  span={1} >
               {dataFormatNames[dataSchemaAccessInfo.dataFormat]}
           </DescriptionsItem>
           <DescriptionsItem label='数据传输协议'  span={2}>
@@ -130,7 +130,7 @@ export default function SchemaDetail() {
           <DescriptionsItem label='生效时间' span={2} >
               {moment(dataSchemaAccessInfo.effect_time).format('YYYY-MM-DD')}
           </DescriptionsItem>
-          <DescriptionsItem label='失效时间'  span={2}>
+          <DescriptionsItem label='失效时间'  span={1}>
             {moment(dataSchemaAccessInfo.expire_time).format('YYYY-MM-DD')}
           </DescriptionsItem>
           <DescriptionsItem label='返回数据格式' span={3} >

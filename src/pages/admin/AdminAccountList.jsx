@@ -35,8 +35,10 @@ export default function AdminAccountList() {
   const [currentUrl, setCurrentUrl] = useState(null);
   const [currentFile, setCurrentFile] = useState(null);
 
-  const queryApi = (action) => {
-    action(tableParams)
+  const fetchData = () => {
+    console.log("fetchData called");
+    setLoading(true);
+    SearchCompanyApi(tableParams)
       .then((res) => {
         if (res.code === 0) {
           const r = res.data.itemList;
@@ -62,16 +64,13 @@ export default function AdminAccountList() {
       });
   };
 
-  const fetchData = () => {
-    setLoading(true);
-    queryApi(SearchCompanyApi);
-  };
-
   const onSearch = (keyword) => {
     if (keyword === "") {
+      console.log("clean keyword");
       const { keyWord: removedKeyword, ...rest } = tableParams;
       setTableParams(rest);
     } else {
+      console.log("search keyword ", keyword);
       setTableParams({
         ...tableParams,
         keyWord: keyword,
@@ -85,6 +84,7 @@ export default function AdminAccountList() {
   }, [tableParams, currentUrl]);
 
   const handleChange = (pagination, _, sorter) => {
+    console.log("handlechange called");
     setSortedInfo(sorter);
     setPagination(pagination);
     setTableParams({
@@ -116,6 +116,7 @@ export default function AdminAccountList() {
   };
 
   const onAccountStatusChange = (value) => {
+    console.log("onAccountStatusChange called");
     let ut = value.target.value;
     const {
       keyWord: removedKeyword,
@@ -163,8 +164,9 @@ export default function AdminAccountList() {
           placeholder="请输入姓名/公司名称"
           style={{ width: 350 }}
           onSearch={onSearch}
+          // defaultValue={tableParams.keyWord}
           enterButton
-        ></Search>
+        />
       </div>
 
       <Table

@@ -6,7 +6,7 @@ import { message, Table, Input } from "antd";
 import { useNavigate } from "react-router-dom";
 const { Search } = Input;
 
-const PAGE_SIZE = 2;
+const PAGE_SIZE = 10;
 
 export default function AdminAllDataSchema() {
   const navigate = useNavigate();
@@ -42,7 +42,7 @@ export default function AdminAllDataSchema() {
       width: 200,
       render: (text, record) => (
         // eslint-disable-next-line jsx-a11y/anchor-is-valid
-        <a onClick={navigateTo(record.schemaId)}>查看</a>
+        <a onClick={() => navigateTo(record.schemaId)}>查看</a>
       ),
     },
   ];
@@ -60,7 +60,9 @@ export default function AdminAllDataSchema() {
   useEffect(() => {
     PageQuerySchemaApi(tableParams).then((res) => {
       if (res.code === 0) {
-        setDataSchemaList(res.data.itemList);
+        setDataSchemaList(
+          res.data.itemList.map((item, index) => ({ ...item, key: index }))
+        );
         setPagination((p) => ({
           current: p.current,
           pageSize: PAGE_SIZE,
