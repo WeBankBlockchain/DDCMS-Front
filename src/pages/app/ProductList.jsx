@@ -19,11 +19,13 @@ export default function ProductList() {
   const [initRefresh, setInitRefresh] = useState(false);
   const location = useLocation();
 
-  const providerId = location.state?.providerId;
+  const [providerId, setProviderId] = useState("");
 
   useEffect(() => {
+    console.log("providerId:" + providerId)
+    setProviderId(location.state?.providerId)
     loadPageData({ providerId, pageNo });
-  }, [initRefresh]);
+  }, [initRefresh, providerId]);
 
   const loadPageData = ({ providerId, pageNo }) => {
     setInitLoading(true);

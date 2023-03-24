@@ -1,14 +1,21 @@
 import { useEffect, useState, message } from 'react';
 import './SlideCard.css'
-import { Divider, Space, Tag} from 'antd';
-import { Link } from 'react-router-dom';
+import { Divider, Space, Button} from 'antd';
 import { GetHotTagsApi } from '../../request/api';
+import { useNavigate } from 'react-router-dom';
 
 const topCount = 20
 
 export default function TopTags() {
 
   const [data, setData] = useState([])
+
+  const navigate = useNavigate()
+  const onClick = (tagId) => {
+    navigate('/home', {
+      state: {tagId: tagId}
+    })
+  }
 
   useEffect(() => {
     const req = {
@@ -32,9 +39,12 @@ export default function TopTags() {
       <Divider style={{margin: '12px 0 0 0'}}/>
       <Space style={{padding: '12px 0'}} size={[0, 8]} wrap>
         {data.map((item) => (
-          <Tag key={item.tagName}>
-            <Link style={{color: '#000000', fontSize: '14px', padding: '10px 5px'}} to="#">{item.tagName}</Link>
-          </Tag>
+          <Button key={item.pkId}
+            style={{color: '#000000', fontSize: '14px', margin: '0 4px'}}
+            onClick={() => {onClick(item.pkId)}}
+          >
+            {item.tagName}
+          </Button>
         ))}
       </Space>
       <Divider style={{margin: '0 0 12px 0'}}/>

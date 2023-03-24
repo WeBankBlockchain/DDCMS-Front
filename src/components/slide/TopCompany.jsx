@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { List, Avatar, Divider, Space, message, Button} from 'antd';
+import { List, Divider, Space, message, Button} from 'antd';
 import './SlideCard.css'
 import { GetHotCompaniesApi } from '../../request/api';
 import { useNavigate } from 'react-router-dom';
@@ -13,7 +13,7 @@ export default function TopCompany() {
 
   const navigate = useNavigate()
   const onClick = (providerId) => {
-    navigate('/product', {
+    navigate('/home', {
       state: {providerId: providerId}
     })
   }
@@ -25,7 +25,6 @@ export default function TopCompany() {
     GetHotCompaniesApi(req).then((res) => {
       if(res.code === 0){
         setData(res.data);
-        console.log(res.data)
       }else{
         message.error(res.msg);
       }
@@ -45,7 +44,7 @@ export default function TopCompany() {
         renderItem={(item) => (
           <List.Item key={item.companyName}>
             <Space style={{fontSize: '15px'}}>
-              <Avatar src="https://joesch.moe/api/v1/random" />
+              {/* <Avatar src="https://joesch.moe/api/v1/random" /> */}
               <Button 
                 type='link'
                 style={{color: '#000000', fontSize: '14px', padding: '0 0'}}

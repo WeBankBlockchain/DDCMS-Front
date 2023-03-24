@@ -20,32 +20,64 @@ export default function Home() {
 
   const [initRefresh, setInitRefresh] = useState(false);
 
+  //保存页面跳转获得的providerId
+  const [providerId, setProviderId] = useState(0)
   //保存页面跳转获得的productId
-  const [productId, setProductId] = useState("");
+  const [productId, setProductId] = useState(0);
+  //保存页面跳转获得的tagId
+  const [tagId, setTagId] = useState(0);
 
-  //获取路由带过来的productId
+
   const location = useLocation();
-  if (location.state !== null && location.state.productId !== productId) {
-    setProductId(location.state.productId);
+
+  if(location.state && location.state.providerId && location.state.providerId !== providerId) {
+    console.log("providerId:" + location.state.providerId)
+    setProviderId(location.state.providerId);
+    setProductId(0);
+    setTagId(0);
     setKeyWord("");
     setInitRefresh(!initRefresh);
     setPageNo(1);
-  }
-
-  PubSub.subscribe("keyWord", (_, data) => {
-    setProductId("");
-    setKeyWord(data);
+  }else if(location.state && location.state.productId && location.state.productId !== productId){
+    console.log("productId:" + location.state.productId)
+    setProviderId(0);
+    setProductId(location.state.productId);
+    setTagId(0);
+    setKeyWord("");
     setInitRefresh(!initRefresh);
     setPageNo(1);
-  });
+  }else if(location.state && location.state.tagId && location.state.tagId !== productId){
+    console.log("productId:" + location.state.tagId)
+    setProviderId(0);
+    setProductId(0);
+    setTagId(location.state.tagId);
+    setKeyWord("");
+    setInitRefresh(!initRefresh);
+    setPageNo(1);
+  }else {
+    PubSub.subscribe("keyWord", (_, data) => {
+      if(keyWord !== data){
+        setProviderId(0);
+        setProductId(0);
+        setTagId(0);
+        setKeyWord(data);
+        setInitRefresh(!initRefresh);
+        setPageNo(1);
+      } 
+    });
+  }
 
   useEffect(() => {
     const req = {
       keyWord: keyWord,
-      pageNo: pageNo,
-      pageSize: pageSize,
+      providerId: providerId,
       productId: productId,
+      tagId: tagId,
+      pageNo: pageNo,
+      pageSize: pageSize, 
     };
+
+    console.log("req:" + JSON.stringify(req))
     PageQuerySchemaApi(req).then((res) => {
       if (res.code === 0) {
         setInitLoading(false);
@@ -64,6 +96,9 @@ export default function Home() {
     setLoading(true);
     const req = {
       keyWord: keyWord,
+      providerId: providerId,
+      productId: productId,
+      tagId: tagId,
       pageNo: pageNo,
       pageSize: pageSize,
     };
