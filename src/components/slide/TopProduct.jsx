@@ -12,7 +12,7 @@ export default function TopProduct() {
 
   const navigate = useNavigate()
   const onClick = (productId) => {
-    navigate('/product/detail', {
+    navigate('/home', {
       state: {productId: productId}
     })
   }
