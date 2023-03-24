@@ -10,6 +10,12 @@ const PAGE_SIZE = 2;
 
 export default function AdminAllDataSchema() {
   const navigate = useNavigate();
+  const navigateTo = (schemaId) =>
+    navigate(`/admin/schema/detail`, {
+      state: {
+        schemaId: schemaId,
+      },
+    });
 
   const schemaColumns = [
     {
@@ -35,17 +41,8 @@ export default function AdminAllDataSchema() {
       key: "action",
       width: 200,
       render: (text, record) => (
-        <a
-          onClick={() =>
-            navigate(`/admin/schema/detail`, {
-              state: {
-                schemaId: record.schemaId,
-              },
-            })
-          }
-        >
-          查看
-        </a>
+        // eslint-disable-next-line jsx-a11y/anchor-is-valid
+        <a onClick={navigateTo(record.schemaId)}>查看</a>
       ),
     },
   ];
@@ -100,21 +97,7 @@ export default function AdminAllDataSchema() {
       pageSize: PAGE_SIZE,
     });
   };
-  // const handleOnRadioChange = (e) =>{
-  //     var chosenValue = e.target.value;
-  //     chosenValue = chosenValue !='-1'? chosenValue: undefined;
-  //     setPagination({
-  //         current:1,
-  //         pageSize: PAGE_SIZE
-  //     })
-  //     setTableParams(t=>{
-  //         return {
-  //             ...t,
-  //             status: undefined,
-  //             pageNo: 1
-  //         }
-  //     })
-  // }
+
   return (
     <div style={{}}>
       <div
@@ -123,12 +106,6 @@ export default function AdminAllDataSchema() {
           justifyContent: "flex-end",
         }}
       >
-        {/* <Radio.Group defaultValue="0" buttonStyle="solid" onChange={handleOnRadioChange}>
-                    <Radio.Button value="-1">全部</Radio.Button>
-                    <Radio.Button value="1">未审核</Radio.Button>
-                    <Radio.Button value="2">已审核</Radio.Button>
-                    <Radio.Button value="3">已拒绝</Radio.Button>
-                </Radio.Group> */}
         <Search
           style={{
             width: "20%",

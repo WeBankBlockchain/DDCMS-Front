@@ -42,7 +42,7 @@ export default function TopProduct() {
           <Button key={item.productId}
             style={{color: '#000000', fontSize: '14px', margin: '0 4px'}}
             onClick={() => {onClick(item.productId)}}
-          >
+          > 
             {item.productName}
           </Button>
         ))}

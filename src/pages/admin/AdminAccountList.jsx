@@ -82,7 +82,7 @@ export default function AdminAccountList() {
   useEffect(() => {
     fetchData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [tableParams, accountStatus, currentUrl, currentFile]);
+  }, [tableParams, currentUrl]);
 
   const handleChange = (pagination, _, sorter) => {
     setSortedInfo(sorter);
@@ -164,7 +164,7 @@ export default function AdminAccountList() {
           style={{ width: 350 }}
           onSearch={onSearch}
           enterButton
-        />
+        ></Search>
       </div>
 
       <Table
