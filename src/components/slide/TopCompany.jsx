@@ -3,16 +3,19 @@ import { List, Divider, Space, message, Button} from 'antd';
 import './SlideCard.css'
 import { GetHotCompaniesApi } from '../../request/api';
 import { useNavigate } from 'react-router-dom';
+import PubSub from 'pubsub-js'
+import { APP_BREAD_CRUMB } from '../../constants/KeyConstants';
 
 
-const topCount = 8;
+const topCount = 10;
 
 export default function TopCompany() {
 
   const [data, setData] = useState([])
 
   const navigate = useNavigate()
-  const onClick = (providerId) => {
+  const onClick = (providerId, companyName) => {
+    PubSub.publish(APP_BREAD_CRUMB, ['公司 : ' + companyName, '数据目录']);
     navigate('/home', {
       state: {providerId: providerId}
     })
@@ -48,7 +51,7 @@ export default function TopCompany() {
               <Button 
                 type='link'
                 style={{color: '#000000', fontSize: '14px', padding: '0 0'}}
-                onClick={() => {onClick(item.accountId)}}
+                onClick={() => {onClick(item.accountId, item.companyName)}}
               >
                 {item.companyName}
               </Button>

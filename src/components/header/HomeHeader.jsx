@@ -1,14 +1,22 @@
-import React from "react";
-import { Space, Button } from "antd";
 import "../../assets/HomeHeader.css";
-import { Link, useNavigate } from "react-router-dom";
 import NotLoginUser from './NotLoginUser';
 import LoginUser from './LoginUser';
+import {Button} from 'antd'
+import { useNavigate } from 'react-router-dom';
+import PubSub from 'pubsub-js'
+import { APP_BREAD_CRUMB } from '../../constants/KeyConstants';
 
 export default function HomeHeader() {
 
-  
   const userOperation = localStorage.getItem('userName') !== null?<LoginUser/>:<NotLoginUser/>
+
+  const navigate = useNavigate()
+  const onClick = () => {
+    PubSub.publish(APP_BREAD_CRUMB, ['最新', '数据目录']);
+    navigate('/home', {
+      state: {homeFlag: 1}
+    })
+  }
 
   return (
     <header>
@@ -20,16 +28,13 @@ export default function HomeHeader() {
             color: "#FFF",
           }}
         >
-          <Link
-            style={{
-              fontSize: 35,
-              fontWeight: 800,
-              color: "#FFF",
-            }}
-            to="/"
+          <Button 
+            type='link'
+            style={{color: '#FFF', fontSize: '35px', fontWeight: 800, padding: '0 0'}}
+            onClick={() => {onClick()}}
           >
             Data Brain
-          </Link>
+          </Button>
         </div>
         {userOperation}
       </div>

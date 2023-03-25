@@ -3,6 +3,8 @@ import './SlideCard.css'
 import { Divider, Space, Button} from 'antd';
 import { GetHotTagsApi } from '../../request/api';
 import { useNavigate } from 'react-router-dom';
+import PubSub from 'pubsub-js'
+import { APP_BREAD_CRUMB } from '../../constants/KeyConstants';
 
 const topCount = 20
 
@@ -11,7 +13,8 @@ export default function TopTags() {
   const [data, setData] = useState([])
 
   const navigate = useNavigate()
-  const onClick = (tagId) => {
+  const onClick = (tagId, tagName) => {
+    PubSub.publish(APP_BREAD_CRUMB, ['标签 : ' + tagName, '数据目录']);
     navigate('/home', {
       state: {tagId: tagId}
     })
@@ -41,7 +44,7 @@ export default function TopTags() {
         {data.map((item) => (
           <Button key={item.pkId}
             style={{color: '#000000', fontSize: '14px', margin: '0 4px'}}
-            onClick={() => {onClick(item.pkId)}}
+            onClick={() => {onClick(item.pkId, item.tagName)}}
           >
             {item.tagName}
           </Button>
