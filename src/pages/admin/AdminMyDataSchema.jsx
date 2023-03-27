@@ -1,7 +1,8 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React from "react";
 import { useEffect, useState } from "react";
 import { PageQueryMySchemaApi } from "../../request/api";
-import { message, Table, Input, Button } from "antd";
+import { message, Table, Input, Button, Space } from "antd";
 import { useNavigate } from "react-router-dom";
 const { Search } = Input;
 
@@ -34,35 +35,21 @@ export default function AdminMyDataSchema() {
       key: "action",
       width: 200,
       render: (text, record) => (
-        <span>
+        <Space size="middle">
           <a
             onClick={() =>
-              navigate(`/admin/product/detail`, {
+              navigate(`/admin/schema/detail`, {
                 state: {
                   schemaId: record.schemaId,
                 },
               })
             }
           >
-            {" "}
-            查看{" "}
-          </a>
-
-          <a
-            onClick={() =>
-              navigate(`/admin/product/modify`, {
-                state: {
-                  schemaId: record.schemaId,
-                },
-              })
-            }
-          >
-            {" "}
-            修改{" "}
+            查看
           </a>
 
           <a> 删除 </a>
-        </span>
+        </Space>
       ),
     },
   ];

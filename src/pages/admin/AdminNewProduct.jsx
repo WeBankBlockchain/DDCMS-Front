@@ -1,15 +1,10 @@
 import { Content } from 'antd/es/layout/layout';
-import React,{useState, useRef} from 'react';
-import { Form, Input, Button, Layout, message, Select, DatePicker, Checkbox} from "antd";
-import { useLocation } from 'react-router-dom';
+import React from 'react';
+import { Form, Input, Button, Layout, message} from "antd";
 import {CreateProductApi} from '../../request/api';
-import moment from 'moment';
 import { useNavigate } from 'react-router-dom';
 
-const { Option } = Select;
-
 export default function AdminNewProduct() {
-
     const navigate = useNavigate()
     
     //回调

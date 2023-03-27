@@ -1,15 +1,20 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React from "react";
 import { useEffect, useState } from "react";
-import { PageQueryProductApi } from "../../request/api";
+import { ApproveProductApi, PageQueryProductApi } from "../../request/api";
 import { useNavigate } from "react-router-dom";
-import { Table, message, Radio, Input, Badge } from "antd";
+import { Table, message, Radio, Input, Space } from "antd";
 import moment from "moment";
+import renderStatusBadge from "../../utils/statusRender";
 
 const { Search } = Input;
 const PAGE_SIZE = 10;
 
 export default function AdminAllProductList() {
   const navigate = useNavigate();
+  const accountType = localStorage.getItem("accountType");
+  const [approved, setApproved] = useState(new Map());
+
   const navigateTo = (productId) => {
     console.log(productId);
     navigate(`/admin/product/detail`, {
@@ -17,6 +22,29 @@ export default function AdminAllProductList() {
         productId: productId,
       },
     });
+  };
+
+  const approveProduct = (productId, agree) => {
+    const approveReq = {
+      agree: agree,
+      productId: productId,
+    };
+    ApproveProductApi(approveReq)
+      .then((res) => {
+        if (res.code === 0) {
+          message.success("审批成功!");
+          const map = new Map(approved);
+          map.set(productId, true);
+          setApproved(map);
+        } else {
+          console.log(res);
+          message.error("审批失败!");
+          message.error(res.msg);
+        }
+      })
+      .catch((error) => {
+        message.error(error.response.data.message);
+      });
   };
 
   const columns = [
@@ -50,15 +78,22 @@ export default function AdminAllProductList() {
       dataIndex: "status",
       key: "status",
       width: 200,
-      render: (t) => renderStatus(t),
+      render: (t) => renderStatusBadge(t),
     },
     {
       title: "操作",
       key: "action",
       width: 200,
       render: (text, record) => (
-        // eslint-disable-next-line jsx-a11y/anchor-is-valid
-        <a onClick={() => navigateTo(record.productId)}>查看</a>
+        <Space size="middle">
+          <a onClick={() => navigateTo(record.productId)}>查看</a>
+          {record.status === 0 && accountType === "2" && approved.has(record.productId) === false && (
+            <a onClick={() => approveProduct(record.productId, true)}>通过</a>
+          )}
+          {record.status === 0 && accountType === "2" && approved.has(record.productId) === false && (
+            <a onClick={() => approveProduct(record.productId, false)}>拒绝</a>
+          )}
+        </Space>
       ),
     },
   ];
@@ -91,7 +126,7 @@ export default function AdminAllProductList() {
         message.error(res.msg);
       }
     });
-  }, [tableParams]);
+  }, [tableParams, approved]);
 
   const handlePageChange = (pagination) => {
     setTableParams((t) => {
@@ -115,7 +150,7 @@ export default function AdminAllProductList() {
   };
   const handleOnRadioChange = (e) => {
     var chosenValue = e.target.value;
-    chosenValue = chosenValue != "-1" ? chosenValue : undefined;
+    chosenValue = chosenValue !== "-1" ? chosenValue : undefined;
     const query = {
       pageNo: 1,
       pageSize: PAGE_SIZE,
@@ -137,7 +172,7 @@ export default function AdminAllProductList() {
           onChange={handleOnRadioChange}
         >
           <Radio.Button value="-1">全部</Radio.Button>
-          <Radio.Button value="0">未审核</Radio.Button>
+          <Radio.Button value="0">审核中</Radio.Button>
           <Radio.Button value="1">已审核</Radio.Button>
           <Radio.Button value="2">已拒绝</Radio.Button>
         </Radio.Group>
@@ -159,14 +194,4 @@ export default function AdminAllProductList() {
       />
     </div>
   );
-}
-
-function renderStatus(statusCode) {
-  if (statusCode === 0) {
-    return <Badge status="processing" text="审核中" />;
-  } else if (statusCode === 1) {
-    return <Badge status="success" text="审核通过" />;
-  } else if (statusCode === 2) {
-    return <Badge status="failed" text="拒绝" />;
-  }
 }

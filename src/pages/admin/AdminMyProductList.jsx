@@ -1,24 +1,18 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React from "react";
 import { useEffect, useState } from "react";
 import { PageQueryMyProductApi } from "../../request/api";
 import { useNavigate } from "react-router-dom";
 import { Table, message, Radio, Input, Button } from "antd";
 import moment from "moment";
+import renderStatusBadge from "../../utils/statusRender";
 
 const { Search } = Input;
 const PAGE_SIZE = 10;
-const statusNames = {
-  0: "审核中",
-  1: "审核通过",
-  2: "拒绝",
-};
 
 export default function AdminMyProductList() {
   const navigate = useNavigate();
 
-  const handleDelete = () => {
-    alert("尚未实现!");
-  };
   const columns = [
     {
       title: "产品id",
@@ -50,7 +44,7 @@ export default function AdminMyProductList() {
       dataIndex: "status",
       key: "status",
       width: 200,
-      render: (t) => renderStatus(t),
+      render: (t) => renderStatusBadge(t),
     },
     {
       title: "操作",
@@ -148,9 +142,9 @@ export default function AdminMyProductList() {
           onChange={handleOnRadioChange}
         >
           <Radio.Button value="-1">全部</Radio.Button>
-          <Radio.Button value="1">审核中</Radio.Button>
-          <Radio.Button value="2">已审核</Radio.Button>
-          <Radio.Button value="3">已拒绝</Radio.Button>
+          <Radio.Button value="0">审核中</Radio.Button>
+          <Radio.Button value="1">已审核</Radio.Button>
+          <Radio.Button value="2">已拒绝</Radio.Button>
         </Radio.Group>
         <div>
           <Search
@@ -182,8 +176,4 @@ export default function AdminMyProductList() {
       />
     </div>
   );
-}
-
-function renderStatus(statusCode) {
-  return <span>{statusCode}</span>;
 }
