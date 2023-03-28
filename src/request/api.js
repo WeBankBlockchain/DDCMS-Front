@@ -37,7 +37,6 @@ export const PageQueryProductApi = (params) =>
 export const PageQueryMyProductApi = (params) =>
   service.post("product/pageQueryMyProduct", params);
 
-
 export const QueryProductByIdApi = (params) =>
   service.post("product/queryProductById", params);
 
@@ -61,6 +60,9 @@ export const QueryDataSchemaAccessInfoApi = (params) =>
 export const NewDataSchemaApi = (params) =>
   service.post("schema/createSchema", params);
 
+export const ApproveDataSchemaApi = (params) =>
+  service.post("schema/approveDataSchema", params);
+
 export const PageQueryMySchemaApi = (params) =>
   service.post("schema/pageQueryMySchema", params);
 
@@ -73,5 +75,5 @@ export const PageQueryMyFavSchemaApi = (params) =>
 export const GetMenuByRoleApi = (params) =>
   service.post("menu/getMenuByRole", params);
 
-export const GetProductsByProviderIdApi = (params) => service.post("product/getProductsByProviderId", params)
-
+export const GetProductsByProviderIdApi = (params) =>
+  service.post("product/getProductsByProviderId", params);

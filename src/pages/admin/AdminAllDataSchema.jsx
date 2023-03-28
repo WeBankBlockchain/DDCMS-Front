@@ -1,16 +1,20 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React from "react";
 import { useEffect, useState } from "react";
 import { PageQuerySchemaApi } from "../../request/api";
-import { message, Table, Input } from "antd";
+import { message, Table, Input, Space } from "antd";
 import renderStatusBadge from "../../utils/statusRender";
 import renderVoteProgress from "../../utils/progressRender";
 import { useNavigate } from "react-router-dom";
+import { ApproveDataSchemaApi } from "../../request/api";
 const { Search } = Input;
 
 const PAGE_SIZE = 10;
 
 export default function AdminAllDataSchema() {
   const navigate = useNavigate();
+  const accountType = localStorage.getItem("accountType");
+  const [approved, setApproved] = useState(new Map());
   const navigateTo = (schemaId) =>
     navigate(`/admin/schema/detail`, {
       state: {
@@ -57,8 +61,21 @@ export default function AdminAllDataSchema() {
       key: "action",
       width: 200,
       render: (text, record) => (
-        // eslint-disable-next-line jsx-a11y/anchor-is-valid
-        <a onClick={() => navigateTo(record.schemaId)}>查看</a>
+        <Space size="middle">
+          <a onClick={() => navigateTo(record.schemaId)}>查看</a>
+          {record.status === 0 &&
+            accountType === "2" &&
+            approved.has(record.productId) === false && (
+              <a onClick={() => approveProduct(record.schemaId, true)}>通过</a>
+            )}
+          {record.status === 0 &&
+            accountType === "2" &&
+            approved.has(record.productId) === false && (
+              <a onClick={() => approveProduct(record.schemaId, false)}>
+                拒绝
+              </a>
+            )}
+        </Space>
       ),
     },
   ];
@@ -114,6 +131,29 @@ export default function AdminAllDataSchema() {
       pageNo: 1,
       pageSize: PAGE_SIZE,
     });
+  };
+
+  const approveProduct = (schemaId, agree) => {
+    const approveReq = {
+      agree: agree,
+      schemaId: schemaId,
+    };
+    ApproveDataSchemaApi(approveReq)
+      .then((res) => {
+        if (res.code === 0) {
+          message.success("审批成功!");
+          const map = new Map(approved);
+          map.set(schemaId, true);
+          setApproved(map);
+        } else {
+          console.log(res);
+          message.error("审批失败!");
+          message.error(res.msg);
+        }
+      })
+      .catch((error) => {
+        message.error(error.response.data.message);
+      });
   };
 
   return (
