@@ -36,20 +36,20 @@ export default function SchemaDetail() {
       if (res.code === 0){
         const schemaInfo = res.data;
         setDataSchema(schemaInfo);
-        if (schemaInfo.visible) {
-          const accessInfoRequest = {
-            accessId: schemaInfo.accessId
-          };
-          QueryDataSchemaAccessInfoApi(accessInfoRequest).then(res=>{
-            if (res.code === 0){
+        
+        const accessInfoRequest = {
+          accessId: schemaInfo.accessId
+        };
+        QueryDataSchemaAccessInfoApi(accessInfoRequest).then(res=>{
+          if (res.code === 0){
               // console.log(JSON.parse(res.data.accessCondition))
               setDataSchemaAccessInfo(res.data);
-            } else{
+          } else{
               console.log(res.msg);
               message.error('执行错误:'+res.msg);
-            }
-          });
-        }
+          }
+        });
+        
         
       } else{
         console.log(res.msg);
@@ -115,7 +115,7 @@ export default function SchemaDetail() {
 
       <Divider></Divider>
 
-      {dataSchema.visible && (
+      {dataSchemaAccessInfo && 
         <Card title="访问信息" >
         <Descriptions bordered>
           <DescriptionsItem label='数据格式'  span={1} >
@@ -136,14 +136,14 @@ export default function SchemaDetail() {
           <DescriptionsItem label='返回数据格式' span={3} >
 
             { 
-                dataSchemaAccessInfo && dataSchemaAccessInfo.contentSchema ?
+                 dataSchemaAccessInfo.contentSchema ?
                 <ReactJson displayDataTypes={false} src={JSON.parse(dataSchemaAccessInfo.contentSchema)} />
                 :'-'
               }
           </DescriptionsItem>
           <DescriptionsItem label='查询条件' span={3} >
             { 
-              dataSchemaAccessInfo && dataSchemaAccessInfo.accessCondition ?
+               dataSchemaAccessInfo.accessCondition ?
               <ReactJson displayDataTypes={false} src={JSON.parse(dataSchemaAccessInfo.accessCondition)} />
               :'-'
             }
@@ -151,7 +151,7 @@ export default function SchemaDetail() {
           </DescriptionsItem>
         </Descriptions>
       </Card>
-      )}
+      }
     
     
     </Layout>
