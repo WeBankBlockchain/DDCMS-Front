@@ -1,7 +1,7 @@
 
 import React from "react";
 import { useEffect, useState } from "react";
-import { PageQueryMyFavSchemaApi } from "../../request/api";
+import { PageQueryMyFavSchemaApi ,DelSchemaFavoriteApi } from "../../request/api";
 import {message, Table, Input} from "antd";
 import { useNavigate } from "react-router-dom";
 const {Search} = Input;
@@ -42,7 +42,7 @@ export default function AdminMyFavorateDataSchema() {
                 }
             })}>  查看  </a>
 
-                <a>  删除收藏  </a>
+                <a onClick={() => handleDelFav(record)}>  删除收藏  </a>
             </span>
 
             ),
@@ -54,6 +54,7 @@ export default function AdminMyFavorateDataSchema() {
         pageNo: 1,
         pageSize: PAGE_SIZE
     })
+
     const [pagination,setPagination] = useState({
         current: 1,
         pageSize: PAGE_SIZE
@@ -104,7 +105,15 @@ export default function AdminMyFavorateDataSchema() {
             pageSize: PAGE_SIZE
         })
     }
-      
+    
+    const handleDelFav = (record)=>{
+        
+        setTableParams({
+            pageNo:1,
+            pageSize: PAGE_SIZE
+        })
+    }
+
     return (
         <div style={{
         }}>

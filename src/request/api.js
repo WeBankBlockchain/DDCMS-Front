@@ -69,6 +69,10 @@ export const PageQueryMySchemaApi = (params) =>
 export const AddSchemaFavoriteApi = (params) =>
   service.post("schema/addSchemaFavorite", params);
 
+export const DelSchemaFavoriteApi = (params) =>
+  service.post("schema/delSchemaFavorite", params);
+
+
 export const PageQueryMyFavSchemaApi = (params) =>
   service.post("schema/pageQueryMyFavSchema", params);
 
