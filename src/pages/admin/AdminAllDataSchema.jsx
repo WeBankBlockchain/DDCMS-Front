@@ -2,7 +2,8 @@ import React from "react";
 import { useEffect, useState } from "react";
 import { PageQuerySchemaApi } from "../../request/api";
 import { message, Table, Input } from "antd";
-
+import renderStatusBadge from "../../utils/statusRender";
+import renderVoteProgress from "../../utils/progressRender";
 import { useNavigate } from "react-router-dom";
 const { Search } = Input;
 
@@ -35,6 +36,21 @@ export default function AdminAllDataSchema() {
       dataIndex: "providerName",
       key: "providerName",
       width: 200,
+    },
+    {
+      title: "审核状态",
+      dataIndex: "status",
+      key: "status",
+      width: 200,
+      render: (t) => renderStatusBadge(t),
+    },
+    {
+      title: "审核进度",
+      key: "reviewProgress",
+      width: 200,
+      render: (text, record) => {
+        return renderVoteProgress(record);
+      },
     },
     {
       title: "操作",

@@ -6,7 +6,7 @@ function renderStatusBadge(statusCode) {
   } else if (statusCode === 1) {
     return <Badge status="success" text="审核通过" />;
   } else if (statusCode === 2) {
-    return <Badge status="failed" text="拒绝" />;
+    return <Badge status="error" text="拒绝" />;
   }
 }
 

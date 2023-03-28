@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { Table, message, Radio, Input, Button } from "antd";
 import moment from "moment";
 import renderStatusBadge from "../../utils/statusRender";
+import renderVoteProgress from "../../utils/progressRender";
 
 const { Search } = Input;
 const PAGE_SIZE = 10;
@@ -45,6 +46,14 @@ export default function AdminMyProductList() {
       key: "status",
       width: 200,
       render: (t) => renderStatusBadge(t),
+    },
+    {
+      title: "审核进度",
+      key: "reviewProgress",
+      width: 200,
+      render: (text, record) => {
+        return renderVoteProgress(record);
+      },
     },
     {
       title: "操作",

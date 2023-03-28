@@ -1,5 +1,5 @@
 import { Content } from "antd/es/layout/layout";
-import React, { useState, InputNumber } from "react";
+import React, { useState } from "react";
 import {
   Form,
   Input,

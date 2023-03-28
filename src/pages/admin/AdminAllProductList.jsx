@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { Table, message, Radio, Input, Space } from "antd";
 import moment from "moment";
 import renderStatusBadge from "../../utils/statusRender";
+import renderVoteProgress from "../../utils/progressRender";
 
 const { Search } = Input;
 const PAGE_SIZE = 10;
@@ -81,18 +82,32 @@ export default function AdminAllProductList() {
       render: (t) => renderStatusBadge(t),
     },
     {
+      title: "审核进度",
+      key: "reviewProgress",
+      width: 200,
+      render: (text, record) => {
+        return renderVoteProgress(record);
+      },
+    },
+    {
       title: "操作",
       key: "action",
       width: 200,
       render: (text, record) => (
         <Space size="middle">
           <a onClick={() => navigateTo(record.productId)}>查看</a>
-          {record.status === 0 && accountType === "2" && approved.has(record.productId) === false && (
-            <a onClick={() => approveProduct(record.productId, true)}>通过</a>
-          )}
-          {record.status === 0 && accountType === "2" && approved.has(record.productId) === false && (
-            <a onClick={() => approveProduct(record.productId, false)}>拒绝</a>
-          )}
+          {record.status === 0 &&
+            accountType === "2" &&
+            approved.has(record.productId) === false && (
+              <a onClick={() => approveProduct(record.productId, true)}>通过</a>
+            )}
+          {record.status === 0 &&
+            accountType === "2" &&
+            approved.has(record.productId) === false && (
+              <a onClick={() => approveProduct(record.productId, false)}>
+                拒绝
+              </a>
+            )}
         </Space>
       ),
     },
