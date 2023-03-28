@@ -66,12 +66,12 @@ export default function AdminAllDataSchema() {
           {record.status === 0 &&
             accountType === "2" &&
             approved.has(record.productId) === false && (
-              <a onClick={() => approveProduct(record.schemaId, true)}>通过</a>
+              <a onClick={() => approveSchema(record.schemaId, true)}>通过</a>
             )}
           {record.status === 0 &&
             accountType === "2" &&
             approved.has(record.productId) === false && (
-              <a onClick={() => approveProduct(record.schemaId, false)}>
+              <a onClick={() => approveSchema(record.schemaId, false)}>
                 拒绝
               </a>
             )}
@@ -105,7 +105,7 @@ export default function AdminAllDataSchema() {
         message.error(res.msg);
       }
     });
-  }, [tableParams]);
+  }, [tableParams, approved]);
 
   const handleTableChange = (pagination) => {
     console.log(pagination);
@@ -133,7 +133,7 @@ export default function AdminAllDataSchema() {
     });
   };
 
-  const approveProduct = (schemaId, agree) => {
+  const approveSchema = (schemaId, agree) => {
     const approveReq = {
       agree: agree,
       schemaId: schemaId,
@@ -147,8 +147,7 @@ export default function AdminAllDataSchema() {
           setApproved(map);
         } else {
           console.log(res);
-          message.error("审批失败!");
-          message.error(res.msg);
+          message.error("审批失败!"+res.msg);
         }
       })
       .catch((error) => {

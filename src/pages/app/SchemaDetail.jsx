@@ -24,7 +24,7 @@ export default function SchemaDetail() {
   const {schemaId} = loadSchemaIdFromLocation(location);
   const [dataSchema, setDataSchema] = useState({});
 
-  const [dataSchemaAccessInfo, setDataSchemaAccessInfo] = useState({});
+  const [dataSchemaAccessInfo, setDataSchemaAccessInfo] = useState();
   
   
   useEffect(()=>{
@@ -44,9 +44,6 @@ export default function SchemaDetail() {
           if (res.code === 0){
               // console.log(JSON.parse(res.data.accessCondition))
               setDataSchemaAccessInfo(res.data);
-          } else{
-              console.log(res.msg);
-              message.error('执行错误:'+res.msg);
           }
         });
         
