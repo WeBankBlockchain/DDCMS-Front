@@ -107,6 +107,7 @@ export default function Home() {
       tagId: tagId,
       pageNo: pageNo,
       pageSize: pageSize, 
+      status: 1
     };
 
     PageQuerySchemaApi(req).then((res) => {
