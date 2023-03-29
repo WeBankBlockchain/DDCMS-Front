@@ -12,36 +12,34 @@ import moment from 'moment'
 import PubSub from 'pubsub-js'
 import { AddSchemaFavoriteApi } from '../../request/api';
 import util from '../../utils/util';
+import { APP_BREAD_CRUMB } from '../../constants/KeyConstants';
+
 export default function SchemaCard(props) {
 
   const navigate = useNavigate()
 
-  const breadcrumbArr = []
-
-  const schemaOnClick = (schemaId) => {
+  const schemaOnClick = (schemaId, schemaName) => {
+    PubSub.publish(APP_BREAD_CRUMB, ['数据目录', schemaName]);
     navigate('/schema/detail', {
       state: {schemaId: schemaId}
     })
   }
 
-  const providerOnClick = (providerId) => {
-    navigate('/product', {
+  const providerOnClick = (providerId, providerName) => {
+    PubSub.publish(APP_BREAD_CRUMB, ['公司 : ' + providerName, '数据目录']);
+    navigate('/home', {
       state: {providerId: providerId}
     })
   }
 
-  const productOnClick = (productId) => {
-    breadcrumbArr.push()
-    PubSub.publish('breadcrumb', breadcrumbArr);
+  const productOnClick = (productId, productName) => {
+    PubSub.publish(APP_BREAD_CRUMB, ['产品 : ' + productName, '数据目录']);
     navigate('/home', {
       state: {productId: productId}
     })
   }
 
   const schemaStarComponent = getSchemaStarComponent(props);
-
-
-
 
   return (
     <div className='schema-card'>
@@ -52,7 +50,7 @@ export default function SchemaCard(props) {
           <Button 
             type="link" 
             style={{fontSize: 18, fontWeight: 500, color: '#000'}}
-            onClick={()=>{schemaOnClick(props.item.schemaId)}}
+            onClick={()=>{schemaOnClick(props.item.schemaId, props.item.dataSchemaName)}}
           >
             {props.item.dataSchemaName}
           </Button>
@@ -71,7 +69,7 @@ export default function SchemaCard(props) {
             <Button 
               type='link'
               style={{fontSize: 14, padding: '0 0', color: 'rgb(134, 132, 132)'}}
-              onClick={() => providerOnClick(props.item.providerId)}
+              onClick={() => providerOnClick(props.item.providerId, props.item.providerName)}
             >
               {props.item.providerName}
             </Button>
@@ -81,7 +79,7 @@ export default function SchemaCard(props) {
             <Button 
               type='link' 
               style={{fontSize: 14, padding: '0 0', color: 'rgb(134, 132, 132)'}}
-              onClick={() => productOnClick(props.item.productId)}
+              onClick={() => productOnClick(props.item.productId, props.item.productName)}
             >
               {props.item.productName}
             </Button>

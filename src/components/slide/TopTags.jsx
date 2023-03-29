@@ -50,10 +50,10 @@ export default function TopTags() {
           </Button>
         ))}
       </Space>
-      <Divider style={{margin: '0 0 12px 0'}}/>
+      {/* <Divider style={{margin: '0 0 12px 0'}}/>
       <div className='slide-card-footer'>
         查看更多 >>
-      </div>
+      </div> */}
     </div>
   )
 }

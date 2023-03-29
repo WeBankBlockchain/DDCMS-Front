@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Input, Breadcrumb } from 'antd';
+import { Input, Breadcrumb, message } from 'antd';
 import PubSub from 'pubsub-js'
 import '../../assets/SearchBanner.css'
 import { APP_BREAD_CRUMB } from '../../constants/KeyConstants';
@@ -15,8 +15,12 @@ export default function SearchBanner() {
   });
 
   const onSearch = (value) => {
-    PubSub.publish(APP_BREAD_CRUMB, ['搜索 : ' + value, '数据目录']);
-    PubSub.publish('keyWord', value);
+    if(value.length === 0){
+      message.error("搜索关键词不能为空")
+    }else{
+      PubSub.publish(APP_BREAD_CRUMB, ['搜索 : ' + value, '数据目录']);
+      PubSub.publish('keyWord', value);
+    }
   };
  
   return (
