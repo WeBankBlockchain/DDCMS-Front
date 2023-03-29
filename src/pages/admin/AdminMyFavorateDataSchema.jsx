@@ -2,7 +2,7 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import { PageQueryMyFavSchemaApi ,DelSchemaFavoriteApi } from "../../request/api";
-import {message, Table, Input} from "antd";
+import {message, Table,Radio, Input} from "antd";
 import { useNavigate } from "react-router-dom";
 const {Search} = Input;
 
@@ -122,15 +122,34 @@ export default function AdminMyFavorateDataSchema() {
         }
 
     }
-
+    const handleOnRadioChange = (e) => {
+        var chosenValue = e.target.value;
+        chosenValue = chosenValue !== "-1" ? chosenValue : undefined;
+        const query = {
+          pageNo: 1,
+          pageSize: PAGE_SIZE,
+          status: chosenValue,
+          keyWord: tableParams.keyWord
+        };
+        setTableParams(query);
+      };
     return (
         <div style={{
         }}>
             <div style={{
                 display: 'flex',
-                justifyContent: 'flex-end'
+                justifyContent: 'space-between'
             }}>
-                
+                      <Radio.Group
+          defaultValue="-1"
+          buttonStyle="solid"
+          onChange={handleOnRadioChange}
+            >
+            <Radio.Button value="-1">全部</Radio.Button>
+            <Radio.Button value="0">审核中</Radio.Button>
+            <Radio.Button value="1">已审核</Radio.Button>
+            <Radio.Button value="2">已拒绝</Radio.Button>
+            </Radio.Group>
                 <Search 
                 style={{
                     width: '20%',

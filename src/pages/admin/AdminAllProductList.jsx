@@ -3,7 +3,7 @@ import React from "react";
 import { useEffect, useState } from "react";
 import { ApproveProductApi, PageQueryProductApi } from "../../request/api";
 import { useNavigate } from "react-router-dom";
-import { Table, message, Radio, Input, Space } from "antd";
+import { Table, message, Radio, Input, Space} from "antd";
 import moment from "moment";
 import renderStatusBadge from "../../utils/statusRender";
 import renderVoteProgress from "../../utils/progressRender";
@@ -170,6 +170,7 @@ export default function AdminAllProductList() {
       pageNo: 1,
       pageSize: PAGE_SIZE,
       status: chosenValue,
+      keyWord: tableParams.keyWord
     };
     setTableParams(query);
   };

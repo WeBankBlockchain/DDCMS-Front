@@ -2,7 +2,7 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import { PageQueryMySchemaApi } from "../../request/api";
-import { message, Table, Input, Button, Space } from "antd";
+import { message, Table, Input, Button, Space,Radio } from "antd";
 import renderStatusBadge from "../../utils/statusRender";
 import renderVoteProgress from "../../utils/progressRender";
 import { useNavigate } from "react-router-dom";
@@ -65,7 +65,6 @@ export default function AdminMyDataSchema() {
             查看
           </a>
 
-          <a> 删除 </a>
         </Space>
       ),
     },
@@ -111,6 +110,18 @@ export default function AdminMyDataSchema() {
     });
   };
 
+  const handleOnRadioChange = (e) => {
+    var chosenValue = e.target.value;
+    chosenValue = chosenValue !== "-1" ? chosenValue : undefined;
+    const query = {
+      pageNo: 1,
+      pageSize: PAGE_SIZE,
+      status: chosenValue,
+      keyWord: tableParams.keyWord
+    };
+    setTableParams(query);
+  };
+  
   const handleOnSearch = (e) => {
     setPagination({
       current: 1,
@@ -128,27 +139,40 @@ export default function AdminMyDataSchema() {
       <div
         style={{
           display: "flex",
-          justifyContent: "flex-end",
+          justifyContent: "space-between",
         }}
       >
-        <Search
-          style={{
-            width: "20%",
-          }}
-          placeholder="根据名称搜索"
-          onSearch={handleOnSearch}
-        ></Search>
-        <Button
-          style={{
-            marginLeft: "20px",
-          }}
-          type="primary"
-          onClick={() => {
-            navigate("/admin/schema/create");
-          }}
+        <Radio.Group
+          defaultValue="-1"
+          buttonStyle="solid"
+          onChange={handleOnRadioChange}
         >
-          创建数据目录
-        </Button>
+          <Radio.Button value="-1">全部</Radio.Button>
+          <Radio.Button value="0">审核中</Radio.Button>
+          <Radio.Button value="1">已审核</Radio.Button>
+          <Radio.Button value="2">已拒绝</Radio.Button>
+        </Radio.Group>
+        <div>
+          <Search
+            style={{
+              width: "500px",
+            }}
+            placeholder="根据名称搜索"
+            onSearch={handleOnSearch}
+          ></Search>
+          <Button
+            style={{
+              marginLeft: "20px",
+            }}
+            type="primary"
+            onClick={() => {
+              navigate("/admin/schema/create");
+            }}
+          >
+            创建数据目录
+          </Button>
+        </div>
+
       </div>
 
       <Table
