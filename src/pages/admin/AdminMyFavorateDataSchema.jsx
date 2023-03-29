@@ -106,12 +106,21 @@ export default function AdminMyFavorateDataSchema() {
         })
     }
     
-    const handleDelFav = (record)=>{
-        
-        setTableParams({
-            pageNo:1,
-            pageSize: PAGE_SIZE
-        })
+    const handleDelFav = async (record)=>{
+        const request = {
+            schemaId: record.schemaId
+        }
+        const resp = await DelSchemaFavoriteApi(request);
+        if (resp.code === 0){
+            message.info('删除成功');
+            setTableParams({
+                pageNo:1,
+                pageSize: PAGE_SIZE
+            });
+        } else{
+            message.error(resp.msg);
+        }
+
     }
 
     return (
