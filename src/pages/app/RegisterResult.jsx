@@ -23,10 +23,10 @@ export default function RegisterResult() {
       </Button>
       <Button
         onClick={() => {
-          navigate("/login");
+          navigate("/register");
         }}
       >
-        登录账户
+        继续注册
       </Button>
     </div>
   );
