@@ -28,7 +28,6 @@ export default function Login() {
           setTimeout(() => navigate("/admin"), 1000);
         } else {
           console.log(res);
-          message.error("登录失败!");
           message.error(res.msg);
         }
       })

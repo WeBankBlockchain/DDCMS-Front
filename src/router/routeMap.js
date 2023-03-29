@@ -17,6 +17,7 @@ import AdminMyProductList from "../pages/admin/AdminMyProductList";
 import AdminProductDetail from "../pages/admin/AdminProductDetail";
 import AdminNewDataSchema from "../pages/admin/AdminNewDataSchema";
 import AdminNewProduct from "../pages/admin/AdminNewProduct";
+import RegisterResult from "../pages/app/RegisterResult";
 
 export const routeMap = [
   {
@@ -107,6 +108,10 @@ export const routeMap = [
   {
     path: "register",
     element: <Register />,
+  },
+  {
+    path: "result",
+    element: <RegisterResult />,
   },
   {
     path: "test",

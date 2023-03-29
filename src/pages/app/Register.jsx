@@ -46,7 +46,7 @@ export default function Register() {
         if (res.code === 0) {
           console.log("success");
           message.success("注册成功!");
-          setTimeout(() => navigate("/login"), 1000);
+          setTimeout(() => navigate("/result"), 1000);
         } else {
           console.log(res);
           message.error("登录失败!");
@@ -56,7 +56,6 @@ export default function Register() {
       .catch((error) => {
         message.error(error.response.data.message);
       });
-    message.success("提交成功");
   };
 
   // 表单提交失败的回调函数
