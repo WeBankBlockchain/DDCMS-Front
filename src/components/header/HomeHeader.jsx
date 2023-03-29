@@ -3,8 +3,6 @@ import NotLoginUser from './NotLoginUser';
 import LoginUser from './LoginUser';
 import {Button} from 'antd'
 import { useNavigate } from 'react-router-dom';
-import PubSub from 'pubsub-js'
-import { APP_BREAD_CRUMB } from '../../constants/KeyConstants';
 
 export default function HomeHeader() {
 
@@ -12,9 +10,11 @@ export default function HomeHeader() {
 
   const navigate = useNavigate()
   const onClick = () => {
-    PubSub.publish(APP_BREAD_CRUMB, ['最新', '数据目录']);
     navigate('/home', {
-      state: {homeFlag: 1}
+      state: {
+        homeFlag: 1,
+        breadcrumb: ['最新', '数据目录']
+      }
     })
   }
 

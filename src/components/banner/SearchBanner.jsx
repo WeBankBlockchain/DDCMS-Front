@@ -1,25 +1,37 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Input, Breadcrumb, message } from 'antd';
-import PubSub from 'pubsub-js'
 import '../../assets/SearchBanner.css'
-import { APP_BREAD_CRUMB } from '../../constants/KeyConstants';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const { Search } = Input;
 
+const breadcrumb = ['最新', '数据目录']
+
 export default function SearchBanner() {
 
-  const [data, setData] = useState(['最新', '数据目录'])
+  const location = useLocation()
+  const navigate = useNavigate()
 
-  PubSub.subscribe(APP_BREAD_CRUMB, (_, data) => {
-    setData(data) 
-  });
+  const [data, setData] = useState([])
+
+  useEffect(() => {
+    if(location.state){
+      setData(location.state.breadcrumb)
+    }else{
+      setData(breadcrumb)
+    }
+  }, [location]);
 
   const onSearch = (value) => {
     if(value.length === 0){
       message.error("搜索关键词不能为空")
     }else{
-      PubSub.publish(APP_BREAD_CRUMB, ['搜索 : ' + value, '数据目录']);
-      PubSub.publish('keyWord', value);
+      navigate('/home', {
+        state: {
+          keyWord: value,
+          breadcrumb: ['搜索 : ' + value, '数据目录']
+        }
+      })
     }
   };
  

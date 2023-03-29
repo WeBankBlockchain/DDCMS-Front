@@ -3,8 +3,6 @@ import './SlideCard.css'
 import { Divider, Space, message, Button} from 'antd';
 import { GetHotProductsApi } from '../../request/api';
 import { useNavigate } from 'react-router-dom';
-import PubSub from 'pubsub-js'
-import { APP_BREAD_CRUMB } from '../../constants/KeyConstants';
 
 const topCount = 20
 
@@ -14,9 +12,11 @@ export default function TopProduct() {
 
   const navigate = useNavigate()
   const onClick = (productId, productName) => {
-    PubSub.publish(APP_BREAD_CRUMB, ['产品 : ' + productName, '数据目录']);
     navigate('/home', {
-      state: {productId: productId}
+      state: {
+        productId: productId,
+        breadcrumb: ['产品 : ' + productName, '数据目录']
+      }
     })
   }
 

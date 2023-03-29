@@ -9,33 +9,43 @@ import {
 
 import { useNavigate } from 'react-router-dom';
 import moment from 'moment'
-import PubSub from 'pubsub-js'
 import { AddSchemaFavoriteApi } from '../../request/api';
 import util from '../../utils/util';
-import { APP_BREAD_CRUMB } from '../../constants/KeyConstants';
 
 export default function SchemaCard(props) {
 
   const navigate = useNavigate()
 
+  let breadcrumb = []
+
   const schemaOnClick = (schemaId, schemaName) => {
-    PubSub.publish(APP_BREAD_CRUMB, ['数据目录', schemaName]);
+    breadcrumb = ['数据目录', schemaName]   
     navigate('/schema/detail', {
-      state: {schemaId: schemaId}
+      state: {
+        schemaId: schemaId,
+        breadcrumb: breadcrumb
+      }
     })
   }
 
   const providerOnClick = (providerId, providerName) => {
-    PubSub.publish(APP_BREAD_CRUMB, ['公司 : ' + providerName, '数据目录']);
+    breadcrumb = ['公司 : ' + providerName, '数据目录']
     navigate('/home', {
-      state: {providerId: providerId}
+      state: {
+        providerId: providerId,
+        breadcrumb: breadcrumb
+      }
     })
   }
 
   const productOnClick = (productId, productName) => {
-    PubSub.publish(APP_BREAD_CRUMB, ['产品 : ' + productName, '数据目录']);
+    breadcrumb = ['产品 : ' + productName, '数据目录']
+    window.history.pushState({ breadcrumb }, null, null);
     navigate('/home', {
-      state: {productId: productId}
+      state: {
+        productId: productId,
+        breadcrumb: breadcrumb
+      }
     })
   }
 
