@@ -16,10 +16,10 @@ export default function AdminNewProduct() {
         }
         CreateProductApi(request).then((res) => {
           if(res.code === 0){
+            message.info("创建成功，审核中");
             navigate(-1)
           }else{
             message.error(res.msg);
-            navigate(-1)
           }
         })
     }

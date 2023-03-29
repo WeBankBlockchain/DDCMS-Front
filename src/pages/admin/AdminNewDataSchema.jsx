@@ -50,10 +50,10 @@ export default function AdminNewDataSchema() {
     console.log(request);
     NewDataSchemaApi(request).then((res) => {
       if (res.code === 0) {
-        message.info("创建成功");
+        message.info("创建成功，审核中");
         navigate(-1);
       } else {
-        message.error("创建失败");
+        message.error(res.msg);
       }
     });
   };
@@ -61,7 +61,6 @@ export default function AdminNewDataSchema() {
   const loadMyProducts = () => {
     GetProductsByProviderIdApi({}).then((res) => {
       if (res.code === 0) {
-        console.log("产品加载成功");
         setMyProducts(res.data);
       } else {
         message.error(res.msg);
@@ -79,6 +78,18 @@ export default function AdminNewDataSchema() {
     wrapperCol: { span: 24 }, // Use the full width of the form item for the input
   };
 
+  const validateJSON = (_, value) => {
+    try {
+      const parsedValue = JSON.parse(value);
+      if (typeof parsedValue !== 'object') {
+        return Promise.reject('Please enter valid JSON');
+      }
+    } catch (error) {
+      return Promise.reject('Please enter valid JSON');
+    }
+    return Promise.resolve();
+  };
+  
   return (
     <Layout>
       <Content
@@ -221,7 +232,6 @@ export default function AdminNewDataSchema() {
                       <Select placeholder="数据传输协议">
                         <Option value="0">HTTP</Option>
                         <Option value="1">HTTPS</Option>
-                        <Option value="2">SFTP</Option>
                       </Select>
                     </Form.Item>
                   </Col>
@@ -233,7 +243,6 @@ export default function AdminNewDataSchema() {
                     >
                       <Select placeholder="请输入数据内容格式">
                         <Option value="0">JSON</Option>
-                        <Option value="1">XML</Option>
                       </Select>
                     </Form.Item>
                   </Col>
@@ -244,21 +253,24 @@ export default function AdminNewDataSchema() {
                 <Form.Item
                   label="响应结构"
                   name="dataSchemaContentSchema"
-                  required
+                  rules={[{ required: true, validator: validateJSON }]}
                 >
                   <Input.TextArea
                     placeholder="请输入响应结构,格式为json"
                     bordered={true}
+
                   />
                 </Form.Item>
                 <Form.Item
                   label="查询条件"
                   name="dataSchemaAccessCondition"
-                  required
+
+                  rules={[{ required: true, validator: validateJSON }]}
                 >
                   <Input.TextArea
                     placeholder="请输入查询条件,格式为json"
                     bordered={true}
+                    
                   />
                 </Form.Item>
 
