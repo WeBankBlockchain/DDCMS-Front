@@ -125,10 +125,10 @@ export default function SchemaDetail() {
               {dataSchemaAccessInfo.uri}
           </DescriptionsItem>
           <DescriptionsItem label='生效时间' span={2} >
-              {moment(dataSchemaAccessInfo.effect_time).format('YYYY-MM-DD')}
+              {moment(dataSchemaAccessInfo.effectTime).format('YYYY-MM-DD')}
           </DescriptionsItem>
           <DescriptionsItem label='失效时间'  span={1}>
-            {moment(dataSchemaAccessInfo.expire_time).format('YYYY-MM-DD')}
+            {moment(dataSchemaAccessInfo.expireTime).format('YYYY-MM-DD')}
           </DescriptionsItem>
           <DescriptionsItem label='返回数据格式' span={3} >
 
