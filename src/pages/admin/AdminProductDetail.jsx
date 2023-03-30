@@ -27,9 +27,6 @@ export default function AdminProductDetail() {
     <Layout style={{ textAlign: "center" }}>
       <Card title="基本信息">
         <Descriptions bordered>
-          <DescriptionsItem label="产品Id" span={3}>
-            {product.productId}
-          </DescriptionsItem>
           <DescriptionsItem label="产品名称" span={3}>
             {product.productName}
           </DescriptionsItem>
@@ -38,9 +35,6 @@ export default function AdminProductDetail() {
           </DescriptionsItem>
           <DescriptionsItem label="所属公司" span={3}>
             {product.companyName}
-          </DescriptionsItem>
-          <DescriptionsItem label="所属公司ID" span={3}>
-            {product.providerId}
           </DescriptionsItem>
           <Descriptions.Item label="状态" span={3}>
             {product.status === 0 && (
