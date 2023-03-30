@@ -3,8 +3,7 @@ import { List, Divider, Space, message, Button} from 'antd';
 import './SlideCard.css'
 import { GetHotCompaniesApi } from '../../request/api';
 import { useNavigate } from 'react-router-dom';
-import PubSub from 'pubsub-js'
-import { APP_BREAD_CRUMB } from '../../constants/KeyConstants';
+
 
 
 const topCount = 10;
@@ -15,9 +14,11 @@ export default function TopCompany() {
 
   const navigate = useNavigate()
   const onClick = (providerId, companyName) => {
-    PubSub.publish(APP_BREAD_CRUMB, ['公司 : ' + companyName, '数据目录']);
     navigate('/home', {
-      state: {providerId: providerId}
+      state: {
+        providerId: providerId,
+        breadcrumb: ['公司 : ' + companyName, '数据目录']
+      }
     })
   }
 
@@ -59,10 +60,10 @@ export default function TopCompany() {
           </List.Item>
         )}
       />
-      <Divider style={{margin: '0 0 12px 0'}}/>
+      {/* <Divider style={{margin: '0 0 12px 0'}}/>
       <div className='slide-card-footer'>
         查看更多 >>
-      </div>
+      </div> */}
     </div>
   )
 }

@@ -2,7 +2,7 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import { PageQuerySchemaApi } from "../../request/api";
-import { message, Table, Input, Space } from "antd";
+import { message, Table, Input, Space, Radio } from "antd";
 import renderStatusBadge from "../../utils/statusRender";
 import renderVoteProgress from "../../utils/progressRender";
 import { useNavigate } from "react-router-dom";
@@ -120,7 +120,17 @@ export default function AdminAllDataSchema() {
       return newParams;
     });
   };
-
+  const handleOnRadioChange = (e) => {
+    var chosenValue = e.target.value;
+    chosenValue = chosenValue !== "-1" ? chosenValue : undefined;
+    const query = {
+      pageNo: 1,
+      pageSize: PAGE_SIZE,
+      status: chosenValue,
+      keyWord: tableParams.keyWord
+    };
+    setTableParams(query);
+  };
   const handleOnSearch = (e) => {
     setPagination({
       current: 1,
@@ -157,20 +167,30 @@ export default function AdminAllDataSchema() {
 
   return (
     <div style={{}}>
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "flex-end",
-        }}
-      >
-        <Search
+
+        <div style={{
+                display: "flex",
+                justifyContent: "space-between",
+        }}>
+          <Radio.Group
+            defaultValue="-1"
+            buttonStyle="solid"
+            onChange={handleOnRadioChange}
+          >
+            <Radio.Button value="-1">全部</Radio.Button>
+            <Radio.Button value="0">审核中</Radio.Button>
+            <Radio.Button value="1">已审核</Radio.Button>
+            <Radio.Button value="2">已拒绝</Radio.Button>
+          </Radio.Group>
+          <Search
           style={{
             width: "20%",
           }}
           placeholder="根据名称搜索"
           onSearch={handleOnSearch}
         ></Search>
-      </div>
+        </div>
+
 
       <Table
         columns={schemaColumns}

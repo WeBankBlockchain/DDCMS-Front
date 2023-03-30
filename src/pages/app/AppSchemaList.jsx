@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import SchemaCard from "../../components/card/SchemaCard";
 import { PageQuerySchemaApi } from "../../request/api";
 import { useLocation } from "react-router-dom";
-import PubSub from "pubsub-js";
 import "../../assets/CommonStyle.css";
 
 const pageSize = 10;
@@ -71,18 +70,14 @@ export default function Home() {
     setPageNo(1);
   }
 
-  const resetQueryForKeyword = () => {
-    PubSub.subscribe("keyWord", (_, data) => {
-      if(keyWord !== data){
-        setProviderId(0);
-        setProductId(0);
-        setTagId(0);
-        setKeyWord(data);
-        setHomeFlag(0);
-        setInitRefresh(!initRefresh);
-        setPageNo(1);
-      } 
-    });
+  const resetQueryForKeyword = (keyWord) => {
+    setProviderId(0);
+    setProductId(0);
+    setTagId(0);
+    setKeyWord(keyWord);
+    setHomeFlag(0);
+    setInitRefresh(!initRefresh);
+    setPageNo(1);
   }
 
   const location = useLocation();
@@ -95,8 +90,8 @@ export default function Home() {
     resetQueryForProduct(location.state.productId)
   }else if(location.state?.tagId && location.state?.tagId !== tagId){
     resetQueryForTag(location.state.tagId)
-  }else {
-    resetQueryForKeyword()
+  }else if(location.state?.keyWord && location.state?.keyWord !== keyWord){
+    resetQueryForKeyword(location.state?.keyWord)
   }
 
   useEffect(() => {
