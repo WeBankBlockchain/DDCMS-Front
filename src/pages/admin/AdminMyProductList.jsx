@@ -136,7 +136,7 @@ export default function AdminMyProductList() {
         style={{
           display: "flex",
           justifyContent: "space-between",
-          marginBottom: "20px",
+          padding: '0px 0px 20px 0px'
         }}
       >
         <Radio.Group

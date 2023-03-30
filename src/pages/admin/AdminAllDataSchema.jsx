@@ -171,6 +171,7 @@ export default function AdminAllDataSchema() {
         <div style={{
                 display: "flex",
                 justifyContent: "space-between",
+                padding: '0px 0px 20px 0px'
         }}>
           <Radio.Group
             defaultValue="-1"

@@ -169,11 +169,12 @@ export default function AdminAllProductList() {
     setTableParams(query);
   };
   return (
-    <div style={{}}>
+    <div>
       <div
         style={{
           display: "flex",
           justifyContent: "space-between",
+          padding: '0px 0px 20px 0px'
         }}
       >
         <Radio.Group

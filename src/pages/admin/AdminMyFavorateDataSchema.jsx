@@ -143,6 +143,7 @@ export default function AdminMyFavorateDataSchema() {
         style={{
           display: "flex",
           justifyContent: "space-between",
+          padding: '0px 0px 20px 0px'
         }}
       >
         <Radio.Group
