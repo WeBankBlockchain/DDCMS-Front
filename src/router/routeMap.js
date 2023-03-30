@@ -6,7 +6,6 @@ import Register from "../pages/app/Register";
 import AdminUserInfo from "../pages/admin/AdminUserInfo";
 import Test from "../pages/Test";
 import Admin from "../pages/admin/Admin";
-import ProductList from "../pages/app/ProductList";
 import SchemaDetail from "../pages/app/SchemaDetail";
 import AdminAllDataSchema from "../pages/admin/AdminAllDataSchema";
 import AdminAllProductList from "../pages/admin/AdminAllProductList";
@@ -35,10 +34,6 @@ export const routeMap = [
       {
         path: "schema/detail",
         element: <SchemaDetail />,
-      },
-      {
-        path: "product",
-        element: <ProductList />,
       },
     ],
   },
