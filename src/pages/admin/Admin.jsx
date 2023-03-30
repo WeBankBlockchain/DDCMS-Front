@@ -17,26 +17,25 @@ export default function Admin() {
       <Content>
         <Layout
           style={{
-          padding: "24px 0",
-          background: colorBgContainer,
+            padding: "24px 0",
+            background: colorBgContainer,
           }}
         >
-
-          <AdminSlider
-          ></AdminSlider>
+          <AdminSlider></AdminSlider>
 
           <Content
-          style={{
-            // padding: "0 10% 0 10%",
-            minHeight: 1080,
-          }}
-        >
-            <Outlet></Outlet>
+            style={{
+              // padding: "0 10% 0 10%",
+              minHeight: 1080,
+            }}
+          >
+            <div style={{ padding: "10px 10% 10px 10%" }}>
+              <Outlet></Outlet>
+            </div>
           </Content>
         </Layout>
       </Content>
       <CommonFooter></CommonFooter>
-  </Layout>
-  )
-
+    </Layout>
+  );
 }
