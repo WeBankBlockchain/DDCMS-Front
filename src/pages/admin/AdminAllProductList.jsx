@@ -50,12 +50,6 @@ export default function AdminAllProductList() {
 
   const columns = [
     {
-      title: "产品id",
-      dataIndex: "productId",
-      key: "productId",
-      width: 200,
-    },
-    {
       title: "产品名称",
       dataIndex: "productName",
       key: "productName",
