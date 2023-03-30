@@ -7,7 +7,7 @@ export default function CommonFooter() {
   return (
     <Footer
       style={{
-        backgroundColor: '#FFF',
+        backgroundColor: '#F6F6F6',
         fontSize: '20px',
         textAlign: "center",
       }}

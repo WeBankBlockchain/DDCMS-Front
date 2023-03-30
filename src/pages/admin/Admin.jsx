@@ -17,7 +17,6 @@ export default function Admin() {
       <Content>
         <Layout
           style={{
-            padding: "24px 0",
             background: colorBgContainer,
           }}
         >
@@ -25,11 +24,10 @@ export default function Admin() {
 
           <Content
             style={{
-              // padding: "0 10% 0 10%",
-              minHeight: 1080,
+              minHeight: window.innerHeight - 171,
             }}
           >
-            <div style={{ padding: "10px 10% 10px 10%" }}>
+            <div style={{ padding: "30px 2%" }}>
               <Outlet></Outlet>
             </div>
           </Content>
