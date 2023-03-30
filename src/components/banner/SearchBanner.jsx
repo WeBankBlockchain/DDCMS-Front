@@ -23,6 +23,7 @@ export default function SearchBanner() {
   }, [location]);
 
   const onSearch = (value) => {
+    value = value.trim();
     if(value.length === 0){
       message.error("搜索关键词不能为空")
     }else{
