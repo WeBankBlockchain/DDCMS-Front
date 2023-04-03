@@ -53,3 +53,8 @@
 	background: #ffffff;
   }
   
+/**提供内敛的白色阴影，把浏览器自动autofill表单时的灰蓝色颜色去掉*/
+input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0px 1000px white inset;
+    -webkit-text-fill-color: black;
+  } 
