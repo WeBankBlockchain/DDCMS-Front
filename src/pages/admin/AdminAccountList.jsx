@@ -148,7 +148,7 @@ export default function AdminAccountList() {
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
-          margin: "0 0 24px 0",
+          padding: '0px 0px 20px 0px'
         }}
       >
         <Radio.Group
