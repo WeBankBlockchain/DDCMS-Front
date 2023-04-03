@@ -11,30 +11,22 @@ const { Content } = Layout;
 export default function Login() {
   const navigate = useNavigate();
 
-  const onFinish = (values) => {
+  const onFinish = async (values) => {
     let loginRequest = {
       userName: values.userName,
       password: values.password,
     };
-    console.log(loginRequest)
-    // LoginApi(loginRequest)
-    //   .then((res) => {
-    //     if (res.code === 0) {
-    //       message.success("登录成功!");
-    //       localStorage.setItem("userName", loginRequest.userName);
-    //       localStorage.setItem("did", res.data.did);
-    //       localStorage.setItem("token", res.data.token);
-    //       localStorage.setItem("accountType", res.data.accountType);
-    //       setTimeout(() => navigate("/admin"), 1000);
-    //     } else {
-    //       console.log(res);
-    //       message.error(res.msg);
-    //     }
-    //   })
-    //   .catch((error) => {
-    //     message.error(error.response.data.message);
-    //   });
-    console.log("Received values of form: ", values);
+    const res = await LoginApi(loginRequest);
+      if (res.code === 0) {
+        message.success("登录成功!");
+        localStorage.setItem("userName", loginRequest.userName);
+        localStorage.setItem("did", res.data.did);
+        localStorage.setItem("token", res.data.token);
+        localStorage.setItem("accountType", res.data.accountType);
+        setTimeout(() => navigate("/admin"), 1000);
+      } else {
+          message.error(res.msg);
+      }
   };
 
   const onFinishFailed = (errorInfo) => {
@@ -57,7 +49,7 @@ export default function Login() {
       <div id='login-window' style={{
         position: 'relative',//在原有位置的基础上，往上微调一点点，使得视觉效果最优
         top: '-10%',
-        width: '30%',
+        width: '25%',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center'
@@ -118,7 +110,9 @@ export default function Login() {
               </Form.Item>
               <a href="register" style={{
                 color: 'blue'
-              }}>创建账号</a>
+              }}
+              
+              >创建账号</a>
             </Form>
         </div>
        
