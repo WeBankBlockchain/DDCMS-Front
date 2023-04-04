@@ -1,8 +1,6 @@
 import { Content } from "antd/es/layout/layout";
 import React, { useState } from "react";
-import { JsonEditor as Editor, JsonEditor } from 'jsoneditor-react';
-import 'jsoneditor-react/es/editor.min.css';
-
+import JSONInput from 'react-json-editor-ajrm';
 import {
   Form,
   Input,
@@ -30,6 +28,8 @@ export default function AdminNewDataSchema() {
   //各类状态
   const [tags, setTags] = useState([]);
   const [myProducts, setMyProducts] = useState([]);
+  const [accessCondition, setAccessCondition] = useState()
+  const [contentSchema, setContentSchema] = useState()
   //回调
   const onSubmit = (values) => {
     console.log(values);
@@ -44,8 +44,8 @@ export default function AdminNewDataSchema() {
       price: values.price,
       dataFormat: values.dataSchemaFormat,
       dataProtocol: values.dataSchemaProtocol,
-      contentSchema: values.dataSchemaContentSchema,
-      accessCondition: values.dataSchemaAccessCondition,
+      contentSchema: JSON.stringify(contentSchema),
+      accessCondition: JSON.stringify(accessCondition),
       uri: values.dataSchemaUrl,
       effectTime: values.dataSchemaTimeRange[0].valueOf(),
       expireTime: values.dataSchemaTimeRange[1].valueOf(),
@@ -81,17 +81,6 @@ export default function AdminNewDataSchema() {
     wrapperCol: { span: 24 }, // Use the full width of the form item for the input
   };
 
-  const validateJSON = (_, value) => {
-    try {
-      const parsedValue = JSON.parse(value);
-      if (typeof parsedValue !== 'object') {
-        return Promise.reject('Please enter valid JSON');
-      }
-    } catch (error) {
-      return Promise.reject('Please enter valid JSON');
-    }
-    return Promise.resolve();
-  };
   
   return (
     <Layout>
@@ -254,23 +243,32 @@ export default function AdminNewDataSchema() {
                   <Input placeholder="请输入数据访问Url" bordered={true} />
                 </Form.Item>
                 <Form.Item
-                  label="响应结构"
+                  label="响应结构(json)"
                   name="dataSchemaContentSchema"
-                  rules={[{ required: true, validator: validateJSON }]}
+                  required
                 >
-                  <Input.TextArea
-                    placeholder="请输入响应结构,格式为json"
-                    bordered={true}
-
-                  />
+                  <JSONInput
+                      placeholder={contentSchema}
+                      onChange={(newData)=>{
+                        setContentSchema(newData.jsObject)
+                      }}
+                      height = '30%'
+                      theme='light_mitsuketa_tribute'
+                      />
                 </Form.Item>
                 <Form.Item
-                  label="查询条件"
-                  name="dataSchemaAccessCondition"
-
-                  rules={[{ required: true, validator: validateJSON }]}
+                  label="访问条件(json)"
+                  name="dataSchemaContentSchema"
+                  required
                 >
-                  <JsonEditor></JsonEditor>
+                  <JSONInput
+                      placeholder={accessCondition}
+                      onChange={(newData)=>{
+                        setAccessCondition(newData.jsObject)
+                      }}
+                      height = '30%'
+                      theme='light_mitsuketa_tribute'
+                      />
                 </Form.Item>
 
                 <Form.Item label="有效日期" name="dataSchemaTimeRange" required>
