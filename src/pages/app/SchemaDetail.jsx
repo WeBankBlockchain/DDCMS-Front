@@ -125,6 +125,9 @@ export default function SchemaDetail() {
             <DescriptionsItem label="返回数据格式" span={3}>
               {dataSchemaAccessInfo.contentSchema ? (
                 <ReactJson
+                  style={{
+                  textAlign:'left'
+                  }}
                   displayDataTypes={false}
                   src={JSON.parse(dataSchemaAccessInfo.contentSchema)}
                 />
@@ -136,6 +139,9 @@ export default function SchemaDetail() {
               {dataSchemaAccessInfo.accessCondition ? (
                 <ReactJson
                   displayDataTypes={false}
+                  style={{
+                    textAlign:'left'
+                  }}
                   src={JSON.parse(dataSchemaAccessInfo.accessCondition)}
                 />
               ) : (

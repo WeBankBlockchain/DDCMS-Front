@@ -1,5 +1,8 @@
 import { Content } from "antd/es/layout/layout";
 import React, { useState } from "react";
+import { JsonEditor as Editor, JsonEditor } from 'jsoneditor-react';
+import 'jsoneditor-react/es/editor.min.css';
+
 import {
   Form,
   Input,
@@ -267,11 +270,7 @@ export default function AdminNewDataSchema() {
 
                   rules={[{ required: true, validator: validateJSON }]}
                 >
-                  <Input.TextArea
-                    placeholder="请输入查询条件,格式为json"
-                    bordered={true}
-                    
-                  />
+                  <JsonEditor></JsonEditor>
                 </Form.Item>
 
                 <Form.Item label="有效日期" name="dataSchemaTimeRange" required>

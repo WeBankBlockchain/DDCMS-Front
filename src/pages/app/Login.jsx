@@ -1,6 +1,8 @@
 import { Form, Input, Button, Layout, message, Divider } from "antd";
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import CommonFooter from "../../components/footer/CommonFooter";
+import HomeHeader from "../../components/header/HomeHeader";
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { LoginApi } from "../../request/api";
 import "../../assets/CommonStyle.css";
@@ -18,7 +20,8 @@ export default function Login() {
       if (res.code === 0) {
         message.success("登录成功!");
         localStorage.setItem("userName", loginRequest.userName);
-        localStorage.setItem("did", res.data.did);
+        localStorage.setItem("token", res.data.token);
+        localStorage.setItem("accountType", res.data.accountType);
         setTimeout(() => navigate("/admin"), 1000);
       } else {
           message.error(res.msg);

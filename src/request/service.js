@@ -29,9 +29,10 @@ instance.interceptors.response.use(
   (response) => {
     var respData = response.data;
     if (respData.code === 401){
-      window.location.href = '/';
       localStorage.removeItem('token');
       localStorage.removeItem('accountType');
+      localStorage.removeItem('userName');
+      window.location.href = '/';
     }
     return response.data;
   },

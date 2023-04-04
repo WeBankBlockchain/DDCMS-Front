@@ -1,0 +1,8 @@
+.submit-button {
+    font-size: 10px;
+    color: white;
+    background-color: orange;
+    outline: none;
+    border: none;
+    height: 30px;
+}
