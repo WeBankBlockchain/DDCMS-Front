@@ -246,6 +246,9 @@ export default function AdminNewDataSchema() {
                   label="响应结构(json)"
                   name="dataSchemaContentSchema"
                   required
+                  style={{
+                    textAlign: 'left'
+                  }}
                 >
                   <JSONInput
                       placeholder={contentSchema}
@@ -260,6 +263,9 @@ export default function AdminNewDataSchema() {
                   label="访问条件(json)"
                   name="dataSchemaContentSchema"
                   required
+                  style={{
+                    textAlign: 'left'
+                  }}
                 >
                   <JSONInput
                       placeholder={accessCondition}
