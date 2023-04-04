@@ -10,11 +10,11 @@ export default function CommonFooter() {
         width:'100%',
         backgroundColor: '#FFF',
         fontSize: '2vh',
-        textAlign: "center",
         height: '3vh',
         display:'flex',
         flexDirection:'column',
-        justifyContent:'center'
+        justifyContent:'center',
+        alignItems:'center'
       }}
     >
       <div>DataBrain ©2023 Created by WeBank</div>
