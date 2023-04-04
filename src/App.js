@@ -12,9 +12,9 @@ const { Content } = Layout;
 
 function App() {
 	return (
-		<Layout>
+		<div className='body'>
 			<HomeHeader> </HomeHeader>
-			<Content className="site-layout">
+			<div className="site-layout">
 				<SearchBanner />
 				<Divider style={{ margin: '6px 0 10px 0' }} />
 				<div className="content">
@@ -27,9 +27,9 @@ function App() {
 						<TopTags />
 					</div>
 				</div>
-			</Content>
-			<CommonFooter />
-		</Layout>
+			</div>
+			<CommonFooter></CommonFooter>
+		</div>
 	);
 }
 

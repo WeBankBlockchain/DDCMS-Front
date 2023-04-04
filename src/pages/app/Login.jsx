@@ -1,8 +1,6 @@
 import { Form, Input, Button, Layout, message, Divider } from "antd";
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import CommonFooter from "../../components/footer/CommonFooter";
-import HomeHeader from "../../components/header/HomeHeader";
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { LoginApi } from "../../request/api";
 import "../../assets/CommonStyle.css";

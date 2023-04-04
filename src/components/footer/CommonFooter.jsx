@@ -5,14 +5,25 @@ const { Footer } = Layout;
 
 export default function CommonFooter() {
   return (
-    <Footer
+    <div
       style={{
-        backgroundColor: '#F6F6F6',
+        position: 'fixed',
+        bottom: '0',
+        width:'100%',
+        backgroundColor: '#FFF',
         fontSize: '20px',
         textAlign: "center",
+        height: '30px',
+        display:'flex',
+        flexDirection:'column',
+        justifyContent:'center'
       }}
     >
-      DataBrain ©2023 Created by WeBank
-    </Footer>
+      <div>DataBrain ©2023 Created by WeBank</div>
+    
+      
+      
+
+    </div>
   );
 }

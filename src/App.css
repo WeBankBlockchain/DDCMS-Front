@@ -2,6 +2,15 @@
 	text-align: center;
 }
 
+.body {
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	background-color: #f6f6f8;
+	min-height: 100vh;
+}
+
+
 .ant-btn {
 	border-radius: 0px;
 }
@@ -18,8 +27,10 @@
 }
 
 .site-layout {
-	width: 1170px;
-	margin: 0 auto;
+	flex-grow: 2;
+	width: 70%;
+	margin-left:auto;
+	margin-right: auto;
 }
 
 .App-header {
@@ -37,13 +48,10 @@
 	color: #61dafb;
 }
 
-.content {
-	min-height: 1680px;
-}
 
 .main-content {
 	width: 800px;
-	min-height: 1680px;
+	/* min-height: 1680px; */
 	float: left;
 	/* background-color: rgb(255, 255, 255); */
 }
