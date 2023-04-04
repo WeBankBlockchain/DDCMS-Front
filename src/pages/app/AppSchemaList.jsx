@@ -95,17 +95,19 @@ export default function Home() {
   }
 
   useEffect(() => {
-    const req = {
-      keyWord: keyWord,
-      providerId: providerId,
-      productId: productId,
-      tagId: tagId,
-      pageNo: pageNo,
-      pageSize: pageSize, 
-      status: 1
-    };
-
-    PageQuerySchemaApi(req).then((res) => {
+    async function fetchData(){
+      const req = {
+        keyWord: keyWord,
+        providerId: providerId,
+        productId: productId,
+        tagId: tagId,
+        pageNo: pageNo,
+        pageSize: pageSize, 
+        status: 1
+      };
+  
+      var res = await PageQuerySchemaApi(req);
+      console.log(res.data.itemList)
       if (res.code === 0) {
         setInitLoading(false);
         setData(res.data.itemList);
@@ -115,11 +117,13 @@ export default function Home() {
       } else {
         message.error(res.msg);
       }
-    });
+    }
+
+    fetchData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [initRefresh,keyWord]);
 
-  const onLoadMore = () => {
+  const onLoadMore = async () => {
     setLoading(true);
     const req = {
       keyWord: keyWord,
@@ -129,19 +133,19 @@ export default function Home() {
       pageNo: pageNo,
       pageSize: pageSize,
     };
-    PageQuerySchemaApi(req).then((res) => {
-      if (res.code === 0) {
-        const newData = data.concat(res.data.itemList);
-        setData(newData);
-        setList(newData);
-        setLoading(false);
-        window.dispatchEvent(new Event("resize"));
-        setPageNo((pageNo) => pageNo + 1);
-        setTotalPage(res.data.pageCount);
-      } else {
-        message.error(res.msg);
-      }
-    });
+
+    var res = await PageQuerySchemaApi(req);
+    if (res.code === 0) {
+          const newData = data.concat(res.data.itemList);
+          setData(newData);
+          setList(newData);
+          setLoading(false);
+          window.dispatchEvent(new Event("resize"));
+          setPageNo((pageNo) => pageNo + 1);
+          setTotalPage(res.data.pageCount);
+    } else {
+          message.error(res.msg);
+    }
   };
 
   const loadMore =
