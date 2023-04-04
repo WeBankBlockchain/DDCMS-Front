@@ -21,8 +21,6 @@ export default function Login() {
         message.success("登录成功!");
         localStorage.setItem("userName", loginRequest.userName);
         localStorage.setItem("did", res.data.did);
-        localStorage.setItem("token", res.data.token);
-        localStorage.setItem("accountType", res.data.accountType);
         setTimeout(() => navigate("/admin"), 1000);
       } else {
           message.error(res.msg);

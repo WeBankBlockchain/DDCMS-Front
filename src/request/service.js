@@ -27,6 +27,12 @@ instance.interceptors.request.use(
 
 instance.interceptors.response.use(
   (response) => {
+    var respData = response.data;
+    if (respData.code === 401){
+      window.location.href = '/';
+      localStorage.removeItem('token');
+      localStorage.removeItem('accountType');
+    }
     return response.data;
   },
   (error) => {
