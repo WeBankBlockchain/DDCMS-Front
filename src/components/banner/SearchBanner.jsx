@@ -15,7 +15,7 @@ export default function SearchBanner() {
   const [data, setData] = useState([])
 
   useEffect(() => {
-    if(location.state){
+    if(location.state?.breadcrumb){
       setData(location.state.breadcrumb)
     }else{
       setData(breadcrumb)
@@ -40,7 +40,7 @@ export default function SearchBanner() {
     <div className='search-banner'>
       <div className='sort-tab'>
         <Breadcrumb style={{fontSize: 20, fontWeight: 700}}>
-          {data.map((item) => (
+          {data && data.map((item) => (
             <Breadcrumb.Item key={item}>{item}</Breadcrumb.Item>
           ))}
         </Breadcrumb>
