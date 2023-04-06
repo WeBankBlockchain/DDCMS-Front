@@ -35,7 +35,7 @@ export default function Login() {
 
   return (
     <div style={{
-      backgroundImage: 'url(https://pic.90sheji.com/design/00/83/84/10/5f9cc91b2c66e.jpg)',
+      backgroundColor: '#ebeff5',
       position: 'fixed',//用于让div按照浏览器作为父组件，这样高度宽度自动填充满浏览器
       top: 0,
       bottom: 0,
@@ -43,7 +43,8 @@ export default function Login() {
       right: 0,
       display: 'flex',//采用flex布局，默认
       justifyContent: 'center',//在水平方向居中
-      alignItems: 'center'//在垂直方向居中
+      alignItems: 'center',//在垂直方向居中,
+      fontWeight: '500'
     }}>
       <div id='login-window' style={{
         position: 'relative',//在原有位置的基础上，往上微调一点点，使得视觉效果最优
@@ -51,18 +52,20 @@ export default function Login() {
         width: '25%',
         display: 'flex',
         flexDirection: 'column',
-        alignItems: 'center'
+        alignItems: 'center',
+
       }}>
         <div>
           <h1 style={{
             marginBottom: '30px',
-            color: 'white'
+            color: 'black'
           }}> Data-Brain后台管理系统 </h1>
         </div>
         <div 
         style={{
           width: '75%',
           backgroundColor: 'white',
+          borderRadius: '30px'
         }}>
           <Form
               name="normal_login"
@@ -73,6 +76,7 @@ export default function Login() {
                 margin: 'auto',//让整个框居中,
                 paddingTop: '20px',
                 width: '80%',
+                paddingBottom:'20px'
               }}
           >
               <Form.Item
@@ -82,7 +86,8 @@ export default function Login() {
                   { pattern: "^[^ ]+$", message: "用户名不能有空格" },
                 ]}
               >
-                  <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Username" />
+                  <Input  size="large" prefix={<UserOutlined className="site-form-item-icon" />} 
+                     placeholder="Username" />
               </Form.Item>
               <Form.Item
                 name="password"
@@ -95,18 +100,21 @@ export default function Login() {
           prefix={<LockOutlined className="site-form-item-icon" />}
           type="password"
           placeholder="Password"
+          size="large"
         />
               </Form.Item>
               
               <Form.Item>
               <Button type="primary" htmlType="submit" style={{
-                backgroundColor:'orange',
-                width: '100%'
+                width: '100%',
+                height: "40PX", 
+                borderRadius: "12PX" 
               }}>
               登陆
               </Button>
 
               </Form.Item>
+              没有账号？点此
               <a href="register" style={{
                 color: 'blue'
               }}

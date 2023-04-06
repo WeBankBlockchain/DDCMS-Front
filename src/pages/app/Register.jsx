@@ -12,6 +12,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { RegisterApi } from "../../request/api.js";
 import FileUploader from "../../components/file/FileUploader";
+import "../../assets/CommonStyle.css";
 
 const { Option } = Select;
 
@@ -24,7 +25,8 @@ export default function Register() {
       display: 'flex',
       flexDirection: 'column',
       justifyContent: 'flex-start',
-      alignItems:'center'
+      alignItems:'center',
+
     }}>
 
         <h1 style={{
@@ -156,12 +158,12 @@ function RegisterForm(props) {
       rules={[
         {
           required: true,
-          message: "请输入登录名！",
+          message: "请输入用户名称！",
           whitespace: true,
         },
       ]}
     >
-      <Input placeholder={"请输入登录名"} />
+      <Input placeholder={"请输入登录名"} size="large"/>
     </Form.Item>
 
     <Form.Item
@@ -323,6 +325,12 @@ function RegisterForm(props) {
         同意协议并提交
       </Button>
     </Form.Item>
+    已有账号？点此
+              <a href="login" style={{
+                color: 'blue'
+              }}
+              
+              >登陆</a>
   </Form>
 )
 }
