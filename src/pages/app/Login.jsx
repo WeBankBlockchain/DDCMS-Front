@@ -49,7 +49,7 @@ export default function Login() {
       <div id='login-window' style={{
         position: 'relative',//在原有位置的基础上，往上微调一点点，使得视觉效果最优
         top: '-10%',
-        width: '25%',
+        width: '30%',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
@@ -59,13 +59,13 @@ export default function Login() {
           <h1 style={{
             marginBottom: '30px',
             color: 'black'
-          }}> Data-Brain后台管理系统 </h1>
+          }}> 欢迎使用Data-Brain </h1>
         </div>
         <div 
         style={{
           width: '75%',
           backgroundColor: 'white',
-          borderRadius: '30px'
+          borderRadius: '10px'
         }}>
           <Form
               name="normal_login"
@@ -74,7 +74,7 @@ export default function Login() {
               onFinishFailed={onFinishFailed}
               style={{
                 margin: 'auto',//让整个框居中,
-                paddingTop: '20px',
+                paddingTop: '30px',
                 width: '80%',
                 paddingBottom:'20px'
               }}
