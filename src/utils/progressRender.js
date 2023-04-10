@@ -10,7 +10,7 @@ export default function renderVoteProgress(record) {
       title={`${record.agreeCount} agree / ${record.denyCount} deny / ${record.witnessCount} total`}
     >
       <Progress
-        percent={per}
+        percent={per.toFixed(1)}
         success={{
           percent: suc,
         }}
