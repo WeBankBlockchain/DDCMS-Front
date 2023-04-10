@@ -47,16 +47,20 @@
 	color: #61dafb;
 }
 
+.content {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+}
 
 .main-content {
-	width: 800px;
 	/* min-height: 1680px; */
-	float: left;
 	/* background-color: rgb(255, 255, 255); */
 }
+
 .slide-content {
-	width: 350px;
-	float: right;
+	width: 20vw;
 }
 
 @keyframes App-logo-spin {
