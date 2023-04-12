@@ -19,7 +19,7 @@ export default function HomeHeader() {
 
   return (
     <header>
-      <div className="header-content">
+      <div className="hh-content">
         <div
           className="header-logo"
           style={{

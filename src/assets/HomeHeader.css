@@ -5,21 +5,16 @@ header {
 	background: rgb(32, 32, 33);
 	height: 100px;
 	width: 100%;
+}
+
+.hh-content {
 	display: flex;
+	flex-direction: row;
 	justify-content: space-between;
 	align-items: center;
 	line-height: 100px;
+
+	width: var(--app-content-width);
+	margin: auto;
 }
 
-.header-content {
-	width: 100%;
-}
-
-
-.header-content .header-logo{
-	margin-left: 15vw;
-}
-
-.header-content nav {
-	margin-right: 15vw;
-}

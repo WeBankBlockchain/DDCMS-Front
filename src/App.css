@@ -1,5 +1,10 @@
+:root {
+	--app-content-width: 70vw;
+}
+
 .App {
 	text-align: center;
+
 }
 
 .body {
@@ -27,7 +32,7 @@
 
 .site-layout {
 	flex-grow: 1;
-	width: 70vw;
+	width: var(--app-content-width);
 	margin: auto;
 }
 
@@ -51,6 +56,11 @@
 	flex-direction: row;
 	justify-content: space-between;
 	align-items: flex-start;
+}
+
+.home-header {
+	width: var(--app-content-width);
+	margin: auto;
 }
 
 .main-content {

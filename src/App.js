@@ -15,7 +15,7 @@ function App() {
 		<div className='body'>
 			<HomeHeader> </HomeHeader>
 			<div className="site-layout">
-				<SearchBanner />
+				<SearchBanner/>
 				<Divider style={{ margin: '6px 0 10px 0' }} />
 				<div className="content">
 					<div className="main-content">
