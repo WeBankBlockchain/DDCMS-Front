@@ -12,7 +12,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { RegisterApi } from "../../request/api.js";
 import FileUploader from "../../components/file/FileUploader";
-import "../../assets/CommonStyle.css";
+import HomeHeader from "../../components/header/HomeHeader.jsx";
 
 const { Option } = Select;
 
@@ -21,36 +21,30 @@ export default function Register() {
   return (
     <div className="layout" style={{
       backgroundColor:'#ebeff5',
-      minHeight: '100vh',
-      display: 'flex',
-      flexDirection: 'column',
-      justifyContent: 'flex-start',
-      alignItems:'center',
-
+      minHeight: '100vh'
     }}>
-
-        <h1 style={{
-          display:'block',
-          marginTop: '5vh',
-          marginLeft: 'auto',
-          marginRight: 'auto',
-        }}>Data-Brain账号注册</h1>
-       
+      <HomeHeader />
+      <div style={{
+        margin: '2% auto 0 auto',
+        width: '450px',
+        padding: '0px 5px 0px 5px',
+        border: '1px solid lightgrey',
+        borderRadius: '4px'
+      }}>
+       <h1 style={{
+        marginTop: '10px',
+        marginBottom: '10px',
+        textAlign: 'center',
+        }}>账号注册
+        </h1>
         <div
         className='main'
-        style={{
-          backgroundColor: 'white',
-          width: '60%',
-          position: 'relative',
-          top: '5vh',
-          borderRadius: '30px',
-          paddingTop: '50px',
-          paddingBottom: '50px',
-        }}
       >
-    
         <RegisterForm />
       </div>
+      </div>
+ 
+
 
     </div>
   );
@@ -124,13 +118,13 @@ function RegisterForm(props) {
     onFinishFailed={onFinishFailed}
     style={{
       fontWeight: '500',
-      width:'40%',
       marginLeft:'auto',
       marginRight: 'auto',
-
+      marginBottom: '20px'
     }}
     scrollToFirstError
     initialValues={{ userType: "1" }}
+    size='large'
   >
     <Form.Item
       label="注册类型"
@@ -138,17 +132,19 @@ function RegisterForm(props) {
       rules={[{ required: true, message: "请选择用户类型" }]}
       style={{
       }}
+
     >
       <Radio.Group
         style={{
           position:'relative',
-          left: '30%'
+          left: '20%'
         }}
         optionType="button"
         buttonStyle="solid"
+        size="medium"
       >
         <Radio value="1">普通机构</Radio>
-        <Radio value="2">见证方</Radio>
+        <Radio value="2">见证机构</Radio>
       </Radio.Group>
     </Form.Item>
 
@@ -320,15 +316,13 @@ function RegisterForm(props) {
         type="primary"
         htmlType="submit"
         block
-        style={{ height: "40PX", borderRadius: "12PX" }}
+        style={{ height: "40PX", borderRadius: "4PX" }}
       >
         同意协议并提交
       </Button>
     </Form.Item>
     已有账号？点此
-              <a href="login" style={{
-                color: 'blue'
-              }}
+              <a href="login" 
               
               >登陆</a>
   </Form>
