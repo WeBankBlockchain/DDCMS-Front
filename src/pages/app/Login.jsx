@@ -46,24 +46,29 @@ export default function Login() {
     }}>
       <HomeHeader ></HomeHeader>
       <div className="login-body" style={{
-          display: 'flexbox',//采用flex布局，默认
-          flexDirection: 'column',
-          justifyContent: 'center',//在水平方向居中
-          alignItems: 'center',//在垂直方向居中,
-          fontWeight: '500',
-          position: 'relative',
-          top: '5%'
       }}>
-            <h1 style={{
+        <div style={{
+            width: '30%',
+            maxWidth: '450px',
+            margin: '2% auto 0 auto',
+            border: '1px solid lightgrey',
+            borderRadius: '4px',
+            display: 'flexbox',//采用flex布局，默认
+            flexDirection: 'column',
+            justifyContent: 'center',//在水平方向居中
+            alignItems: 'center',//在垂直方向居中,
+            fontWeight: '500',    
+        }}>
+           <h1 style={{
               color: 'black',
-              textAlign: 'center'
+              textAlign: 'center',
+              marginTop: '10px',
+              marginBottom: '10px'
             }}> 用户登陆 </h1>
           <div 
           style={{
-            border: '1px solid lightgrey',
+
             borderRadius: '4px',
-            // width: '30%',
-            maxWidth: '450px',
             padding: '10px 5px 0px 5px',
             margin: 'auto'
           }}>
@@ -133,10 +138,9 @@ export default function Login() {
 
               </Form>
           </div>
-        
-              
-        
         </div>
+ 
       </div>
+    </div>
   );
 }
