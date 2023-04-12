@@ -67,7 +67,7 @@ export default function Login() {
           style={{
 
             borderRadius: '4px',
-            padding: '10px 5px 0px 5px',
+            padding: '0px 5px 0px 5px',
             margin: 'auto'
           }}>
             <Form
@@ -78,7 +78,7 @@ export default function Login() {
                 onFinish={onFinish}
                 onFinishFailed={onFinishFailed}
                 style={{
-                  margin: 'auto',//让整个框居中,
+                  margin: '0 auto 0 auto',//让整个框居中,
                 }}
                 size="large"
                 
@@ -138,7 +138,7 @@ export default function Login() {
 
                   }}>
                   <a >忘记密码</a>
-                  <a href="register">创建账号</a>
+                  <a href="register">新用户注册</a>
                   </div>
                 </Form.Item>
 
