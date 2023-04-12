@@ -13,7 +13,7 @@ import { useNavigate } from "react-router-dom";
 import { RegisterApi } from "../../request/api.js";
 import FileUploader from "../../components/file/FileUploader";
 import HomeHeader from "../../components/header/HomeHeader.jsx";
-
+import "../../assets/CommonStyle.css";
 const { Option } = Select;
 
 export default function Register() {
@@ -24,13 +24,7 @@ export default function Register() {
       minHeight: '100vh'
     }}>
       <HomeHeader />
-      <div style={{
-        margin: '2% auto 0 auto',
-        width: '450px',
-        padding: '0px 5px 0px 5px',
-        border: '1px solid lightgrey',
-        borderRadius: '4px'
-      }}>
+      <div className="main-form">
        <h1 style={{
         marginTop: '10px',
         marginBottom: '10px',

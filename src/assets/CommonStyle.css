@@ -58,3 +58,16 @@ input:-webkit-autofill {
     -webkit-box-shadow: 0 0 0px 1000px white inset;
     -webkit-text-fill-color: black;
   } 
+
+.main-form{
+	width: 500px;
+	margin: 2% auto 0 auto;
+	border: 1px solid lightgrey;
+	border-radius: 4px;
+	display: flexbox;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	font-weight: 500;
+	padding: 0px 20px 0px 20px;
+}

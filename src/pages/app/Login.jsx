@@ -5,6 +5,7 @@ import CommonFooter from "../../components/footer/CommonFooter";
 import HomeHeader from "../../components/header/HomeHeader";
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { LoginApi } from "../../request/api";
+import "../../assets/CommonStyle.css";
 
 // import "../../assets/CommonStyle.css";
 const { Content } = Layout;
@@ -44,19 +45,8 @@ export default function Login() {
       minHeight: '100vh',
     }}>
       <HomeHeader ></HomeHeader>
-      <div className="login-body" style={{
-      }}>
-        <div style={{
-            width: '450px',
-            margin: '2% auto 0 auto',
-            border: '1px solid lightgrey',
-            borderRadius: '4px',
-            display: 'flexbox',//采用flex布局，默认
-            flexDirection: 'column',
-            justifyContent: 'center',//在水平方向居中
-            alignItems: 'center',//在垂直方向居中,
-            fontWeight: '500',    
-        }}>
+      <div className="login-body">
+        <div className=" main-form">
            <h1 style={{
               color: 'black',
               textAlign: 'center',
@@ -65,9 +55,6 @@ export default function Login() {
             }}> 用户登陆 </h1>
           <div 
           style={{
-
-            borderRadius: '4px',
-            padding: '0px 5px 0px 5px',
             margin: 'auto'
           }}>
             <Form
