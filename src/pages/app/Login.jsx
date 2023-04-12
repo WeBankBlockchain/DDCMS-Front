@@ -5,7 +5,8 @@ import CommonFooter from "../../components/footer/CommonFooter";
 import HomeHeader from "../../components/header/HomeHeader";
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { LoginApi } from "../../request/api";
-import "../../assets/CommonStyle.css";
+
+// import "../../assets/CommonStyle.css";
 const { Content } = Layout;
 
 export default function Login() {
@@ -49,7 +50,6 @@ export default function Login() {
       <div id='login-window' style={{
         position: 'relative',//在原有位置的基础上，往上微调一点点，使得视觉效果最优
         top: '-10%',
-        width: '30%',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',

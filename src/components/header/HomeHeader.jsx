@@ -4,8 +4,8 @@ import LoginUser from './LoginUser';
 import {Button} from 'antd'
 import { useNavigate } from 'react-router-dom';
 
-export default function HomeHeader() {
-  const userOperation = localStorage.getItem('userName') !== null?<LoginUser/>:<NotLoginUser/>
+export default function HomeHeader({userOperation}) {
+
 
   const navigate = useNavigate()
   const onClick = () => {

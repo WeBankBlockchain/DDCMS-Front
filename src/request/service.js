@@ -5,7 +5,7 @@ export const baseURL = process.env.REACT_APP_SERVER_API;
 
 const axiosOption = {
 	baseURL: baseURL,
-	timeout: 5000
+	timeout: 30000
 };
 
 const instance = axios.create(axiosOption);

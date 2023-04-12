@@ -7,13 +7,16 @@ import TopCompany from './components/slide/TopCompany';
 import TopProduct from './components/slide/TopProduct';
 import TopTags from './components/slide/TopTags';
 import SearchBanner from './components/banner/SearchBanner';
+import LoginUser from './components/header/LoginUser';
+import NotLoginUser from './components/header/NotLoginUser';
 
 const { Content } = Layout;
 
 function App() {
+	const userOperation = localStorage.getItem('userName') !== null?<LoginUser/>:<NotLoginUser/>
 	return (
 		<div className='body'>
-			<HomeHeader> </HomeHeader>
+			<HomeHeader userOperation={userOperation}> </HomeHeader>
 			<div className="site-layout">
 				<SearchBanner/>
 				<Divider style={{ margin: '6px 0 10px 0' }} />
