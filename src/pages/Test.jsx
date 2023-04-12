@@ -6,29 +6,17 @@ export default function Test() {
   
   return (
     <div style={{
-      border: '1px solid black',
+
       display: 'flex',
       flexDirection: 'column',
       justifyContent: 'space-between',
       alignItems:'center',
-      height: '600px'
+      height: '100vh'
     }}>
-      <div style={{
-        backgroundColor: 'yellow',
-        width: '100px',
-        height: '100px',
-      }}></div>
-      <div style={{
-        backgroundColor: 'green',
-        width: '100px',
-        height: '100px',
-        flexGrow: 1
-      }}></div>
-      <div style={{
-        backgroundColor: 'orange',
-        width: '100px',
-        height: '100px',
-      }}></div>
+        <div style={{
+          width: '100vw',
+          border: '1px solid red'
+        }}></div>
     </div>
   )
     
