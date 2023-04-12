@@ -1,11 +1,10 @@
-import { Form, Input, Button, Layout, message, Divider } from "antd";
+import { Form, Checkbox, Input, Button, Layout, message, Divider } from "antd";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import CommonFooter from "../../components/footer/CommonFooter";
 import HomeHeader from "../../components/header/HomeHeader";
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { LoginApi } from "../../request/api";
-import { CheckBox } from "react-native-web";
 
 // import "../../assets/CommonStyle.css";
 const { Content } = Layout;
@@ -48,8 +47,7 @@ export default function Login() {
       <div className="login-body" style={{
       }}>
         <div style={{
-            width: '30%',
-            maxWidth: '450px',
+            width: '450px',
             margin: '2% auto 0 auto',
             border: '1px solid lightgrey',
             borderRadius: '4px',
@@ -103,6 +101,9 @@ export default function Login() {
                     { required: true, message: "请输入密码!" },
                     { pattern: "^[^ ]+$", message: "密码不能有空格" },
                   ]}
+                  style={{
+                    marginBottom:'10px'
+                  }}
                 >
                   <Input
             prefix={<LockOutlined className="site-form-item-icon" />}
@@ -110,8 +111,13 @@ export default function Login() {
             placeholder="Password"
           />
                 </Form.Item>
+                <Checkbox style={{
+                  marginBottom:'10px'
+                }}>记住凭据</Checkbox>
             
-                <Form.Item>
+                <Form.Item style={{
+                    marginBottom: '10px',
+                }}>
                 <Button type="primary" htmlType="submit" style={{
                   width: '100%',
                   height: "40PX", 
@@ -119,11 +125,11 @@ export default function Login() {
                 }}>
                 登陆
                 </Button>
-
                 </Form.Item>
-
+ 
                 <Form.Item style={{
-                      marginBottom:'0px' //覆盖原有的
+      
+                  marginBottom:'0px' //覆盖原有的
                 }}>
                   <div style={{
                     display: 'flex',
