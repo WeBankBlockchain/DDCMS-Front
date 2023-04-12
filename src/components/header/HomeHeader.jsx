@@ -21,7 +21,7 @@ export default function HomeHeader() {
     <header>
       <div className="header-content">
         <div
-          className="logo"
+          className="header-logo"
           style={{
             float: "left",
             color: "#FFF",
@@ -35,7 +35,10 @@ export default function HomeHeader() {
             Data Brain
           </Button>
         </div>
-        {userOperation}
+        <nav className="header-operation" >
+          {userOperation}
+        </nav>
+
       </div>
     </header>
   );

@@ -12,10 +12,14 @@ header {
 }
 
 .header-content {
-	width: 1170px;
-	margin: 0 auto;
+	width: 100%;
 }
 
-.header-content .ant-btn {
-	border-radius: 0px;
+
+.header-content .header-logo{
+	margin-left: 10vw;
+}
+
+.header-content nav {
+	margin-right: 10vw;
 }
