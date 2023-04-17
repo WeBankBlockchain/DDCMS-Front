@@ -10,7 +10,7 @@ export default function CommonFooter() {
         width:'100%',
         backgroundColor: '#FFF',
         fontSize: '2vh',
-        height: '3vh',
+        height: '20vh',
         display:'flex',
         flexDirection:'column',
         justifyContent:'center',

@@ -8,6 +8,8 @@ import {
 } from "../../request/api";
 import { message, Table, Radio, Input, Space } from "antd";
 import { useNavigate } from "react-router-dom";
+import "../../assets/Search.css";
+
 const { Search } = Input;
 
 const PAGE_SIZE = 10;
@@ -157,9 +159,7 @@ export default function AdminMyFavorateDataSchema() {
           <Radio.Button value="2">已拒绝</Radio.Button>
         </Radio.Group>
         <Search
-          style={{
-            width: "20%",
-          }}
+          className="admin-search-bar"
           placeholder="根据名称搜索"
           onSearch={handleOnSearch}
         ></Search>

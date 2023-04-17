@@ -21,7 +21,8 @@ export default function Register() {
   return (
     <div className="layout" style={{
       backgroundColor:'#ebeff5',
-      minHeight: '100vh'
+      minHeight: '100vh',
+      paddingBottom: '2%'
     }}>
       <HomeHeader />
       <div className="main-form">

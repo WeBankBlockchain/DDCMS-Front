@@ -7,6 +7,7 @@ import { Table, message, Radio, Input, Button } from "antd";
 import moment from "moment";
 import renderStatusBadge from "../../utils/statusRender";
 import renderVoteProgress from "../../utils/progressRender";
+import "../../assets/Search.css";
 
 const { Search } = Input;
 const PAGE_SIZE = 10;
@@ -151,9 +152,7 @@ export default function AdminMyProductList() {
         </Radio.Group>
         <div>
           <Search
-            style={{
-              width: "500px",
-            }}
+            className="admin-search-bar"
             placeholder="根据名称搜索"
             onSearch={handleOnSearch}
           ></Search>
