@@ -27,13 +27,13 @@ export default function AdminProductDetail() {
     <Layout style={{ textAlign: "center" }}>
       <Card title="基本信息">
         <Descriptions bordered>
-          <DescriptionsItem label="产品名称" span={3}>
+          <DescriptionsItem label="业务名称" span={3}>
             {product.productName}
           </DescriptionsItem>
-          <DescriptionsItem label="产品详情" span={3}>
+          <DescriptionsItem label="业务详情" span={3}>
             {product.productDesc}
           </DescriptionsItem>
-          <DescriptionsItem label="所属公司" span={3}>
+          <DescriptionsItem label="所属机构" span={3}>
             {product.companyName}
           </DescriptionsItem>
           <Descriptions.Item label="状态" span={3}>

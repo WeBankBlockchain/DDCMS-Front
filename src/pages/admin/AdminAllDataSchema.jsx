@@ -26,19 +26,19 @@ export default function AdminAllDataSchema() {
 
   const schemaColumns = [
     {
-      title: "目录名称",
+      title: "数据产品",
       dataIndex: "dataSchemaName",
       key: "dataSchemaName",
       width: 200,
     },
     {
-      title: "所属产品",
+      title: "归属业务",
       dataIndex: "productName",
       key: "productName",
       width: 200,
     },
     {
-      title: "所属公司",
+      title: "归属机构",
       dataIndex: "providerName",
       key: "providerName",
       width: 200,

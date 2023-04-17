@@ -51,13 +51,13 @@ export default function AdminAllProductList() {
 
   const columns = [
     {
-      title: "产品名称",
+      title: "业务名称",
       dataIndex: "productName",
       key: "productName",
       width: 200,
     },
     {
-      title: "所属公司",
+      title: "归属机构",
       dataIndex: "companyName",
       key: "companyName",
       width: 200,

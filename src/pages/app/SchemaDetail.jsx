@@ -58,15 +58,15 @@ export default function SchemaDetail() {
     <Layout style={{ textAlign: "center" }}>
       <Card title="基本信息">
         <Descriptions bordered>
-          <DescriptionsItem label="公司名称">
+          <DescriptionsItem label="机构名称">
             {dataSchema.providerName}
           </DescriptionsItem>
 
-          <DescriptionsItem label="产品名称">
+          <DescriptionsItem label="业务名称">
             {dataSchema.productName}
           </DescriptionsItem>
 
-          <DescriptionsItem label="目录名称">
+          <DescriptionsItem label="产品名称">
             {dataSchema.dataSchemaName}
           </DescriptionsItem>
 

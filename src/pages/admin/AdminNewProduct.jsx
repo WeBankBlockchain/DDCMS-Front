@@ -43,7 +43,7 @@ export default function AdminNewProduct() {
                 }}
             >
                     <div className="brain-form-page-title" >
-                        <h1 > 创建产品 </h1>
+                        <h1 > 创建业务 </h1>
                     </div>
                     <div className="brain-form-page-bg">
 
@@ -67,21 +67,21 @@ export default function AdminNewProduct() {
                             <Form.Item
                                 name="productName"
                                 rules={[
-                                { required: true, message: "请输入产品名称" },
+                                { required: true, message: "请输入业务名称" },
                                 { pattern: "^[^ ]+$", message: "不能有空格" },
                                 ]}
                             >
-                                <Input placeholder="请输入产品名称" />
+                                <Input placeholder="请输入业务名称" />
                             </Form.Item>
                             <Form.Item
                                 name="productDesc"
                                 rules={[
-                                { required: true, message: "请输入产品描述信息" },
+                                { required: true, message: "请输入业务描述信息" },
                                 { pattern: "^[^ ]+$", message: "不能有空格" },
                                 ]}
                             >
                                 <Input
-                                placeholder="请输入产品描述信息"
+                                placeholder="请输入业务描述信息"
                                 />
                             </Form.Item>
 
@@ -92,7 +92,7 @@ export default function AdminNewProduct() {
                                 block
                                 style={{ height: "40px", borderRadius: "12px"}}
                                 >
-                                创建产品
+                                创建业务
                                 </Button>
                             </Form.Item>
                         </Form>

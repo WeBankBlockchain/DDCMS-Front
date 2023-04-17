@@ -95,7 +95,7 @@ export default function AdminNewDataSchema() {
       >
         <div className="brain-form-page-bg">
           <div className="brain-form-page-title">
-            <h1> 创建数据目录 </h1>
+            <h1> 创建数据产品 </h1>
           </div>
           <div
             className="brain-form-page-main"
@@ -120,21 +120,21 @@ export default function AdminNewDataSchema() {
                 headStyle={{ textAlign: "left", fontSize: "25px" }}
               >
                 <Form.Item
-                  label="目录名称"
+                  label="数据产品名称"
                   name="dataSchemaName"
                   rules={[
-                    { required: true, message: "请输入数目目录名称" },
+                    { required: true, message: "请输入数据产品名称" },
                     { pattern: "^[^ ]+$", message: "名称不能有空格" },
                   ]}
                 >
-                  <Input placeholder="请输入数据目录名称" />
+                  <Input placeholder="请输入数据产品名称" />
                 </Form.Item>
                 <Form.Item
-                  label="所属产品"
+                  label="归属业务"
                   name="dataSchemaProductId"
-                  rules={[{ required: true, message: "请输入所属产品名称" }]}
+                  rules={[{ required: true, message: "请输入归属业务名称" }]}
                 >
-                  <Select placeholder="请选择产品" onClick={loadMyProducts}>
+                  <Select placeholder="请选择业务" onClick={loadMyProducts}>
                     {myProducts.map((p) => {
                       return (
                         <Option value={p.pkId} style={{ textAlign: "center" }}>
@@ -148,11 +148,11 @@ export default function AdminNewDataSchema() {
                   name="dataSchemaDesc"
                   label="描述"
                   rules={[
-                    { required: true, message: "请输入目录描述信息" },
+                    { required: true, message: "请输入数据产品描述信息" },
                     { pattern: "^[^ ]+$", message: "密码不能有空格" },
                   ]}
                 >
-                  <Input.TextArea placeholder="请输入目录描述信息，不超过500字" />
+                  <Input.TextArea placeholder="请输入数据产品描述信息，不超过500字" />
                 </Form.Item>
                 <Row gutter={18}>
                   <Col span={12}>
@@ -174,7 +174,7 @@ export default function AdminNewDataSchema() {
                       defaultValue={0}
                       required
                       rules={[
-                        { required: true, message: "请输入目录版本号" },
+                        { required: true, message: "请输入产品版本号" },
                         {
                           validator(_, value) {
                             if (!value || Number.isInteger(Number(value))) {
@@ -291,7 +291,7 @@ export default function AdminNewDataSchema() {
                   block
                   style={{ height: "40PX", borderRadius: "12PX" }}
                 >
-                  创建目录
+                  创建数据产品
                 </Button>
               </Form.Item>
             </Form>
