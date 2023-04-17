@@ -17,6 +17,7 @@ import AdminProductDetail from "../pages/admin/AdminProductDetail";
 import AdminNewDataSchema from "../pages/admin/AdminNewDataSchema";
 import AdminNewProduct from "../pages/admin/AdminNewProduct";
 import RegisterResult from "../pages/app/RegisterResult";
+import AdminDefault from "../pages/admin/AdminDefault";
 
 export const routeMap = [
   {
@@ -43,7 +44,7 @@ export const routeMap = [
     children: [
       {
         index: true,
-        element: <AdminUserInfo />,
+        element: <AdminDefault/>,
       },
       {
         path: "schema/all",
