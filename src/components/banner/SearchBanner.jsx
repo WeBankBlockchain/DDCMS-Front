@@ -5,7 +5,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 
 const { Search } = Input;
 
-const breadcrumb = ['最新', '数据目录']
+const breadcrumb = ['最新', '数据产品']
 
 export default function SearchBanner() {
 
@@ -30,7 +30,7 @@ export default function SearchBanner() {
       navigate('/home', {
         state: {
           keyWord: value,
-          breadcrumb: ['搜索 : ' + value, '数据目录']
+          breadcrumb: ['搜索 : ' + value, '数据API']
         }
       })
     }
@@ -47,7 +47,7 @@ export default function SearchBanner() {
       </div>
       <div className='search-area'>
         <Search 
-          placeholder="请输入公司/产品/数据目录名称" 
+          placeholder="请输入公司/产品/数据API名称" 
           style={{width: 350}}
           onSearch={onSearch} 
           enterButton 

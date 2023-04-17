@@ -15,7 +15,7 @@ export default function TopProduct() {
     navigate('/home', {
       state: {
         productId: productId,
-        breadcrumb: ['产品 : ' + productName, '数据目录']
+        breadcrumb: ['产品 : ' + productName, '数据产品']
       }
     })
   }
@@ -37,7 +37,7 @@ export default function TopProduct() {
   return (
     <div className='slide-card'>
       <div className='slide-card-header'>
-        热门数据产品
+        热门数据业务
       </div>
       <Divider style={{margin: '12px 0 0 0'}}/>
       <Space style={{padding: '12px 0'}} size={[0, 8]} wrap>

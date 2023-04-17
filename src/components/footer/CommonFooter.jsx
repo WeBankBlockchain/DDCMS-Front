@@ -7,8 +7,6 @@ export default function CommonFooter() {
   return (
     <div
       style={{
-        position: 'fixed',
-        bottom: '0',
         width:'100%',
         backgroundColor: 'lightgrey',
         fontSize: '2vh',

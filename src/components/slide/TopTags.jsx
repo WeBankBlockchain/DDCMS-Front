@@ -15,7 +15,7 @@ export default function TopTags() {
     navigate('/home', {
       state: {
         tagId: tagId,
-        breadcrumb: ['标签 : ' + tagName, '数据目录']
+        breadcrumb: ['标签 : ' + tagName, '数据产品']
       }
     })
   }

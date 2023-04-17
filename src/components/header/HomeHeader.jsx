@@ -12,7 +12,7 @@ export default function HomeHeader({userOperation}) {
     navigate('/home', {
       state: {
         homeFlag: 1,
-        breadcrumb: ['最新', '数据目录']
+        breadcrumb: ['最新', '数据产品']
       }
     })
   }

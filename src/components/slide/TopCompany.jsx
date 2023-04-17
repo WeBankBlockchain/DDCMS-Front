@@ -17,7 +17,7 @@ export default function TopCompany() {
     navigate('/home', {
       state: {
         providerId: providerId,
-        breadcrumb: ['公司 : ' + companyName, '数据目录']
+        breadcrumb: ['公司 : ' + companyName, '数据产品']
       }
     })
   }
