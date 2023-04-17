@@ -23,7 +23,6 @@ export default function HomeHeader({userOperation}) {
         <div
           className="header-logo"
           style={{
-            float: "left",
             color: "#FFF",
           }}
         >

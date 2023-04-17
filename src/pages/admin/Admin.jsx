@@ -6,6 +6,8 @@ import AdminSlider from "../../components/slide/AdminSlider";
 import { Outlet } from "react-router-dom";
 import HomeHeader from "../../components/header/HomeHeader";
 import LoginUser from "../../components/header/LoginUser";
+import "../../assets/Admin.css"
+
 const { Content } = Layout;
 
 export default function Admin() {
@@ -18,22 +20,18 @@ export default function Admin() {
     <Layout>
       <AdminHeader/>
       <Content>
-        <Layout
+      <Layout
           style={{
             background: colorBgContainer,
           }}
         >
           <AdminSlider></AdminSlider>
-
-          <Content
-            style={{
-              minHeight: window.innerHeight - 171,
-            }}
+          <div className="admin-content"
           >
             <div style={{ padding: "30px 2%" }}>
               <Outlet></Outlet>
             </div>
-          </Content>
+          </div>
         </Layout>
       </Content>
       <CommonFooter></CommonFooter>

@@ -1,5 +1,7 @@
 :root {
 	--app-content-width: 70vw;
+	--admin-content-margin: 30px;
+	--header-height: 100px;
 }
 
 .App {
