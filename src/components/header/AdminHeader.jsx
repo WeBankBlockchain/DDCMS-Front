@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import LoginUser from './LoginUser';
+import "../../assets/AdminHeader.css";
 
 export default function AdminHeader() {
 
@@ -8,15 +9,10 @@ export default function AdminHeader() {
   return (
     <header>
       <div
-        className="header-content"
-        style={{ width: "100%", padding: "0 30px" }}
+        className="admin-header"
       >
         <div
           className="logo"
-          style={{
-            float: "left",
-            color: "#FFF",
-          }}
         >
           <Link
             style={{
@@ -29,7 +25,7 @@ export default function AdminHeader() {
             Data Brain
           </Link>
         </div>
-        <div className="space-align-block">
+        <div>
           <LoginUser/>
         </div>
       </div>

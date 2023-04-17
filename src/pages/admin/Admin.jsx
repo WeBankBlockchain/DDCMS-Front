@@ -4,6 +4,8 @@ import AdminHeader from "../../components/header/AdminHeader";
 import CommonFooter from "../../components/footer/CommonFooter";
 import AdminSlider from "../../components/slide/AdminSlider";
 import { Outlet } from "react-router-dom";
+import HomeHeader from "../../components/header/HomeHeader";
+import LoginUser from "../../components/header/LoginUser";
 const { Content } = Layout;
 
 export default function Admin() {
@@ -11,9 +13,10 @@ export default function Admin() {
     token: { colorBgContainer },
   } = theme.useToken();
 
+  const loginUser = <LoginUser></LoginUser>
   return (
     <Layout>
-      <AdminHeader></AdminHeader>
+      <AdminHeader/>
       <Content>
         <Layout
           style={{

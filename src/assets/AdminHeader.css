@@ -1,0 +1,14 @@
+.admin-header{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    line-height: 100px;
+    width: calc(100% - 2*var(--admin-content-margin));
+    border:'1px solid red';
+    margin:auto;
+}
+
+:root {
+    --admin-content-margin: 30px;
+}

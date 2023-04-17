@@ -7,8 +7,10 @@ export default function CommonFooter() {
   return (
     <div
       style={{
+        position: 'fixed',
+        bottom: '0',
         width:'100%',
-        backgroundColor: '#FFF',
+        backgroundColor: 'lightgrey',
         fontSize: '2vh',
         height: '10vh',
         display:'flex',
@@ -17,7 +19,8 @@ export default function CommonFooter() {
         alignItems:'center'
       }}
     >
-      <div>DataBrain ©2023 Created by WeBank</div>
+      <span style={{
+      }}>DataBrain ©2023 Created by WeBank</span>
     
       
 
