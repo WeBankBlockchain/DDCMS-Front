@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Layout, Menu, message } from "antd";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { GetMenuByRoleApi } from "../../request/api";
 
 const { Sider } = Layout;
@@ -10,6 +10,9 @@ const MenuItemGroup = Menu.ItemGroup;
 export default function AdminSlider(props) {
   const [menus, setMenus] = useState([]);
   const navigate = useNavigate();
+  const location = useLocation();
+  const openMenuId = location.state?.openMenuId;
+  const selectMenuId = location.state?.selectMenuId;
 
   useEffect(() => {
     GetMenuByRoleApi({}).then((res) => {
@@ -37,6 +40,10 @@ export default function AdminSlider(props) {
           height: "100%",
           textAlign: "left",
         }}
+
+        defaultOpenKeys={[openMenuId+""]}
+        defaultSelectedKeys={[selectMenuId+""]}
+//        defaultActiveFirst={true}
         key="menu"
       >
         {menuDataToMenu(navigate, menus)}
@@ -68,3 +75,5 @@ function menuDataToMenu(navigate, menuDatas) {
   }
   return menus;
 }
+
+

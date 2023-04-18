@@ -27,7 +27,9 @@ export default function LoginUser() {
         }}
       >
         <Link to="/admin/">
-        <Avatar size={48} >管理台</Avatar>
+        <Avatar size={48} style={{
+          cursor:'pointer'
+        }}>管理</Avatar>
         </Link>
         <Link to="/admin/user/info">
           <Avatar size={48}>{localStorage.getItem("userName")}</Avatar>
