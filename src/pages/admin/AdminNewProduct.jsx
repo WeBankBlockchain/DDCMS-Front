@@ -3,7 +3,7 @@ import React from 'react';
 import { Form, Input, Button, Layout, message, Divider} from "antd";
 import {CreateProductApi} from '../../request/api';
 import { useNavigate } from 'react-router-dom';
-import "../../assets/AdminNewProduct.css";
+import "../../assets/AdminNew.css";
 
 
 export default function AdminNewProduct() {
