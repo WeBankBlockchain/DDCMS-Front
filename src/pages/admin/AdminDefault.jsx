@@ -14,6 +14,7 @@ export default function AdminDefault(){
             const menus = res.data;
             const [itemToDisplay, parent] = firstItem(menus);
             if (itemToDisplay){
+            
                 navigate(itemToDisplay.menuUrl, {
                     state:{
                         openMenuId: parent.menuId,

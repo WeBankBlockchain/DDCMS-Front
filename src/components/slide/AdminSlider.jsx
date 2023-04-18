@@ -10,15 +10,16 @@ const MenuItemGroup = Menu.ItemGroup;
 export default function AdminSlider(props) {
   const [menus, setMenus] = useState([]);
   const navigate = useNavigate();
-  const location = useLocation();
-  const openMenuId = location.state?.openMenuId;
-  const selectMenuId = location.state?.selectMenuId;
-
+  const [openKeys, setOpenKeys] = useState([]);
+  const [selectKeys, setSelectKeys] = useState([]);
   useEffect(() => {
     GetMenuByRoleApi({}).then((res) => {
       if (res.code === 0) {
         // console.log(res.data);
         setMenus(res.data);
+        const items = firstItem(res.data);
+        setOpenKeys([items[0].menuId+'']);
+        setSelectKeys([items[1].menuId+'']);
       } else {
         message.error(res.message);
       }
@@ -40,10 +41,14 @@ export default function AdminSlider(props) {
           height: "100%",
           textAlign: "left",
         }}
-
-        defaultOpenKeys={[openMenuId+""]}
-        defaultSelectedKeys={[selectMenuId+""]}
-//        defaultActiveFirst={true}
+        openKeys={openKeys}
+        onOpenChange={_openKeys => {
+          setOpenKeys([..._openKeys])
+      }}
+        selectedKeys={selectKeys}
+        onSelect={_selectKeys => {
+          setSelectKeys([..._selectKeys])
+      }}
         key="menu"
       >
         {menuDataToMenu(navigate, menus)}
@@ -77,3 +82,15 @@ function menuDataToMenu(navigate, menuDatas) {
 }
 
 
+function firstItem(menus){
+  if (!menus){
+      return [undefined, undefined];
+  }
+  for (var i=0;i<menus.length;i++){
+      const m = menus[i];
+      if (m.children && m.children.length > 0){
+          return [m, m.children[0]];
+      }
+  }
+  return [undefined, undefined];
+}
