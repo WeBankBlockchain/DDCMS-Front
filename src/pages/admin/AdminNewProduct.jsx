@@ -1,6 +1,6 @@
 import { Content } from 'antd/es/layout/layout';
 import React from 'react';
-import { Form, Input, Button, Layout, message} from "antd";
+import { Form, Input, Button, Layout, message, Divider} from "antd";
 import {CreateProductApi} from '../../request/api';
 import { useNavigate } from 'react-router-dom';
 import "../../assets/AdminNewProduct.css";
@@ -20,7 +20,7 @@ export default function AdminNewProduct() {
 
         if(res.code === 0){
             message.info("创建成功，审核中");
-            navigate(-1)
+            setTimeout(()=>navigate(-1), 2000);
         }else{
             message.error(res.msg);
         }
@@ -36,8 +36,10 @@ export default function AdminNewProduct() {
         <div className="create-bg">
             <div className='create-main'>
                 <h1> 创建业务 </h1>
+                <Divider></Divider>
                 <Form
                       labelCol={{
+                        span:24
                       }}
                         name="create-product"
                         className="create-product"
@@ -45,7 +47,7 @@ export default function AdminNewProduct() {
                         onFinish={onSubmit}
                         onFinishFailed={onFinishFailed}
                         style={{
-
+                            width: '80%'
                         }}
                         size='large'
                         >
@@ -67,7 +69,7 @@ export default function AdminNewProduct() {
                                 { pattern: "^[^ ]+$", message: "不能有空格" },
                                 ]}
                             >
-                                <Input
+                                <Input.TextArea
                                 placeholder="请输入业务描述信息"
                                 />
                             </Form.Item>

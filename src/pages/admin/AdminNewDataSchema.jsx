@@ -99,7 +99,7 @@ export default function AdminNewDataSchema() {
           </div>
           <div
             className="brain-form-page-main"
-            {...layout}
+            // {...layout}
             style={{
               width: "100%",
             }}
