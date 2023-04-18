@@ -46,8 +46,8 @@ export default function AdminSlider(props) {
           setOpenKeys([..._openKeys])
       }}
         selectedKeys={selectKeys}
-        onSelect={_selectKeys => {
-          setSelectKeys([..._selectKeys])
+        onSelect={key => {
+          setSelectKeys([key])
       }}
         key="menu"
       >
