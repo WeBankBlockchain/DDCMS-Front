@@ -1,0 +1,22 @@
+.create-bg {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.create-main {
+    width: 70%;
+    border:1px solid #e9eaec;
+    border-radius: 4px;
+    padding-bottom: 20px;
+}
+
+.create-main h1 {
+    text-align: center;
+}
+
+.create-product {
+    margin: auto;
+    width: 50%;
+}

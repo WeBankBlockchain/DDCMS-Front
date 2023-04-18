@@ -1,5 +1,5 @@
 import { Form, Checkbox, Input, Button, Layout, message, Divider } from "antd";
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import CommonFooter from "../../components/footer/CommonFooter";
 import HomeHeader from "../../components/header/HomeHeader";
@@ -12,6 +12,7 @@ const { Content } = Layout;
 
 export default function Login() {
   const navigate = useNavigate();
+  const [isLogin, setIsLogin] = useState(false);
 
   const onFinish = async (values) => {
     let loginRequest = {
@@ -20,6 +21,7 @@ export default function Login() {
     };
     const res = await LoginApi(loginRequest);
       if (res.code === 0) {
+        setIsLogin(true);
         message.success("登录成功!");
         localStorage.setItem("userName", loginRequest.userName);
         localStorage.setItem("token", res.data.token);
@@ -109,7 +111,9 @@ export default function Login() {
                   width: '100%',
                   height: "40PX", 
                   borderRadius: "4PX" 
-                }}>
+                }}
+                  disabled={isLogin}
+                >
                 登陆
                 </Button>
                 </Form.Item>

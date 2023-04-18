@@ -3,25 +3,27 @@ import React from 'react';
 import { Form, Input, Button, Layout, message} from "antd";
 import {CreateProductApi} from '../../request/api';
 import { useNavigate } from 'react-router-dom';
+import "../../assets/AdminNewProduct.css";
+
 
 export default function AdminNewProduct() {
     const navigate = useNavigate()
     
     //回调
-    const onSubmit = (values) => {
+    const onSubmit = async (values) => {
         console.log(values);
         const request = {
             productName: values.productName,
             productDesc: values.productDesc
         }
-        CreateProductApi(request).then((res) => {
-          if(res.code === 0){
+        const res = await CreateProductApi(request);
+
+        if(res.code === 0){
             message.info("创建成功，审核中");
             navigate(-1)
-          }else{
+        }else{
             message.error(res.msg);
-          }
-        })
+        }
     }
 
     const onFinishFailed = (errorInfo) => {
@@ -31,40 +33,24 @@ export default function AdminNewProduct() {
       };
     //
     return (
-
-        <Layout className="layout">
-            <Content
-                style={{
-                width: "100%",
-                padding: 30,
-                minHeight: 800,
-                alignItems: "center",
-                margin: "0 auto",
-                }}
-            >
-                    <div className="brain-form-page-title" >
-                        <h1 > 创建业务 </h1>
-                    </div>
-                    <div className="brain-form-page-bg">
-
-                    <div className="brain-form-page-main">
-                        <Form
+        <div className="create-bg">
+            <div className='create-main'>
+                <h1> 创建业务 </h1>
+                <Form
+                      labelCol={{
+                      }}
                         name="create-product"
                         className="create-product"
                         // initialValues={{}
                         onFinish={onSubmit}
                         onFinishFailed={onFinishFailed}
                         style={{
-                            maxWidth: 700,
-                            width: "100%",
-                            padding: 30,
-                            minHeight: 800,
-                            alignItems: "center",
-                            margin: "0 auto",
-                            marginTop: 30,
+
                         }}
+                        size='large'
                         >
                             <Form.Item
+                                label='业务名称'
                                 name="productName"
                                 rules={[
                                 { required: true, message: "请输入业务名称" },
@@ -74,6 +60,7 @@ export default function AdminNewProduct() {
                                 <Input placeholder="请输入业务名称" />
                             </Form.Item>
                             <Form.Item
+                                label='业务说明'
                                 name="productDesc"
                                 rules={[
                                 { required: true, message: "请输入业务描述信息" },
@@ -85,21 +72,23 @@ export default function AdminNewProduct() {
                                 />
                             </Form.Item>
 
-                            <Form.Item>
+                            <Form.Item
+                                style={{
+                                    margin:'auto'
+                                }}
+                            >
                                 <Button
                                 type="primary"
                                 htmlType="submit"
                                 block
-                                style={{ height: "40px", borderRadius: "12px"}}
+                                style={{ height: "40px", borderRadius: "4px",}}
                                 >
                                 创建业务
                                 </Button>
                             </Form.Item>
                         </Form>
-                    </div>
-                </div>
-            </Content>
-        </Layout>            
+            </div>
+        </div>         
     )
   }
   
