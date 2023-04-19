@@ -7,7 +7,7 @@ import {
   QueryDataSchemaAccessInfoApi,
 } from "../../request/api";
 
-import { message, Layout, Divider,Col, Row, Card, Descriptions, Tag } from "antd";
+import { message, Layout, Divider,Col, Row, Card, Descriptions, Tag, Tabs } from "antd";
 import DescriptionsItem from "antd/es/descriptions/Item";
 import moment from "moment";
 import "../../assets/SchemaDetail.css";
@@ -24,194 +24,109 @@ const dataProtocolNames = {
   2: "SFTP",
 };
 
+const fontStyle = {
+  fontSize:'var(--schema-detail-font-size)',
+  fontWeight: 'var(--schema-detail-font-weight)',
+  lineHeight: 'var(--schema-detail-line-height)'
+}
 const cardStyle={
   marginBottom:'20px'
 };
 
 const headerStyle={
-  fontSize: '20px',
+  ...fontStyle,
   borderLeft: '4px solid lightgrey',
   borderRadius: 'clear'
 }
 export default function SchemeDetail() {
+  const location = useLocation();
+  const [basicData,setBasicData] = useState();
+
+  const [accessInfo, setAccessInfo] = useState();
+  const schemaId = location.state?.schemaId;
+
+  useEffect(()=>{
+    async function loadDetail(){
+      const schemaResp = await QueryDataSchemaApi({
+        schemaId: schemaId
+      });
+      if (schemaResp.code !== 0){
+        message.error(schemaResp.msg);
+        return;
+      }
+      var schemaData = schemaResp.data;
+      const accessResp = await QueryDataSchemaAccessInfoApi({
+        accessId: schemaData.accessId
+      });
+      if (accessResp.code !== 0){
+        message.error(accessResp.msg);
+        return;
+      }
+      const accessData = accessResp.data;
+      populateBasicData(schemaData, accessData, setBasicData);
+    }
+
+    loadDetail();
+  },[]);
+
+
   return (
   <div>
-    <div className="schema-detail-content">
-      <BasicInfo style={cardStyle} />
-      <PriceInfo  style={cardStyle} />
-      <DetailInfo style={cardStyle} />
-      <BusinessInfo style={cardStyle} />
-      <CompanyInfo style={cardStyle} />
+    <div id="schema-detail-content">
+      <BasicInfo data={basicData}/>
+      <PriceInfo />
+      <DetailInfo/>
+      <BusinessInfo />
+      <CompanyInfo  />
     </div>
  
   </div>
 )
 }
 
-// export default function SchemaDetail() {
-//   const location = useLocation();
-//   const { schemaId } = loadSchemaIdFromLocation(location);
-//   const [dataSchema, setDataSchema] = useState({});
-
-//   const [dataSchemaAccessInfo, setDataSchemaAccessInfo] = useState();
-
-//   useEffect(() => {
-//     const request = {
-//       schemaId: schemaId,
-//     };
-
-//     QueryDataSchemaApi(request).then((res) => {
-//       if (res.code === 0) {
-//         const schemaInfo = res.data;
-//         setDataSchema(schemaInfo);
-
-//         const accessInfoRequest = {
-//           accessId: schemaInfo.accessId,
-//         };
-//         QueryDataSchemaAccessInfoApi(accessInfoRequest).then((res) => {
-//           if (res.code === 0) {
-//             // console.log(JSON.parse(res.data.accessCondition))
-//             setDataSchemaAccessInfo(res.data);
-//           }
-//         });
-//       } else {
-//         console.log(res.msg);
-//         message.error("执行错误:" + res.msg);
-//       }
-//     });
-//   }, []);
-
-//   return (
-//     <Layout style={{ textAlign: "center" }}>
-//       <Card title="基本信息">
-//         <Descriptions bordered>
-//           <DescriptionsItem label="机构名称">
-//             {dataSchema.providerName}
-//           </DescriptionsItem>
-
-//           <DescriptionsItem label="业务名称">
-//             {dataSchema.productName}
-//           </DescriptionsItem>
-
-//           <DescriptionsItem label="产品名称">
-//             {dataSchema.dataSchemaName}
-//           </DescriptionsItem>
-
-//           <DescriptionsItem label="版本">{dataSchema.version}</DescriptionsItem>
-
-//           <DescriptionsItem label="公开可见">
-//             {dataSchema.visible > 0 ? "是" : "否"}
-//           </DescriptionsItem>
-
-//           <DescriptionsItem label="创建时间">
-//             {moment(dataSchema.createTime).format("YYYY-MM-DD")}
-//           </DescriptionsItem>
-
-//           <DescriptionsItem label="定价">
-//             {dataSchema.price?.toFixed(1)} 元/条
-//           </DescriptionsItem>
-
-//           <DescriptionsItem label="标签" span={2}>
-//             {dataSchema.tagNameList?.map((tag) => (
-//               <Tag key={tag} color="blue">
-//                 {tag}
-//               </Tag>
-//             ))}
-//           </DescriptionsItem>
-
-//           <DescriptionsItem label="建议使用范围" span={3}>
-//             {dataSchema.dataSchemaUsage}
-//           </DescriptionsItem>
-
-//           <DescriptionsItem label="详情描述" span={3}>
-//             {dataSchema.dataSchemaDesc}
-//           </DescriptionsItem>
-//         </Descriptions>
-//       </Card>
-
-//       <Divider></Divider>
-
-//       {dataSchemaAccessInfo && (
-//         <Card title="访问信息">
-//           <Descriptions bordered>
-//             <DescriptionsItem label="数据格式" span={1}>
-//               {dataFormatNames[dataSchemaAccessInfo.dataFormat]}
-//             </DescriptionsItem>
-//             <DescriptionsItem label="数据传输协议" span={2}>
-//               {dataProtocolNames[dataSchemaAccessInfo.dataProtocol]}
-//             </DescriptionsItem>
-//             <DescriptionsItem label="数据访问链接" span={3}>
-//               {dataSchemaAccessInfo.uri}
-//             </DescriptionsItem>
-//             <DescriptionsItem label="生效时间" span={2}>
-//               {moment(dataSchemaAccessInfo.effectTime).format("YYYY-MM-DD")}
-//             </DescriptionsItem>
-//             <DescriptionsItem label="失效时间" span={1}>
-//               {moment(dataSchemaAccessInfo.expireTime).format("YYYY-MM-DD")}
-//             </DescriptionsItem>
-//             <DescriptionsItem label="返回数据格式" span={3}>
-//               {dataSchemaAccessInfo.contentSchema ? (
-//                 <ReactJson
-//                   style={{
-//                   textAlign:'left'
-//                   }}
-//                   displayDataTypes={false}
-//                   src={JSON.parse(dataSchemaAccessInfo.contentSchema)}
-//                 />
-//               ) : (
-//                 "-"
-//               )}
-//             </DescriptionsItem>
-//             <DescriptionsItem label="查询条件" span={3}>
-//               {dataSchemaAccessInfo.accessCondition ? (
-//                 <ReactJson
-//                   displayDataTypes={false}
-//                   style={{
-//                     textAlign:'left'
-//                   }}
-//                   src={JSON.parse(dataSchemaAccessInfo.accessCondition)}
-//                 />
-//               ) : (
-//                 "-"
-//               )}
-//             </DescriptionsItem>
-//           </Descriptions>
-//         </Card>
-//       )}
-//     </Layout>
-//   );
-// }
-
-// function loadSchemaIdFromLocation(location) {
-//   const schemaId = location.state?.schemaId;
-//   return {
-//     schemaId: schemaId,
-//   };
-// }
 
 
-function BasicInfo({data, style}) {
+function BasicInfo({data}) {
+  const tabItems = [
+    {
+      key: '1',
+      label: `详细介绍`,
+      children: data?.description,
+    },
+    {
+      key: '2',
+      label: `使用范围`,
+      children: data?.usage
+    },
+  ]
+
   return (
     <Card
     headStyle={headerStyle}
-    style={style}
+    style={cardStyle}
     title="基本信息">
-      <LabelValuePair label='产品名称' value='TBD'/>
-      <LabelValuePair label='产品类型' value='数据API'/>
-      <LabelValuePair label='产品标签' value='TBD'/>
-      <LabelValuePair label='归属业务' value='TBD'/>
-      <LabelValuePair label='提供机构' value='TBD'/>
-      <LabelValuePair label='创建日期' value='TBD'/>
-      <LabelValuePair label='详细介绍' value='TBD'/>
+      <LabelValuePair label='产品名称' value={data?.name}/>
+      <LabelValuePair label='产品类型' value={data?.type}/>
+      <LabelValuePair label='归属业务' value={data?.business}/>
+      <LabelValuePair label='提供机构' value={data?.company}/>
+      <LabelValuePair label='创建日期' value={moment(data?.createDate).format('YYYY-MM-DD HH:mm:ss')}/>
+      <LabelValuePair label='产品标签' value=            
+        {data?.tags?.map((tag) => (
+               <Tag key={tag} color="blue">
+                 {tag}
+               </Tag>
+          ))}/>
+      <Tabs defaultActiveKey="1" items={tabItems} 
+      style={fontStyle}/>
   </Card>
   )
 }
 
-function PriceInfo({data, style}) {
+function PriceInfo({data}) {
   return (
     <Card
     headStyle={headerStyle}
-    style={style}
+    style={cardStyle}
     title="价格信息">
       <LabelValuePair label='计费模式' value='TBD'/>
       <LabelValuePair label='详细价格' value='数据API'/>
@@ -220,11 +135,11 @@ function PriceInfo({data, style}) {
   )
 }
 
-function DetailInfo({data, style}) {
+function DetailInfo({data}) {
   return (
     <Card
     headStyle={headerStyle}
-    style={style}
+    style={cardStyle}
     title="详情信息">
       <LabelValuePair label='数据格式' value='TBD'/>
       <LabelValuePair label='传输协议' value='TBD'/>
@@ -237,11 +152,11 @@ function DetailInfo({data, style}) {
   )
 }
 
-function BusinessInfo({data, style}) {
+function BusinessInfo({data}) {
   return (
     <Card
     headStyle={headerStyle}
-    style={style}
+    style={cardStyle}
     title="归属业务">
       <LabelValuePair label='业务名称' value='TBD'/>
       <LabelValuePair label='业务说明' value='TBD'/>
@@ -249,10 +164,10 @@ function BusinessInfo({data, style}) {
   )
 }
 
-function CompanyInfo({data, style}) {
+function CompanyInfo({data}) {
   return (
     <Card headStyle={headerStyle}
-    style={style}
+    style={cardStyle}
     title="机构信息">
       <LabelValuePair label='机构名称' value='TBD'/>
       <LabelValuePair label='联系方式' value='TBD'/>
@@ -262,16 +177,61 @@ function CompanyInfo({data, style}) {
 
 
 function LabelValuePair({label, value}){
-  const style={
-    fontSize:'18px',
-    fontWeight: '400',
-    lineHeight: '2'
-  };
 
   return (
     <Row >
-      <Col style={style} span={2}>{label}:</Col>
-      <Col style={style}>{value}</Col>
+      <Col style={fontStyle} span={5}>{label}:</Col>
+      <Col style={fontStyle}>{value}</Col>
     </Row>
   )
 }
+
+async function populateBasicData(schemaData, accessData, setBasicData){
+  console.log(schemaData);
+  const basicData = {
+    name: schemaData.dataSchemaName,
+    type: '数据API',
+    tags: schemaData.tagNameList,
+    business: schemaData.productName,
+    company: schemaData.providerName,
+    createDate: schemaData.createTime,
+    description: schemaData.dataSchemaDesc,
+    usage: schemaData.dataSchemaUsage
+  }
+
+  setBasicData(basicData);
+}
+
+// {
+//   "schemaId": 3,
+//   "dataSchemaName": "蚂蚁花呗数据",
+//   "providerId": 6,
+//   "providerName": "阿里",
+//   "tagNameList": [
+//       "科技",
+//       "金融",
+//       "征信"
+//   ],
+//   "productId": 3,
+//   "productName": "蚂蚁金服",
+//   "version": 1,
+//   "visible": 1,
+//   "dataSchemaDesc": "蚂蚁花呗月度个人数据",
+//   "dataSchemaUsage": "仅用于友商",
+//   "price": 2,
+//   "status": 1,
+//   "favTag": null,
+//   "reviewTime": 1680599765000,
+//   "createTime": 1680599765000,
+//   "agreeCount": null,
+//   "denyCount": null,
+//   "witnessCount": null,
+//   "accessId": 3,
+//   "dataFormat": null,
+//   "dataProtocol": null,
+//   "contentSchema": null,
+//   "accessCondition": null,
+//   "uri": null,
+//   "effectTime": null,
+//   "expireTime": null
+// }

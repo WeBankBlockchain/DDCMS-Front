@@ -1,4 +1,17 @@
-.schema-detail-content {
+:root {
+    --schema-detail-font-size: 18px;
+    --schema-detail-font-weight: 400;
+    --schema-detail-line-height: 2;
+}
+
+#schema-detail-content {
     width: 100%;
     margin: auto;
 }
+
+.ant-tabs-nav .ant-tabs-tab {
+    font-size: var(--schema-detail-font-size);
+    font-weight: var(--schema-detail-font-weight);
+    line-height: var(--schema-detail-line-height);
+}
+  
