@@ -13,18 +13,8 @@ import { message, Layout, Divider,Col, Row, Card, Descriptions, Tag, Tabs } from
 import DescriptionsItem from "antd/es/descriptions/Item";
 import moment from "moment";
 import "../../assets/SchemaDetail.css";
+import {dataFormatNames, dataProtocolNames} from '../../constants/constants';
 
-
-const dataFormatNames = {
-  0: "JSON",
-  1: "XML",
-};
-
-const dataProtocolNames = {
-  0: "HTTP",
-  1: "HTTPS",
-  2: "SFTP",
-};
 
 const fontStyle = {
   fontSize:'var(--schema-detail-font-size)',
@@ -34,12 +24,6 @@ const fontStyle = {
 const cardStyle={
   marginBottom:'20px'
 };
-
-const headerStyle={
-  ...fontStyle,
-  borderLeft: '4px solid lightgrey',
-  borderRadius: 'clear'
-}
 
 const hidenDefault = "该信息已隐藏";
 
@@ -114,7 +98,6 @@ function BasicInfo({data}) {
 
   return (
     <Card
-    headStyle={headerStyle}
     style={cardStyle}
     title="基本信息">
       <LabelValuePair label='产品名称' value={data?.name}/>
@@ -137,7 +120,6 @@ function BasicInfo({data}) {
 function PriceInfo({data}) {
   return (
     <Card
-    headStyle={headerStyle}
     style={cardStyle}
     title="价格信息">
       <LabelValuePair label='计费模式' value={data?.priceMode}/>
@@ -163,7 +145,6 @@ function DetailInfo({data}) {
 
   return (
     <Card
-    headStyle={headerStyle}
     style={cardStyle}
     title="详情信息">
       <LabelValuePair label='数据格式' value={data?.dataFormat}/>
@@ -182,7 +163,6 @@ function BusinessInfo({data}) {
 
   return (
     <Card
-    headStyle={headerStyle}
     style={cardStyle}
     title="归属业务">
       <LabelValuePair label='业务名称' value={data?.businessName}/>
@@ -193,7 +173,7 @@ function BusinessInfo({data}) {
 
 function CompanyInfo({data}) {
   return (
-    <Card headStyle={headerStyle}
+    <Card
     style={cardStyle}
     title="机构信息">
       <LabelValuePair label='机构名称' value={data?.companyName}/>

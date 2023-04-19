@@ -1,5 +1,5 @@
 /* eslint-disable import/no-anonymous-default-export */
-import constants from "../constants/constants";
+import {accountRoleCodeToNames} from "../constants/constants";
 
 function currentAccount() {
   const userName = localStorage.getItem("userName");
@@ -11,7 +11,7 @@ function currentAccount() {
     userName: userName,
     did: did,
     accountRoleCode: accountTypeCode,
-    accountRoleName: constants.accountRoleCodeToNames[accountTypeCode],
+    accountRoleName: accountRoleCodeToNames[accountTypeCode],
     token: token,
   };
 }
