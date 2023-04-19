@@ -5,6 +5,8 @@ import { useLocation } from "react-router-dom";
 import {
   QueryDataSchemaApi,
   QueryDataSchemaAccessInfoApi,
+  QueryProductByIdApi,
+  QueryCompanyByAccountIdApi
 } from "../../request/api";
 
 import { message, Layout, Divider,Col, Row, Card, Descriptions, Tag, Tabs } from "antd";
@@ -38,11 +40,16 @@ const headerStyle={
   borderLeft: '4px solid lightgrey',
   borderRadius: 'clear'
 }
+
+const hidenDefault = "该信息已隐藏";
+
 export default function SchemeDetail() {
   const location = useLocation();
   const [basicData,setBasicData] = useState();
   const [priceData,setPriceData] = useState();
-  const [accessInfo, setAccessInfo] = useState();
+  const [detailData, setDetailData] = useState();
+  const [businessData, setBusinessData] = useState();
+  const [companyData, setCompanyData] = useState();
   const schemaId = location.state?.schemaId;
 
   useEffect(()=>{
@@ -63,8 +70,12 @@ export default function SchemeDetail() {
         return;
       }
       const accessData = accessResp.data;
+      console.log(accessData)
       populateBasicData(schemaData, accessData, setBasicData);
       populatePriceData(schemaData, accessData, setPriceData);
+      populateDetailData(schemaData, accessData, setDetailData);
+      populateBusinessData(schemaData, accessData, setBusinessData);
+      populateCompanyData(schemaData, accessData, setCompanyData);
     }
 
     loadDetail();
@@ -76,9 +87,9 @@ export default function SchemeDetail() {
     <div id="schema-detail-content">
       <BasicInfo data={basicData}/>
       <PriceInfo data={priceData}/>
-      <DetailInfo/>
-      <BusinessInfo />
-      <CompanyInfo  />
+      <DetailInfo data={detailData}/>
+      <BusinessInfo data={businessData}/>
+      <CompanyInfo  data={companyData}/>
     </div>
  
   </div>
@@ -110,13 +121,14 @@ function BasicInfo({data}) {
       <LabelValuePair label='产品类型' value={data?.type}/>
       <LabelValuePair label='归属业务' value={data?.business}/>
       <LabelValuePair label='提供机构' value={data?.company}/>
-      <LabelValuePair label='创建日期' value={moment(data?.createDate).format('YYYY-MM-DD HH:mm:ss')}/>
+      <LabelValuePair label='创建日期' value={data?.createDate?moment(data?.createDate).format('YYYY-MM-DD HH:mm:ss'):''}/>
       <LabelValuePair label='产品标签' value=            
         {data?.tags?.map((tag) => (
                <Tag key={tag} color="blue">
                  {tag}
                </Tag>
           ))}/>
+
       <Tabs defaultActiveKey="1" items={tabItems} />
   </Card>
   )
@@ -136,30 +148,45 @@ function PriceInfo({data}) {
 }
 
 function DetailInfo({data}) {
+  const tabItems = [
+    {
+      key: '1',
+      label: `请求参数`,
+      children: data?.requestParams,
+    },
+    {
+      key: '2',
+      label: `响应参数`,
+      children: data?.responseParams
+    },
+  ]
+
   return (
     <Card
     headStyle={headerStyle}
     style={cardStyle}
     title="详情信息">
-      <LabelValuePair label='数据格式' value='TBD'/>
-      <LabelValuePair label='传输协议' value='TBD'/>
-      <LabelValuePair label='数据URL' value='TBD'/>
-      <LabelValuePair label='生效时间' value='TBD'/>
-      <LabelValuePair label='失效时间' value='TBD'/>
-      <LabelValuePair label='请求参数' value='TBD'/>
-      <LabelValuePair label='响应参数' value='TBD'/>
+      <LabelValuePair label='数据格式' value={data?.dataFormat}/>
+      <LabelValuePair label='传输协议' value={data?.transferProtocol}/>
+      <LabelValuePair label='数据URL' value={data?.dataURL}/>
+      <LabelValuePair label='生效时间' value={data?.startTime}/>
+      <LabelValuePair label='失效时间' value={data?.endTime}/>
+      <Tabs defaultActiveKey="1" items={tabItems} />
+      {/* <LabelValuePair label='请求参数' value={data?.requestParams??hidenDefault}/>
+      <LabelValuePair label='响应参数' value={data?.requestParams??hidenDefault}/> */}
   </Card>
   )
 }
 
 function BusinessInfo({data}) {
+
   return (
     <Card
     headStyle={headerStyle}
     style={cardStyle}
     title="归属业务">
-      <LabelValuePair label='业务名称' value='TBD'/>
-      <LabelValuePair label='业务说明' value='TBD'/>
+      <LabelValuePair label='业务名称' value={data?.businessName}/>
+      <LabelValuePair label='业务说明' value={data?.businessDescription}/>
   </Card>
   )
 }
@@ -169,8 +196,9 @@ function CompanyInfo({data}) {
     <Card headStyle={headerStyle}
     style={cardStyle}
     title="机构信息">
-      <LabelValuePair label='机构名称' value='TBD'/>
-      <LabelValuePair label='联系方式' value='TBD'/>
+      <LabelValuePair label='机构名称' value={data?.companyName}/>
+      <LabelValuePair label='联系方式' value={data?.companyContact}/>
+      <LabelValuePair label='机构说明' value={data?.companyDescription}/>
   </Card>
   )
 }
@@ -179,8 +207,8 @@ function CompanyInfo({data}) {
 function LabelValuePair({label, value}){
 
   return (
-    <Row >
-      <Col style={fontStyle} span={5}>{label}:</Col>
+    <Row gutter={{  md: 40}}>
+      <Col style={fontStyle}>{label}:</Col>
       <Col style={fontStyle}>{value}</Col>
     </Row>
   )
@@ -209,36 +237,69 @@ async function populatePriceData(schemaData, accessData, setPriceData) {
   }
   setPriceData(priceData);
 }
-// {
-//   "schemaId": 3,
-//   "dataSchemaName": "蚂蚁花呗数据",
-//   "providerId": 6,
-//   "providerName": "阿里",
-//   "tagNameList": [
-//       "科技",
-//       "金融",
-//       "征信"
-//   ],
-//   "productId": 3,
-//   "productName": "蚂蚁金服",
-//   "version": 1,
-//   "visible": 1,
-//   "dataSchemaDesc": "蚂蚁花呗月度个人数据",
-//   "dataSchemaUsage": "仅用于友商",
-//   "price": 2,
-//   "status": 1,
-//   "favTag": null,
-//   "reviewTime": 1680599765000,
-//   "createTime": 1680599765000,
-//   "agreeCount": null,
-//   "denyCount": null,
-//   "witnessCount": null,
-//   "accessId": 3,
-//   "dataFormat": null,
-//   "dataProtocol": null,
-//   "contentSchema": null,
-//   "accessCondition": null,
-//   "uri": null,
-//   "effectTime": null,
-//   "expireTime": null
-// }
+
+async function populateDetailData(schemaData, accessData, setDetailData) {
+  console.log(accessData);
+
+  const detailData = accessData?
+  {
+    dataFormat: dataFormatNames[accessData.dataFormat],
+    transferProtocol: dataProtocolNames[accessData.dataProtocol],
+    dataURL: accessData.uri,
+    startTime: accessData.effectTime?moment(accessData.effectTime).format('YYYY-MM-DD HH:mm:ss'):"",
+    endTime: accessData.expireTime?moment(accessData.expireTime).format('YYYY-MM-DD HH:mm:ss'):"",
+    requestParams :accessData.accessCondition,
+    responseParams: accessData.contentSchema
+  }
+  :  {
+    dataFormat: hidenDefault,
+    transferProtocol: hidenDefault,
+    dataURL: hidenDefault,
+    startTime: hidenDefault,
+    endTime: hidenDefault,
+    requestParams :hidenDefault,
+    responseParams: hidenDefault
+  };
+
+  setDetailData(detailData);
+}
+
+
+async function populateBusinessData(schemaData, accessData, setBusinessData) {
+
+  const productResp = await QueryProductByIdApi({
+    productId: schemaData.productId
+  });
+
+  if (productResp.code !== 0){
+    message.error(productResp.msg);
+    return;
+  } 
+  const productInfo = productResp.data;
+  console.log(productInfo);
+  const businessData = {
+    businessName: productInfo.productName,
+    businessDescription: productInfo.productDesc
+  };
+
+  setBusinessData(businessData);
+}
+
+async function populateCompanyData(schemaData, accessData, setCompanyData) {
+  const resp = await QueryCompanyByAccountIdApi({
+    accountId: schemaData.providerId
+  });
+  if (resp.code !== 0){
+    message.error(resp.msg);
+    return;
+  }
+  const companyInfo = resp.data;
+  console.log(companyInfo);
+
+  const companyData = {
+    companyName: companyInfo.companyName,
+    companyContact: companyInfo.companyContact,
+    companyDescription: companyInfo.companyDesc
+  }
+  setCompanyData(companyData);
+}

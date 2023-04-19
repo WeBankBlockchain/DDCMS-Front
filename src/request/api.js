@@ -13,6 +13,9 @@ export const SearchCompanyApi = (params) =>
 export const QueryCompanyByUsernameApi = (params) =>
   service.post("account/queryCompanyByUsername", params);
 
+export const QueryCompanyByAccountIdApi = (params) =>
+  service.post("account/queryCompanyByAccountId", params);
+
 export const ApproveAccountApi = (params) =>
   service.post("account/approveAccount", params);
 
