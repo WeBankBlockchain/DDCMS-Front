@@ -9,9 +9,12 @@
     margin: auto;
 }
 
-.ant-tabs-nav .ant-tabs-tab {
+#schema-detail-content  .ant-tabs-tab,
+#schema-detail-content  .ant-tabs-tabpane 
+{
     font-size: var(--schema-detail-font-size);
     font-weight: var(--schema-detail-font-weight);
     line-height: var(--schema-detail-line-height);
 }
+
   

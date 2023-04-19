@@ -41,7 +41,7 @@ const headerStyle={
 export default function SchemeDetail() {
   const location = useLocation();
   const [basicData,setBasicData] = useState();
-
+  const [priceData,setPriceData] = useState();
   const [accessInfo, setAccessInfo] = useState();
   const schemaId = location.state?.schemaId;
 
@@ -64,6 +64,7 @@ export default function SchemeDetail() {
       }
       const accessData = accessResp.data;
       populateBasicData(schemaData, accessData, setBasicData);
+      populatePriceData(schemaData, accessData, setPriceData);
     }
 
     loadDetail();
@@ -74,7 +75,7 @@ export default function SchemeDetail() {
   <div>
     <div id="schema-detail-content">
       <BasicInfo data={basicData}/>
-      <PriceInfo />
+      <PriceInfo data={priceData}/>
       <DetailInfo/>
       <BusinessInfo />
       <CompanyInfo  />
@@ -116,8 +117,7 @@ function BasicInfo({data}) {
                  {tag}
                </Tag>
           ))}/>
-      <Tabs defaultActiveKey="1" items={tabItems} 
-      style={fontStyle}/>
+      <Tabs defaultActiveKey="1" items={tabItems} />
   </Card>
   )
 }
@@ -128,9 +128,9 @@ function PriceInfo({data}) {
     headStyle={headerStyle}
     style={cardStyle}
     title="价格信息">
-      <LabelValuePair label='计费模式' value='TBD'/>
-      <LabelValuePair label='详细价格' value='数据API'/>
-      <LabelValuePair label='计费说明' value='TBD'/>
+      <LabelValuePair label='计费模式' value={data?.priceMode}/>
+      <LabelValuePair label='详细价格' value={data?.price}/>
+      <LabelValuePair label='计费说明' value={data?.priceDescription}/>
   </Card>
   )
 }
@@ -187,7 +187,6 @@ function LabelValuePair({label, value}){
 }
 
 async function populateBasicData(schemaData, accessData, setBasicData){
-  console.log(schemaData);
   const basicData = {
     name: schemaData.dataSchemaName,
     type: '数据API',
@@ -202,6 +201,14 @@ async function populateBasicData(schemaData, accessData, setBasicData){
   setBasicData(basicData);
 }
 
+async function populatePriceData(schemaData, accessData, setPriceData) {
+  const priceData = {
+    priceMode: '按次计费',
+    price: schemaData.price,
+    priceDescription: '先用后付,按次计费'
+  }
+  setPriceData(priceData);
+}
 // {
 //   "schemaId": 3,
 //   "dataSchemaName": "蚂蚁花呗数据",
