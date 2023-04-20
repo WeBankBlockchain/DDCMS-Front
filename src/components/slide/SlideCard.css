@@ -25,3 +25,11 @@
 	padding: 5px 10px;
 	border-radius: 0px;
 }
+
+.slide-card span {
+	display: inline-block;
+	width: 100%;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
