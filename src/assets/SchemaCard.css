@@ -53,7 +53,7 @@
 	 /* 弹性伸缩盒子模型显示 */
 	 display: -webkit-box;
 	 /* 限制在一个块级元素显示文本的行数 */
-	  -webkit-line-clamp: 5;
+	  -webkit-line-clamp: 4;
 	 /* 设置或检索伸缩盒对象的子元素的排列方式 */
 	 -webkit-box-orient: vertical;
 }
@@ -62,9 +62,9 @@
 	font-size: 14px;
 	color: rgb(134, 132, 132);
 	display: flex;
-	flex-direction: row;
-	justify-content: space-between;
-	align-items:flex-end;
+	flex-direction: column;
+	/* justify-content: space-between; */
+	/* align-items:flex-end; */
 }
 
 .schema-footer span {
@@ -75,8 +75,8 @@
 }
 .owner-info {
 	display: flex;
-	flex-direction: column;
-	justify-content: flex-end;
+	flex-direction: row;
+	justify-content: space-between;
 	
 }
 
@@ -93,6 +93,6 @@
 }
 
 .publish-time {
-
+	align-self: flex-end;
 }
 
