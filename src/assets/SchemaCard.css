@@ -1,11 +1,14 @@
 .schema-card {
 	width: 100%;
-	height: 180px;
+	height: 220px;
 	background-color: rgb(255, 255, 255);
 	padding: 12px 24px;
 	-webkit-box-shadow: 0px 3px 3px #dedada;
 	-moz-box-shadow: 0px 3px 3px #dedada;
 	box-shadow: 0px 3px 3px #dedada;
+
+	display: flex;
+	flex-direction: column;
 }
 
 .schema-header {
@@ -33,30 +36,63 @@
 
 .schema-body {
 	font-size: 16px;
-	height: 90px;
+	flex-grow: 1;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
 }
 
-.schema-footer {
+.schema-desc {
+	height: 100px;
 	font-size: 14px;
-	height: 15px;
+
+	display: -webkit-box;
+	overflow: hidden;
+
+	text-overflow: ellipsis;
+	 /* 弹性伸缩盒子模型显示 */
+	 display: -webkit-box;
+	 /* 限制在一个块级元素显示文本的行数 */
+	  -webkit-line-clamp: 5;
+	 /* 设置或检索伸缩盒对象的子元素的排列方式 */
+	 -webkit-box-orient: vertical;
+}
+.schema-footer {
+
+	font-size: 14px;
 	color: rgb(134, 132, 132);
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items:flex-end;
 }
 
+.schema-footer span {
+	font-size: 14px;
+	padding: 0 0;
+	color: rgb(134, 132, 132);
+	cursor:pointer;
+}
 .owner-info {
-	float: left;
-	width: 500px;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-end;
+	
 }
 
 .company-info {
-	width: 300px;
-	float: left;
+	white-space: nowrap;
+    overflow: hidden;
+	text-overflow: ellipsis;
 }
 
 .product-info {
-	width: 200px;
-	float: left;
+	white-space: nowrap;
+    overflow: hidden;
+	text-overflow: ellipsis;
 }
 
 .publish-time {
-	float: right;
+
 }
+
