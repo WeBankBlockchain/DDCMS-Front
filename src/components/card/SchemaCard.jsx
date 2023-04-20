@@ -149,7 +149,7 @@ export default function SchemaCard(props) {
             </span>
           </div>
           <div className="product-info">
-            产品名称：
+            归属业务：
             <span
               type="link"
               onClick={() =>
