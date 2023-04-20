@@ -10,4 +10,5 @@
     font-size: var(--product-detail-font-size);
     font-weight: var(--product-detail-font-weight);
     line-height: var(--product-detail-line-height);
+    text-align: left;
 }
