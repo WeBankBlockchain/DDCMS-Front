@@ -20,6 +20,7 @@ export default function Register() {
 
   return (
     <div className="layout" style={{
+      backgroundColor:'#ebeff5',
       minHeight: '100vh',
       paddingBottom: '2%'
     }}>

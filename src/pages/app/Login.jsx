@@ -39,6 +39,7 @@ export default function Login() {
 
   return (
     <div style={{
+      backgroundColor: '#ebeff5',
       position: 'fixed',
       top: 0,
       left: 0,
