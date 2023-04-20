@@ -1,0 +1,13 @@
+:root {
+    --product-detail-font-size: 14px;
+    --product-detail-font-weight: 400;
+    --product-detail-line-height: 2;
+}
+
+#product-detail-content  .ant-tabs-tab,
+#product-detail-content  .ant-tabs-tabpane 
+{
+    font-size: var(--product-detail-font-size);
+    font-weight: var(--product-detail-font-weight);
+    line-height: var(--product-detail-line-height);
+}
