@@ -54,7 +54,7 @@ export default function SchemeDetail() {
         return;
       }
       const accessData = accessResp.data;
-      console.log(accessData)
+
       populateBasicData(schemaData, accessData, setBasicData);
       populatePriceData(schemaData, accessData, setPriceData);
       populateDetailData(schemaData, accessData, setDetailData);
@@ -130,18 +130,26 @@ function PriceInfo({data}) {
 }
 
 function DetailInfo({data}) {
-  const tabItems = [
+
+  const parameterTips =  data?.requestParams &&  data?.requestParams!== hidenDefault?(<pre>{
+    JSON.stringify(JSON.parse(data?.requestParams),null, 2)}</pre>):(<div>{hidenDefault}</div>)
+  const responseTips =  data?.responseParams &&  data?.responseParams!== hidenDefault?(<pre>{
+      JSON.stringify(JSON.parse(data?.responseParams),null, 2)}</pre>):(<div>{hidenDefault}</div>)
+    
+  
+    const tabItems = [
     {
       key: '1',
       label: `请求参数`,
-      children: data?.requestParams,
+      children: (<div>{parameterTips}</div>),
     },
     {
       key: '2',
       label: `响应参数`,
-      children: data?.responseParams
+      children: (<div>{responseTips}</div>)
     },
   ]
+  console.log(tabItems[0].children)
 
   return (
     <Card
@@ -153,8 +161,6 @@ function DetailInfo({data}) {
       <LabelValuePair label='生效时间' value={data?.startTime}/>
       <LabelValuePair label='失效时间' value={data?.endTime}/>
       <Tabs defaultActiveKey="1" items={tabItems} />
-      {/* <LabelValuePair label='请求参数' value={data?.requestParams??hidenDefault}/>
-      <LabelValuePair label='响应参数' value={data?.requestParams??hidenDefault}/> */}
   </Card>
   )
 }
@@ -219,7 +225,7 @@ async function populatePriceData(schemaData, accessData, setPriceData) {
 }
 
 async function populateDetailData(schemaData, accessData, setDetailData) {
-  console.log(accessData);
+
 
   const detailData = accessData?
   {
@@ -256,7 +262,7 @@ async function populateBusinessData(schemaData, accessData, setBusinessData) {
     return;
   } 
   const productInfo = productResp.data;
-  console.log(productInfo);
+
   const businessData = {
     businessName: productInfo.productName,
     businessDescription: productInfo.productDesc
@@ -274,7 +280,7 @@ async function populateCompanyData(schemaData, accessData, setCompanyData) {
     return;
   }
   const companyInfo = resp.data;
-  console.log(companyInfo);
+
 
   const companyData = {
     companyName: companyInfo.companyName,

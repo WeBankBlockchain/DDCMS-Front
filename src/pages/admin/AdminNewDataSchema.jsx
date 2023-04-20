@@ -151,10 +151,9 @@ const FormComponent = ()=>{
         label="描述"
         rules={[
           { required: true, message: "请输入数据产品描述信息" },
-          { pattern: "^[^ ]+$", message: "密码不能有空格" },
         ]}
       >
-        <Input.TextArea placeholder="请输入数据产品描述信息，不超过500字" />
+        <Input.TextArea placeholder="请输入数据产品描述信息,不超过500字" />
       </Form.Item>
       <Row gutter={18}>
         <Col span={12}>
