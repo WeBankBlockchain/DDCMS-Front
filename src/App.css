@@ -1,5 +1,5 @@
 :root {
-	--app-content-width: 55vw;
+	--app-content-width: 70vw;
 	--admin-content-margin: 30px;
 	--header-height: 100px;
 }
@@ -66,7 +66,7 @@
 }
 
 .main-content {
-	width: 60%;
+	width: 70%;
 	/* min-height: 1680px; */
 	/* background-color: rgb(255, 255, 255); */
 }
