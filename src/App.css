@@ -2,6 +2,8 @@
 	--app-content-width: 65vw;
 	--admin-content-margin: 30px;
 	--header-height: 100px;
+	--app-left-width: 65%;
+	--app-right-width: 32%;
 }
 
 .App {
@@ -66,13 +68,13 @@
 }
 
 .main-content {
-	width: 65%;
+	width: var(--app-left-width);
 	/* min-height: 1680px; */
 	/* background-color: rgb(255, 255, 255); */
 }
 
 .slide-content {
-	width: 20vw;
+	width: var(--app-right-width);
 }
 
 @keyframes App-logo-spin {

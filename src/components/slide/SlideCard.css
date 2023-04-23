@@ -5,6 +5,9 @@
 	-moz-box-shadow: 0px 3px 3px hsl(0, 6%, 86%);
 	box-shadow: 0px 3px 3px #dedada;
 	margin: 0 0 20px 0;
+	white-space: nowrap;
+	overflow: hidden;
+
 }
 
 .slide-card-header {
@@ -24,12 +27,4 @@
 .ant-tag {
 	padding: 5px 10px;
 	border-radius: 0px;
-}
-
-.slide-card span {
-	display: inline-block;
-	width: 100%;
-	white-space: nowrap;
-	overflow: hidden;
-	text-overflow: ellipsis;
 }
