@@ -43,7 +43,7 @@ export default function TopTags() {
       <Space style={{padding: '12px 0'}} size={[0, 8]} wrap>
         {data.map((item) => (
           <Button key={item.pkId}
-            style={{color: '#000000', fontSize: '14px', margin: '0 5px'}}
+            style={{color: '#000000', fontSize: '14px', margin: '0 5px 0 0'}}
             onClick={() => {onClick(item.pkId, item.tagName)}}
           >
             {item.tagName}

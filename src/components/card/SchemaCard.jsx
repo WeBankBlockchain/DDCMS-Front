@@ -136,34 +136,34 @@ export default function SchemaCard(props) {
       <div className="schema-body">
         <div className="schema-desc">{props.item.dataSchemaDesc}</div>
         <div className="schema-footer">
-        <div className="owner-info">
-          <div className="company-info">
-            企业名称：
-            <span
-              type="link"
-              onClick={() =>
-                providerOnClick(props.item.providerId, props.item.providerName)
-              }
-            >
-              {props.item.providerName}
-            </span>
+          <div className="owner-info">
+            <div className="company-info">
+              企业名称：
+              <span
+                type="link"
+                onClick={() =>
+                  providerOnClick(props.item.providerId, props.item.providerName)
+                }
+              >
+                {props.item.providerName}
+              </span>
+            </div>
+            <div className="product-info">
+              归属业务：
+              <span
+                type="link"
+                onClick={() =>
+                  productOnClick(props.item.productId, props.item.productName)
+                }
+              >
+                {props.item.productName}
+              </span>
+            </div>
           </div>
-          <div className="product-info">
-            归属业务：
-            <span
-              type="link"
-              onClick={() =>
-                productOnClick(props.item.productId, props.item.productName)
-              }
-            >
-              {props.item.productName}
-            </span>
+          <div className="publish-time">
+            发布时间: {moment(props.item.createTime).format("YYYY-MM-DD")}
           </div>
         </div>
-        <div className="publish-time">
-          发布时间: {moment(props.item.createTime).format("YYYY-MM-DD")}
-        </div>
-      </div>
       </div>
  
     </div>
