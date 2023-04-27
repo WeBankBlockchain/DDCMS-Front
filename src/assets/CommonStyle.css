@@ -70,4 +70,5 @@ input:-webkit-autofill {
 	align-items: center;
 	font-weight: 500;
 	padding: 0px 20px 0px 20px;
+	padding: 5px 20px 20px 20px;
 }
