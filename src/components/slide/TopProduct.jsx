@@ -15,7 +15,7 @@ export default function TopProduct() {
     navigate('/home', {
       state: {
         productId: productId,
-        breadcrumb: ['产品 : ' + productName, '数据产品']
+        breadcrumb: ['目录 : ' + productName, '数据目录']
       }
     })
   }

@@ -21,7 +21,7 @@ export default function SchemaCard(props) {
   useEffect(() => {}, [starInfo]);
 
   const schemaOnClick = (schemaId, schemaName) => {
-    breadcrumb = ["数据产品", schemaName];
+    breadcrumb = ["数据目录", schemaName];
     navigate("/schema/detail", {
       state: {
         schemaId: schemaId,
@@ -41,7 +41,7 @@ export default function SchemaCard(props) {
   };
 
   const productOnClick = (productId, productName) => {
-    breadcrumb = ["产品 : " + productName, "数据API"];
+    breadcrumb = ["目录 : " + productName, "数据API"];
     window.history.pushState({ breadcrumb }, null, null);
     navigate("/home", {
       state: {

@@ -100,12 +100,12 @@ function BasicInfo({data}) {
     <Card
     style={cardStyle}
     title="基本信息">
-      <LabelValuePair label='产品名称' value={data?.name}/>
-      <LabelValuePair label='产品类型' value={data?.type}/>
+      <LabelValuePair label='目录名称' value={data?.name}/>
+      <LabelValuePair label='目录类型' value={data?.type}/>
       <LabelValuePair label='归属业务' value={data?.business}/>
       <LabelValuePair label='提供机构' value={data?.company}/>
       <LabelValuePair label='创建日期' value={data?.createDate?moment(data?.createDate).format('YYYY-MM-DD HH:mm:ss'):''}/>
-      <LabelValuePair label='产品标签' value=            
+      <LabelValuePair label='目录标签' value=            
         {data?.tags?.map((tag) => (
                <Tag key={tag} color="blue">
                  {tag}

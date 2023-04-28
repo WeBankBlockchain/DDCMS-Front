@@ -19,7 +19,7 @@ export default function AdminMyFavorateDataSchema() {
 
   const schemaColumns = [
     {
-      title: "数据产品",
+      title: "数据目录",
       dataIndex: "dataSchemaName",
       key: "dataSchemaName",
       width: 200,

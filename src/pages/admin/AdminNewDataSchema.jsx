@@ -31,7 +31,7 @@ export default function AdminNewDataSchema() {
   return (
     <div className="create-bg">
         <div className="create-main">
-          <h1> 创建数据产品 </h1>
+          <h1> 创建数据目录 </h1>
           {CreateForm}
         </div>
     </div>
@@ -122,14 +122,14 @@ const FormComponent = ()=>{
       headStyle={{ textAlign: "left", fontSize: "25px" }}
     >
       <Form.Item
-        label="数据产品名称"
+        label="数据目录名称"
         name="dataSchemaName"
         rules={[
-          { required: true, message: "请输入数据产品名称" },
+          { required: true, message: "请输入数据目录名称" },
           { pattern: "^[^ ]+$", message: "名称不能有空格" },
         ]}
       >
-        <Input placeholder="请输入数据产品名称" />
+        <Input placeholder="请输入数据目录名称" />
       </Form.Item>
       <Form.Item
         label="归属业务"
@@ -150,10 +150,10 @@ const FormComponent = ()=>{
         name="dataSchemaDesc"
         label="描述"
         rules={[
-          { required: true, message: "请输入数据产品描述信息" },
+          { required: true, message: "请输入数据目录描述信息" },
         ]}
       >
-        <Input.TextArea placeholder="请输入数据产品描述信息,不超过500字" />
+        <Input.TextArea placeholder="请输入数据目录描述信息,不超过500字" />
       </Form.Item>
       <Row gutter={18}>
         <Col span={12}>
@@ -175,7 +175,7 @@ const FormComponent = ()=>{
             defaultValue={0}
             required
             rules={[
-              { required: true, message: "请输入产品版本号" },
+              { required: true, message: "请输入目录版本号" },
               {
                 validator(_, value) {
                   if (!value || Number.isInteger(Number(value))) {
@@ -315,7 +315,7 @@ const FormComponent = ()=>{
         block
         style={{ height: "40PX", borderRadius: "4PX"}}
       >
-        创建数据产品
+        创建数据目录
       </Button>
     </Form.Item>
   </Form>

@@ -17,7 +17,7 @@ export default function AdminMyDataSchema() {
 
   const schemaColumns = [
     {
-      title: "数据产品",
+      title: "数据目录",
       dataIndex: "dataSchemaName",
       key: "dataSchemaName",
       width: 200,
@@ -170,7 +170,7 @@ export default function AdminMyDataSchema() {
               navigate("/admin/schema/create");
             }}
           >
-            创建数据产品
+            创建数据目录
           </Button>
         </div>
 
