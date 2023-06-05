@@ -18,7 +18,7 @@ export default function CommonFooter() {
       }}
     >
       <span style={{
-      }}>DataBrain ©2023 Created by WeBank</span>
+      }}>DDCMS ©2023 Created by WeBank</span>
     
       
 
