@@ -31,7 +31,7 @@ export default function HomeHeader({userOperation}) {
             style={{color: '#FFF', fontSize: '35px', fontWeight: 800, padding: '0 0'}}
             onClick={() => {onClick()}}
           >
-            Data Brain
+            DDCMS
           </Button>
         </div>
         <nav className="header-operation" >

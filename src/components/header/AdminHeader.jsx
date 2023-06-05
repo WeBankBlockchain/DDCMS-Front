@@ -22,7 +22,7 @@ export default function AdminHeader() {
             }}
             to="/"
           >
-            Data Brain
+            DDCMS
           </Link>
         </div>
         <div>
