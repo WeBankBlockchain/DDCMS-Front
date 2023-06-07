@@ -42,6 +42,7 @@ export default function AdminAccountList() {
       .then((res) => {
         if (res.code === 0) {
           const r = res.data.itemList;
+          console.log(r)
           setData(
             r.map((item, index) => ({
               ...item,
@@ -184,7 +185,7 @@ export default function AdminAccountList() {
       title: "注册时间",
       dataIndex: "createTime",
       key: "createTime",
-      render: (text) => moment.unix(text).tz('Asia/Shanghai').format("YYYY-MM-DD HH:mm:ss"),
+      render: (text) => moment(text).format("YYYY-MM-DD HH:mm:ss"),
       sorter: (a, b) => a.createTime - b.createTime,
       sortOrder:
         sortedInfo.columnKey === "createTime" ? sortedInfo.order : null,
