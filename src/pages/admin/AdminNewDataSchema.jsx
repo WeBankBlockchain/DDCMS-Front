@@ -48,7 +48,10 @@ const FormComponent = ()=>{
   const [contentSchema, setContentSchema] = useState()
   //回调
   const onSubmit = (values) => {
-    console.log(values);
+    if (tags.length == 0){
+      message.error('请输入标签');
+      return;
+    }
     var request = {
       dataSchemaName: values.dataSchemaName,
       productId: values.dataSchemaProductId, //todo
