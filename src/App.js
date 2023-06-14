@@ -1,5 +1,5 @@
 import './App.css';
-import { Divider, Layout } from 'antd';
+import { Divider } from 'antd';
 import { Outlet, useNavigate } from 'react-router-dom';
 import HomeHeader from './components/header/HomeHeader';
 import CommonFooter from './components/footer/CommonFooter';
@@ -11,7 +11,6 @@ import LoginUser from './components/header/LoginUser';
 import NotLoginUser from './components/header/NotLoginUser';
 import { useEffect,useState } from 'react';
 
-const { Content } = Layout;
 
 function App() {
 	const navigate = useNavigate();

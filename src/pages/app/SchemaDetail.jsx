@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import ReactJson from "react-json-view";
 import { useLocation } from "react-router-dom";
 
 import {
@@ -9,8 +8,7 @@ import {
   QueryCompanyByAccountIdApi
 } from "../../request/api";
 
-import { message, Layout, Divider,Col, Row, Card, Descriptions, Tag, Tabs } from "antd";
-import DescriptionsItem from "antd/es/descriptions/Item";
+import { message, Col, Row, Card, Tag, Tabs } from "antd";
 import moment from "moment";
 import "../../assets/SchemaDetail.css";
 import {dataFormatNames, dataProtocolNames} from '../../constants/constants';

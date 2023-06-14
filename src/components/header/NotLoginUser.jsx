@@ -1,5 +1,5 @@
 import { Space, Button } from "antd";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export default function NotLoginUser() {
   const navigate = useNavigate();

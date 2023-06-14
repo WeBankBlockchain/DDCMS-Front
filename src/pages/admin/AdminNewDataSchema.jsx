@@ -1,11 +1,9 @@
-import { Content } from "antd/es/layout/layout";
 import React, { useState } from "react";
 import JSONInput from 'react-json-editor-ajrm';
 import {
   Form,
   Input,
   Button,
-  Layout,
   message,
   Select,
   DatePicker,

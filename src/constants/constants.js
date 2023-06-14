@@ -1,6 +1,3 @@
-
-
-
 export const accountRoleNameToCodes = {
     'person': 0,
     'company': 1,
@@ -25,9 +22,3 @@ export const dataProtocolNames = {
     1: "HTTPS",
     2: "SFTP",
 };
-
-
-// export default{
-//     accountRoleNameToCodes,
-//     accountRoleCodeToNames
-// }

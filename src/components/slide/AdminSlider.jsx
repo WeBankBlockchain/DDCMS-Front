@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Layout, Menu, message } from "antd";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { GetMenuByRoleApi } from "../../request/api";
 
 const { Sider } = Layout;
 const SubMenu = Menu.SubMenu;
-const MenuItemGroup = Menu.ItemGroup;
 
 export default function AdminSlider(props) {
   const [menus, setMenus] = useState([]);
