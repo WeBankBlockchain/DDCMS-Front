@@ -2,8 +2,7 @@ import React, { useEffect, useState } from "react";
 import { QueryProductByIdApi } from "../../request/api";
 import { useLocation } from "react-router-dom";
 import moment from "moment";
-import { message, Layout, Card, Row,Col, Divider, Badge, Tabs } from "antd";
-import DescriptionsItem from "antd/es/descriptions/Item";
+import { message, Card, Row,Col, Badge, Tabs } from "antd";
 import "../../assets/AdminProductDetail.css";
 
 const fontStyle = {

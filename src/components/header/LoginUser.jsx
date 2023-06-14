@@ -1,7 +1,6 @@
 import React from "react";
-import { Space, Button, message, Avatar } from "antd";
+import { Space, message, Avatar } from "antd";
 import { useNavigate} from "react-router-dom";
-import { UserOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 
 export default function LoginUser() {

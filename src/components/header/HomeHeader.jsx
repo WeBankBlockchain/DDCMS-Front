@@ -1,6 +1,4 @@
 import "../../assets/HomeHeader.css";
-import NotLoginUser from './NotLoginUser';
-import LoginUser from './LoginUser';
 import {Button} from 'antd'
 import { useNavigate } from 'react-router-dom';
 

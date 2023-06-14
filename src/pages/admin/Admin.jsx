@@ -4,7 +4,6 @@ import AdminHeader from "../../components/header/AdminHeader";
 import CommonFooter from "../../components/footer/CommonFooter";
 import AdminSlider from "../../components/slide/AdminSlider";
 import { Outlet } from "react-router-dom";
-import HomeHeader from "../../components/header/HomeHeader";
 import LoginUser from "../../components/header/LoginUser";
 import "../../assets/Admin.css"
 

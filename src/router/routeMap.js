@@ -4,7 +4,6 @@ import Error from "../pages/Error";
 import Login from "../pages/app/Login";
 import Register from "../pages/app/Register";
 import AdminUserInfo from "../pages/admin/AdminUserInfo";
-import Test from "../pages/Test";
 import Admin from "../pages/admin/Admin";
 import SchemaDetail from "../pages/app/SchemaDetail";
 import AdminAllDataSchema from "../pages/admin/AdminAllDataSchema";
@@ -111,10 +110,6 @@ export const routeMap = [
   {
     path: "result",
     element: <RegisterResult />,
-  },
-  {
-    path: "test",
-    element: <Test />,
   },
   {
     path: "*",

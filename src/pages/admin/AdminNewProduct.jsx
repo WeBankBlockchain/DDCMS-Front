@@ -1,6 +1,5 @@
-import { Content } from 'antd/es/layout/layout';
 import React from 'react';
-import { Form, Input, Button, Layout, message, Divider} from "antd";
+import { Form, Input, Button, message, Divider} from "antd";
 import {CreateProductApi} from '../../request/api';
 import { useNavigate } from 'react-router-dom';
 import "../../assets/AdminNew.css";
