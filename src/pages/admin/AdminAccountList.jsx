@@ -258,9 +258,6 @@ export default function AdminAccountList() {
             <Descriptions.Item label="did" span={2}>
               {data.did}
             </Descriptions.Item>
-            <Descriptions.Item label="私钥地址" span={3}>
-              {data.privateKey}
-            </Descriptions.Item>
             <Descriptions.Item label="开户日期" span={2}>
               {moment(data.createTime).format("YYYY-MM-DD HH:mm:ss")}
             </Descriptions.Item>
