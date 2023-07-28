@@ -65,7 +65,9 @@ export default function AdminUserInfo() {
           if (res.code === 0) {
             console.log(res.data);
             setData(res.data);
-            handleDownload(res.data.companyCertFileUri);
+            if (res.data.accountType !== "3") {
+              handleDownload(res.data.companyCertFileUri);
+            }
           } else {
             console.log(res);
             message.error("查询失败!");
