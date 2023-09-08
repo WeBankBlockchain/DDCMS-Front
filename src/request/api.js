@@ -5,6 +5,10 @@ export const RegisterApi = (params) =>
 
 export const LoginApi = (params) => service.post("account/login", params);
 
+export const BindThirdPartyApi = (params) => service.get("account/bindThirdParty", {params});
+
+export const LoginWithThirdPartyApi = (params) => service.get("account/loginWithThirdParty", {params});
+
 export const LogoutApi = (params) => service.post("account/logout", params);
 
 export const SearchCompanyApi = (params) =>
