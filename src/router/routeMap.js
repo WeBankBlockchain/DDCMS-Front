@@ -2,6 +2,7 @@ import App from "../App";
 import AppSchemaList from "../pages/app/AppSchemaList";
 import Error from "../pages/Error";
 import Login from "../pages/app/Login";
+import ThirdPatryCallback from "../pages/app/ThirdPatryCallback";
 import Register from "../pages/app/Register";
 import AdminUserInfo from "../pages/admin/AdminUserInfo";
 import Admin from "../pages/admin/Admin";
@@ -102,6 +103,10 @@ export const routeMap = [
   {
     path: "login",
     element: <Login />,
+  },
+  {
+    path: "thirdPatryCallback",
+    element: <ThirdPatryCallback/>,
   },
   {
     path: "register",
