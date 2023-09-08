@@ -21,7 +21,7 @@ export default function ThirdPatryCallback() {
         message.success("绑定成功");
         setTimeout(() => navigate("/admin/user/info"), 1000);
       }else {
-        message.error(res.msg);
+        message.error(res.debugMsg);
         setTimeout(() => navigate("/admin/user/info"), 1000);
       }
     });
@@ -36,7 +36,7 @@ export default function ThirdPatryCallback() {
         setTimeout(() => navigate("/admin"), 1000);
       } else {
         setTimeout(() => navigate("/login"), 1000);
-        message.error(res.msg);
+        message.error(res.debugMsg);
       }
     });
   }
